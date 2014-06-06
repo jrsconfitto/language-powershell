@@ -1,0 +1,842 @@
+'bundleUUID': '2D0BAB3D-0B7B-44D1-B994-DE258C1BA28E'
+'comment': 'copied from Python bundle'
+'fileTypes': [
+  'ps1'
+  'psm1'
+]
+'firstLineMatch': '^#!/.*\\bpowershell\\b'
+'foldingStartMarker': '^\\s*(function)\\s+([.a-zA-Z0-9_ <]+)\\s*(\\((.*)\\))?\\s*:|\\{\\s*$|\\(\\s*$|\\[\\s*$|^\\s*"""(?=.)(?!.*""")'
+'foldingStopMarker': '^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*"""\\s*$'
+'name': 'PowerShell'
+'patterns': [
+  {
+    'match': '(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
+    'name': 'variable.other.powershell'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'punctuation.definition.comment.powershell'
+    'match': '^\\s*#.*$\\n?'
+    'name': 'comment.line.number-sign.powershell'
+  }
+  {
+    'begin': '^\\s*<#'
+    'captures':
+      '1':
+        'name': 'punctuation.definition.comment.powershell'
+    'end': '.*#>'
+    'name': 'comment.block.powershell'
+  }
+  {
+    'match': '\\b(?i:(0x\\h*)L)'
+    'name': 'constant.numeric.integer.long.hexadecimal.powershell'
+  }
+  {
+    'match': '\\b(?i:(0x\\h*))'
+    'name': 'constant.numeric.integer.hexadecimal.powershell'
+  }
+  {
+    'match': '\\b(?i:(((\\d+(\\.(?=[^a-zA-Z_])\\d*)?|(?<=[^0-9a-zA-Z_])\\.\\d+)(e[\\-\\+]?\\d+)?))J)'
+    'name': 'constant.numeric.complex.powershell'
+  }
+  {
+    'match': '\\b(?i:(\\d+\\.\\d*(e[\\-\\+]?\\d+)?))(?=[^a-zA-Z_])'
+    'name': 'constant.numeric.float.powershell'
+  }
+  {
+    'match': '(?<=[^0-9a-zA-Z_])(?i:(\\.\\d+(e[\\-\\+]?\\d+)?))'
+    'name': 'constant.numeric.float.powershell'
+  }
+  {
+    'match': '\\b(?i:(\\d+e[\\-\\+]?\\d+))'
+    'name': 'constant.numeric.float.powershell'
+  }
+  {
+    'match': '\\b(?i:([1-9]+[0-9]*|0)L)'
+    'name': 'constant.numeric.integer.long.decimal.powershell'
+  }
+  {
+    'match': '\\b([1-9]+[0-9]*|0)'
+    'name': 'constant.numeric.integer.decimal.powershell'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'storage.modifier.global.powershell'
+    'match': '\\b(global)\\b'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.control.import.powershell'
+    'match': '\\b(?:(import))\\b'
+  }
+  {
+    'comment': 'keywords that delimit flow blocks'
+    'match': '\\b(elif|else|except|finally|for|if|try|while|with|trap|begin|process|end)\\b'
+    'name': 'keyword.control.flow.powershell'
+  }
+  {
+    'comment': 'keywords that alter flow from within a block'
+    'match': '\\b(break|continue|pass|raise|return|exit|yield)\\b'
+    'name': 'keyword.control.flow.powershell'
+  }
+  {
+    'comment': 'keyword operators that evaluate to True or False'
+    'match': '\\b(!|and|in|is|not|or)\\b'
+    'name': 'keyword.operator.logical.powershell'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.cmdlet.powershell'
+    'comment': 'cmdlets'
+    'match': '\\b([a-zA-Z_]*-[a-zA-Z_]*)\\b'
+    'name': 'keyword.cmdlet.powershell'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.cmdlet.alias.powershell'
+    'comment': 'cmdlet aliases'
+    'match': '\\b(ac|asnp|cat|cd|chdir|clc|clear|clhy|cli|clp|\n                       cls|clv|compare|copy|cp|cpi|cpp|cvpa|dbp|del|diff|\n                       dir|ebp|echo|epal|epcsv|epsn|erase|etsn|exsn|fc|fl|\n                       foreach|ft|fw|gal|gbp|gc|gci|gcm|gcs|gdr|ghy|gi|gjb|\n                       gl|gm|gmo|gp|gps|group|gsn|gsnp|gsv|gu|gv|gwmi|h|\n                       history|icm|iex|ihy|ii|ipal|ipcsv|ipmo|ipsn|ise|\n                       iwmi|kill|lp|ls|man|md|measure|mi|mount|move|mp|mv|\n                       nal|ndr|ni|nmo|nsn|nv|ogv|oh|popd|ps|pushd|pwd|r|\n                       rbp|rcjb|rd|rdr|ren|ri|rjb|rm|rmdir|rmo|rni|rnp|rp|\n                       rsn|rsnp|rv|rvpa|rwmi|sajb|sal|saps|sasv|sbp|sc|\n                       select|set|si|sl|sleep|sort|sp|spjb|spps|spsv|start|\n                       sv|swmi|tee|type|where|wjb|write)\\b'
+    'name': 'keyword.cmdlet.alias.powershell'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.other.powershell'
+    'comment': 'keywords that haven\'t fit into other groups (yet).'
+    'match': '\\b(as|assert|del|exec|print|param)\\b'
+  }
+  {
+    'match': '-le|-ge|-ne|-notlike|-not'
+    'name': 'keyword.operator.comparison.powershell'
+  }
+  {
+    'match': '\\+\\=|-\\=|\\*\\=|/\\=|//\\=|%\\=|&\\=|\\|\\=|\\^\\=|>>\\=|<<\\=|\\*\\*\\='
+    'name': 'keyword.operator.assignment.augmented.powershell'
+  }
+  {
+    'match': '\\+|\\-|\\*|\\*\\*|/|//|%|<<|>>|&|\\||\\^|~'
+    'name': 'keyword.operator.arithmetic.powershell'
+  }
+  {
+    'match': '\\='
+    'name': 'keyword.operator.assignment.powershell'
+  }
+  {
+    'begin': '^\\s*(function)\\s+(?=[A-Za-z_][A-Za-z0-9_]*\\s*(\\(?))'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.function.powershell'
+    'end': '(\\)?)\\s*(?:(.*$\\n?))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.parameters.end.powershell'
+      '2':
+        'name': 'punctuation.section.function.begin.powershell'
+      '3':
+        'name': 'invalid.illegal.missing-section-begin.powershell'
+    'name': 'meta.function.powershell'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'contentName': 'entity.name.function.powershell'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#entity_name_function'
+          }
+        ]
+      }
+      {
+        'begin': '(\\()'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.parameters.begin.powershell'
+        'contentName': 'meta.function.parameters.powershell'
+        'end': '(?=\\))'
+        'patterns': [
+          {
+            'include': '#keyword_arguments'
+          }
+          {
+            'captures':
+              '1':
+                'name': 'variable.parameter.function.powershell'
+              '2':
+                'name': 'punctuation.separator.parameters.powershell'
+            'match': '\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(?:(,)|(?=[\\n\\)]))'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(function)\\s+(?=[A-Za-z_][A-Za-z0-9_]*)'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.function.powershell'
+    'end': '(\\()|\\s*($\\n?|#.*$\\n?)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.parameters.begin.powershell'
+      '2':
+        'name': 'invalid.illegal.missing-parameters.powershell'
+    'name': 'meta.function.powershell'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'contentName': 'entity.name.function.powershell'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#entity_name_function'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(?=@\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\()'
+    'comment': 'a decorator may be a function call which returns a decorator.'
+    'end': '(\\))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.powershell'
+    'name': 'meta.function.decorator.powershell'
+    'patterns': [
+      {
+        'begin': '(?=(@)\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\()'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.decorator.powershell'
+        'contentName': 'entity.name.function.decorator.powershell'
+        'end': '(?=\\s*\\()'
+        'patterns': [
+          {
+            'include': '#dotted_name'
+          }
+        ]
+      }
+      {
+        'begin': '(\\()'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.arguments.begin.powershell'
+        'contentName': 'meta.function.decorator.arguments.powershell'
+        'end': '(?=\\))'
+        'patterns': [
+          {
+            'include': '#keyword_arguments'
+          }
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(?=@\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*)'
+    'contentName': 'entity.name.function.decorator.powershell'
+    'end': '(?=\\s|$\\n?|#)'
+    'name': 'meta.function.decorator.powershell'
+    'patterns': [
+      {
+        'begin': '(?=(@)\\s*[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.decorator.powershell'
+        'end': '(?=\\s|$\\n?|#)'
+        'patterns': [
+          {
+            'include': '#dotted_name'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '(?<=\\)|\\])\\s*(\\()'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.begin.powershell'
+    'contentName': 'meta.function-call.arguments.powershell'
+    'end': '(\\))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.powershell'
+    'name': 'meta.function-call.powershell'
+    'patterns': [
+      {
+        'include': '#keyword_arguments'
+      }
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\()'
+    'end': '(\\))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.powershell'
+    'name': 'meta.function-call.powershell'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\()'
+        'end': '(?=\\s*\\()'
+        'patterns': [
+          {
+            'include': '#dotted_name'
+          }
+        ]
+      }
+      {
+        'begin': '(\\()'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.arguments.begin.powershell'
+        'contentName': 'meta.function-call.arguments.powershell'
+        'end': '(?=\\))'
+        'patterns': [
+          {
+            'include': '#keyword_arguments'
+          }
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\[)'
+    'end': '(\\])'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.powershell'
+    'name': 'meta.item-access.powershell'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\[)'
+        'end': '(?=\\s*\\[)'
+        'patterns': [
+          {
+            'include': '#dotted_name'
+          }
+        ]
+      }
+      {
+        'begin': '(\\[)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.arguments.begin.powershell'
+        'contentName': 'meta.item-access.arguments.powershell'
+        'end': '(?=\\])'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '(?<=\\)|\\])\\s*(\\[)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.begin.powershell'
+    'contentName': 'meta.item-access.arguments.powershell'
+    'end': '(\\])'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.powershell'
+    'name': 'meta.item-access.powershell'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'captures':
+      '1':
+        'name': 'storage.type.function.powershell'
+    'match': '\\b(def|lambda)\\b'
+  }
+  {
+    'include': '#line_continuation'
+  }
+  {
+    'include': '#language_variables'
+  }
+  {
+    'match': '\\b($null|$Null|$NULL|$true|$True|$TRUE|$false|$False|$FALSE)\\b'
+    'name': 'constant.language.powershell'
+  }
+  {
+    'include': '#string_quoted_single'
+  }
+  {
+    'include': '#string_quoted_double'
+  }
+  {
+    'include': '#dotted_name'
+  }
+  {
+    'begin': '(\\()'
+    'end': '(\\))'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'captures':
+      '1':
+        'name': 'punctuation.definition.list.begin.powershell'
+      '2':
+        'name': 'meta.empty-list.powershell'
+      '3':
+        'name': 'punctuation.definition.list.end.powershell'
+    'match': '(\\[)(\\s*(\\]))\\b'
+  }
+  {
+    'begin': '(\\[)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.list.begin.powershell'
+    'end': '(\\])'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.list.end.powershell'
+    'name': 'meta.structure.list.powershell'
+    'patterns': [
+      {
+        'begin': '(?<=\\[|\\,)\\s*(?![\\],])'
+        'contentName': 'meta.structure.list.item.powershell'
+        'end': '\\s*(?:(,)|(?=\\]))'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.separator.list.powershell'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'captures':
+      '1':
+        'name': 'punctuation.definition.tuple.begin.powershell'
+      '2':
+        'name': 'meta.empty-tuple.powershell'
+      '3':
+        'name': 'punctuation.definition.tuple.end.powershell'
+    'match': '(\\()(\\s*(\\)))'
+    'name': 'meta.structure.tuple.powershell'
+  }
+]
+'repository':
+  'constant_placeholder':
+    'match': '(?i:%(\\([a-z_]+\\))?#?0?\\-?[ ]?\\+?([0-9]*|\\*)(\\.([0-9]*|\\*))?[hL]?[a-z%])'
+    'name': 'constant.other.placeholder.powershell'
+  'docstrings':
+    'patterns': [
+      {
+        'begin': '^\\s*(?=[uU]?[rR]?""")'
+        'end': '(?<=""")'
+        'name': 'comment.block.powershell'
+        'patterns': [
+          {
+            'include': '#string_quoted_double'
+          }
+        ]
+      }
+      {
+        'begin': '^\\s*(?=[uU]?[rR]?\'\'\')'
+        'end': '(?<=\'\'\')'
+        'name': 'comment.block.powershell'
+        'patterns': [
+          {
+            'include': '#string_quoted_single'
+          }
+        ]
+      }
+    ]
+  'dotted_name':
+    'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*)'
+    'end': '(?![A-Za-z0-9_\\.])'
+    'patterns': [
+      {
+        'begin': '(\\.)(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#magic_function_names'
+          }
+          {
+            'include': '#magic_variable_names'
+          }
+          {
+            'include': '#illegal_names'
+          }
+          {
+            'include': '#generic_names'
+          }
+        ]
+      }
+      {
+        'begin': '(?<!\\.)(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#builtin_functions'
+          }
+          {
+            'include': '#builtin_types'
+          }
+          {
+            'include': '#builtin_exceptions'
+          }
+          {
+            'include': '#illegal_names'
+          }
+          {
+            'include': '#magic_function_names'
+          }
+          {
+            'include': '#magic_variable_names'
+          }
+          {
+            'include': '#language_variables'
+          }
+          {
+            'include': '#generic_names'
+          }
+        ]
+      }
+    ]
+  'entity_name_class':
+    'patterns': [
+      {
+        'include': '#illegal_names'
+      }
+      {
+        'include': '#generic_names'
+      }
+    ]
+  'entity_name_function':
+    'patterns': [
+      {
+        'include': '#magic_function_names'
+      }
+      {
+        'include': '#illegal_names'
+      }
+      {
+        'include': '#generic_names'
+      }
+    ]
+  'escaped_char':
+    'captures':
+      '1':
+        'name': 'constant.character.escape.hex.powershell'
+      '2':
+        'name': 'constant.character.escape.newline.powershell'
+      '3':
+        'name': 'constant.character.escape.double-quote.powershell'
+      '4':
+        'name': 'constant.character.escape.single-quote.powershell'
+      '5':
+        'name': 'constant.character.escape.bell.powershell'
+      '6':
+        'name': 'constant.character.escape.backspace.powershell'
+      '7':
+        'name': 'constant.character.escape.return.powershell'
+      '8':
+        'name': 'constant.character.escape.tab.powershell'
+    'match': '(`x[0-9A-F]{2})|(`n)|(`")|(`\')|(`a)|(`b)|(`r)|(`t)'
+  'function_name':
+    'patterns': [
+      {
+        'include': '#magic_function_names'
+      }
+      {
+        'include': '#magic_variable_names'
+      }
+      {
+        'include': '#builtin_exceptions'
+      }
+      {
+        'include': '#builtin_functions'
+      }
+      {
+        'include': '#builtin_types'
+      }
+      {
+        'include': '#generic_names'
+      }
+    ]
+  'generic_names':
+    'match': '[A-Za-z_][A-Za-z0-9_]*'
+  'illegal_names':
+    'match': '\\b(and|as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|global|if|import|in|is|lambda|not|or|pass|print|raise|return|try|while|with|yield)\\b'
+    'name': 'invalid.illegal.name.powershell'
+  'keyword_arguments':
+    'begin': '\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(=)(?!=)'
+    'beginCaptures':
+      '1':
+        'name': 'variable.parameter.function.powershell'
+      '2':
+        'name': 'keyword.operator.assignment.powershell'
+    'end': '\\s*(?:(,)|(?=$\\n?|[\\)]))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.separator.parameters.powershell'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+    ]
+  'language_variables':
+    'match': '\\b(self|cls)\\b'
+    'name': 'variable.language.powershell'
+  'line_continuation':
+    'captures':
+      '1':
+        'name': 'punctuation.separator.continuation.line.powershell'
+      '2':
+        'name': 'invalid.illegal.unexpected-text.powershell'
+    'match': '(`)(.*)$\\n?'
+  'magic_function_names':
+    'comment': 'these methods have magic interpretation by python and are generally called indirectly through syntactic constructs'
+    'match': '(?x)\\b(__(?:\n\t\t\t\t\t\tabs|add|and|call|cmp|coerce|complex|contains|del|delattr|\n\t\t\t\t\t\tdelete|delitem|delslice|div|divmod|enter|eq|exit|float|\n\t\t\t\t\t\tfloordiv|ge|get|getattr|getattribute|getitem|getslice|gt|\n\t\t\t\t\t\thash|hex|iadd|iand|idiv|ifloordiv|ilshift|imod|imul|init|\n\t\t\t\t\t\tint|invert|ior|ipow|irshift|isub|iter|itruediv|ixor|le|len|\n\t\t\t\t\t\tlong|lshift|lt|mod|mul|ne|neg|new|nonzero|oct|or|pos|pow|\n\t\t\t\t\t\tradd|rand|rdiv|rdivmod|repr|rfloordiv|rlshift|rmod|rmul|ror|\n\t\t\t\t\t\trpow|rrshift|rshift|rsub|rtruediv|rxor|set|setattr|setitem|\n\t\t\t\t\t\tsetslice|str|sub|truediv|unicode|xor\n\t\t\t\t\t)__)\\b'
+    'name': 'support.function.magic.powershell'
+  'magic_variable_names':
+    'comment': 'magic variables which a class/module may have.'
+    'match': '\\b__(all|bases|class|debug|dict|doc|file|members|metaclass|methods|name|slots|weakref)__\\b'
+    'name': 'support.variable.magic.powershell'
+  'regular_expressions':
+    'comment': 'Changed disabled to 1 to turn off syntax highlighting in “r” strings.'
+    'disabled': 0
+    'patterns': [
+      {
+        'include': 'source.regexp.powershell'
+      }
+    ]
+  'string_quoted_double':
+    'patterns': [
+      {
+        'begin': '(")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.powershell'
+        'comment': 'double quoted string'
+        'end': '((?<=")(")|")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.powershell'
+          '2':
+            'name': 'meta.empty-string.double.powershell'
+        'name': 'string.quoted.double.block.sql.powershell'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': 'source.sql'
+          }
+        ]
+      }
+      {
+        'begin': '(")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.powershell'
+        'comment': 'double quoted string'
+        'end': '((?<=")(")|")|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.powershell'
+          '2':
+            'name': 'meta.empty-string.double.powershell'
+          '3':
+            'name': 'invalid.illegal.unclosed-string.powershell'
+        'name': 'string.quoted.double.single-line.sql.powershell'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': 'source.sql'
+          }
+        ]
+      }
+      {
+        'begin': '(""")'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.powershell'
+        'comment': 'double quoted string'
+        'end': '((?<=""")(")""|""")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.powershell'
+          '2':
+            'name': 'meta.empty-string.double.powershell'
+        'name': 'string.quoted.double.block.powershell'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '(")'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.powershell'
+        'comment': 'double quoted string'
+        'end': '((?<=")(")|")|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.powershell'
+          '2':
+            'name': 'meta.empty-string.double.powershell'
+          '3':
+            'name': 'invalid.illegal.unclosed-string.powershell'
+        'name': 'string.quoted.double.single-line.powershell'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+    ]
+  'string_quoted_single':
+    'patterns': [
+      {
+        'captures':
+          '1':
+            'name': 'punctuation.definition.string.begin.powershell'
+          '2':
+            'name': 'punctuation.definition.string.end.powershell'
+          '3':
+            'name': 'meta.empty-string.single.powershell'
+        'match': '(?<!\')(\')((\'))(?!\')'
+        'name': 'string.quoted.single.single-line.powershell'
+      }
+      {
+        'begin': '(\'\'\')(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.powershell'
+        'comment': 'single quoted string'
+        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.powershell'
+          '2':
+            'name': 'meta.empty-string.single.powershell'
+        'name': 'string.quoted.single.block.powershell'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': 'source.sql'
+          }
+        ]
+      }
+      {
+        'begin': '(\')(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.powershell'
+        'comment': 'single quoted string'
+        'end': '(\')|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.powershell'
+          '2':
+            'name': 'invalid.illegal.unclosed-string.powershell'
+        'name': 'string.quoted.single.single-line.powershell'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': 'source.sql'
+          }
+        ]
+      }
+      {
+        'begin': '(\'\'\')'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.powershell'
+        'comment': 'single quoted string'
+        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.powershell'
+          '2':
+            'name': 'meta.empty-string.single.powershell'
+        'name': 'string.quoted.single.block.powershell'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+        ]
+      }
+      {
+        'begin': '(\')'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.powershell'
+        'comment': 'single quoted string'
+        'end': '(\')|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.powershell'
+          '2':
+            'name': 'invalid.illegal.unclosed-string.powershell'
+        'name': 'string.quoted.single.single-line.powershell'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+        ]
+      }
+    ]
+  'strings':
+    'patterns': [
+      {
+        'include': '#string_quoted_double'
+      }
+      {
+        'include': '#string_quoted_single'
+      }
+    ]
+'scopeName': 'source.powershell'

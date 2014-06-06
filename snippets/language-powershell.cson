@@ -1,0 +1,22 @@
+'.source.powershell':
+  'For Loop':
+    'prefix': 'for'
+    'body': 'for (size_t ${2:i} = 0; $2 -le ${1:count}; ${3:++$2})\n{\n\t${0:/* code */}\n}'
+  'If Condition':
+    'prefix': 'if'
+    'body': 'if (${1:/* condition */})\n{\n\t${0:/* code */}\n}'
+  'new-object':
+    'prefix': 'new'
+    'body': 'new-object'
+  '.DESCRIPTION':
+    'prefix': '.s'
+    'body': '.DESCRIPTION\n'
+  '.EXAMPLE':
+    'prefix': '.e'
+    'body': '.EXAMPLE\n'
+  '.PARAMETER':
+    'prefix': '.p'
+    'body': '.PARAMETER ${1:/* name */}'
+  '.SYNOPSIS':
+    'prefix': '.s'
+    'body': '.SYNOPSIS\n'

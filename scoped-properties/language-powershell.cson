@@ -1,0 +1,5 @@
+'.source.powershell':
+  'editor':
+    'commentStart': '# '
+    'increaseIndentPattern': '^\\s*(elif|else|for|if|while)\\b.*:\\s*$'
+    'decreaseIndentPattern': '^\\s*(elif|else)\\b.*:'
