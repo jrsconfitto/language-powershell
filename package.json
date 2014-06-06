@@ -2,7 +2,7 @@
   "name": "language-powershell",
   "version": "0.1.0",
   "description": "PowerShell language support for Atom",
-  "repository": "https://github.com/jugglingnutcase/atom-language-powershell",
+  "repository": "https://github.com/jugglingnutcase/language-powershell",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
