@@ -74,17 +74,17 @@
   }
   {
     'comment': 'keywords that delimit flow blocks'
-    'match': '\\b(catch|else|elseif|except|finally|for|if|try|while|with|trap|begin|process|end)\\b'
+    'match': '\\b(?i:(catch|else|elseif|except|finally|for|if|try|while|with|trap|begin|process|end))\\b'
     'name': 'keyword.control.flow.powershell'
   }
   {
     'comment': 'keywords that alter flow from within a block'
-    'match': '\\b(break|continue|pass|raise|return|exit|yield)\\b'
+    'match': '\\b(?i:(break|continue|pass|raise|return|exit|yield))\\b'
     'name': 'keyword.control.flow.powershell'
   }
   {
     'comment': 'keyword operators that evaluate to True or False'
-    'match': '\\b(!|and|in|is|not|or)\\b'
+    'match': '\\b(?i:(!|and|in|is|not|or))\\b'
     'name': 'keyword.operator.logical.powershell'
   }
   {
@@ -108,7 +108,7 @@
       '1':
         'name': 'keyword.other.powershell'
     'comment': 'keywords that haven\'t fit into other groups (yet).'
-    'match': '\\b(as|assert|del|exec|print|param)\\b'
+    'match': '\\b(?i:(as|assert|del|exec|print|param))\\b'
   }
   {
     'match': '-le|-ge|-ne|-notlike|-not'
@@ -127,7 +127,7 @@
     'name': 'keyword.operator.assignment.powershell'
   }
   {
-    'begin': '^\\s*(function)\\s+(?=[A-Za-z_][A-Za-z0-9_]*\\s*(\\(?))'
+    'begin': '^\\s*([Ff]unction)\\s+(?=[A-Za-z_][A-Za-z0-9_]*\\s*(\\(?))'
     'beginCaptures':
       '1':
         'name': 'storage.type.function.powershell'
