@@ -1,5 +1,4 @@
-'bundleUUID': '2D0BAB3D-0B7B-44D1-B994-DE258C1BA28E'
-'comment': 'copied from Python bundle'
+'comment': 'Windows PowerShell language'
 'fileTypes': [
   'ps1'
   'psm1'
