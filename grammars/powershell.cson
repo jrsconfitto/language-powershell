@@ -2,6 +2,7 @@
 'fileTypes': [
   'ps1'
   'psm1'
+  'psd1'
 ]
 'firstLineMatch': '^#!/.*\\bpowershell\\b'
 'foldingStartMarker': '^\\s*(function)\\s+([.a-zA-Z0-9_ <]+)\\s*(\\((.*)\\))?\\s*:|\\{\\s*$|\\(\\s*$|\\[\\s*$|^\\s*"""(?=.)(?!.*""")'
@@ -26,6 +27,22 @@
         'name': 'punctuation.definition.comment.powershell'
     'end': '.*#>'
     'name': 'comment.block.powershell'
+  }
+  {
+    'begin': '\\s*@"'
+    'captures':
+      '1':
+        'name': 'punctuation.definition.herestring.powershell'
+    'end': '^"@'
+    'name': 'constant.string.mutliline.doublequoted'
+  }
+  {
+    'begin': '\\s*@\''
+    'captures':
+      '1':
+        'name': 'punctuation.definition.herestring.powershell'
+    'end': '^\'@'
+    'name': 'constant.string.mutliline.singlequoted'
   }
   {
     'match': '\\b(?i:(0x\\h*)L)'
