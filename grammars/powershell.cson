@@ -1,3 +1,5 @@
+'scopeName': 'source.powershell'
+'name': 'PowerShell'
 'comment': 'Windows PowerShell language'
 'fileTypes': [
   'ps1'
@@ -7,7 +9,6 @@
 'firstLineMatch': '^#!/.*\\bpowershell\\b'
 'foldingStartMarker': '^\\s*(function)\\s+([.a-zA-Z0-9_ <]+)\\s*(\\((.*)\\))?\\s*:|\\{\\s*$|\\(\\s*$|\\[\\s*$|^\\s*"""(?=.)(?!.*""")'
 'foldingStopMarker': '^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*"""\\s*$'
-'name': 'PowerShell'
 'patterns': [
   {
     'match': '(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
@@ -17,7 +18,7 @@
     'captures':
       '1':
         'name': 'punctuation.definition.comment.powershell'
-    'match': '^\\s*#.*$\\n?'
+    'match': '\\s*#.*$'
     'name': 'comment.line.number-sign.powershell'
   }
   {
@@ -855,4 +856,3 @@
         'include': '#string_quoted_single'
       }
     ]
-'scopeName': 'source.powershell'
