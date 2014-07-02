@@ -18,7 +18,7 @@
     'captures':
       '1':
         'name': 'punctuation.definition.comment.powershell'
-    'match': '^\\s*#.*$\\n?'
+    'match': '\\s*#.*$'
     'name': 'comment.line.number-sign.powershell'
   }
   {
