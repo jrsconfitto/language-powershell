@@ -1,13 +1,16 @@
 '.source.powershell':
   'For Loop':
     'prefix': 'for'
-    'body': 'for (size_t ${2:i} = 0; $2 -le ${1:count}; ${3:++$2})\n{\n\t${0:/* code */}\n}'
+    'body': 'For (\$${1:i} = 0; \$$1 -le ${2:count}; ${3:++\$$1})\n{\n\t${0:# code}\n}'
+  'Foreach':
+    'prefix': 'foreach'
+    'body': 'Foreach (\$${1:item} in \$${2:items})\n{\n\$$1\n}'
   'If Condition':
     'prefix': 'if'
-    'body': 'if (${1:/* condition */})\n{\n\t${0:/* code */}\n}'
+    'body': 'If (${1:# condition})\n{\n\t${0:# code}\n}'
   'new-object':
     'prefix': 'new'
-    'body': 'new-object'
+    'body': 'New-Object'
   '.DESCRIPTION':
     'prefix': '.s'
     'body': '.DESCRIPTION\n'
@@ -16,10 +19,13 @@
     'body': '.EXAMPLE\n'
   '.PARAMETER':
     'prefix': '.p'
-    'body': '.PARAMETER ${1:/* name */}'
+    'body': '.PARAMETER ${1:Name}'
   '.SYNOPSIS':
     'prefix': '.s'
     'body': '.SYNOPSIS\n'
-  'Function':
+  'Function Cmdlet':
     'prefix': 'func'
-    'body': '<#\n.Synopsis\nShort description\n.DESCRIPTION\nLong description\n.EXAMPLE\nExample of how to use this cmdlet\n.EXAMPLE\nAnother example of how to use this cmdlet\n#>\nfunction ${1:Verb-Noun}\n{\n[CmdletBinding()]\n[OutputType([int])]\nParam\n(\n\t# Param1 help description\n\t[Parameter(Mandatory,\n\t\tValueFromPipelineByPropertyName,\n\t\t\tPosition=0)]\n\t\$Param1,\n\n\t# Param2 help description\n\t[int]\n\t\$Param2\n)\nBegin\n\n{\n}\nProcess\n{\n}\nEnd\n{\n}\n}'
+    'body': '<#\n.Synopsis\nShort description\n.DESCRIPTION\nLong description\n.EXAMPLE\nExample of how to use this cmdlet\n.EXAMPLE\nAnother example of how to use this cmdlet\n#>\nfunction ${1:Verb}-${2:Noun}\n{\n[CmdletBinding()]\n[OutputType([int])]\nParam\n(\n\t# Param1 help description\n\t[Parameter(Mandatory, ValueFromPipelineByPropertyName, Position=0)]\n\t\$Param1,\n\n\t# Param2 help description\n\t[int]\n\t\$Param2\n)\nBegin\n{$\n\t{3:# code}\n}\nProcess\n{\n}\nEnd\n{\n}\n}'
+  'Switch':
+    'prefix': 'switch'
+    'body': 'switch (\$${1:x})\n{\n\t"value1" {}\n\t{\$_ -in "A","B","C"} {}\n\t"value3" {}\n\tDefault {}\n}'
