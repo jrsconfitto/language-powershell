@@ -20,3 +20,6 @@
   '.SYNOPSIS':
     'prefix': '.s'
     'body': '.SYNOPSIS\n'
+  'Function':
+    'prefix': 'func'
+    'body': '<#\n.Synopsis\nShort description\n.DESCRIPTION\nLong description\n.EXAMPLE\nExample of how to use this cmdlet\n.EXAMPLE\nAnother example of how to use this cmdlet\n#>\nfunction ${1:Verb-Noun}\n{\n[CmdletBinding()]\n[OutputType([int])]\nParam\n(\n\t# Param1 help description\n\t[Parameter(Mandatory,\n\t\tValueFromPipelineByPropertyName,\n\t\t\tPosition=0)]\n\t\$Param1,\n\n\t# Param2 help description\n\t[int]\n\t\$Param2\n)\nBegin\n\n{\n}\nProcess\n{\n}\nEnd\n{\n}\n}'
