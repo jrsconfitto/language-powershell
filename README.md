@@ -5,6 +5,11 @@
 
 This package highlights PowerShell syntax in the [Atom editor](https://atom.io).
 
+## Language references
+
+i just found this [helpful blog post](http://blogs.msdn.com/b/powershell/archive/2006/05/10/594535.aspx) on the
+PowerShell grammar. i hope i *parse* :stuck_out_tongue_winking_eye: it well.
+
 This was converted from [@davidpeckam]'s [PowerShell textmate bundle](https://github.com/davidpeckham/powershell.tmbundle). Thanks [@davidpeckam]!
 
 [@davidpeckam]:https://github.com/davidpeckham
