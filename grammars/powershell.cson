@@ -35,7 +35,7 @@
       '1':
         'name': 'punctuation.definition.herestring.powershell'
     'end': '^"@'
-    'name': 'constant.string.mutliline.doublequoted'
+    'name': 'constant.string.multiline.doublequoted'
   }
   {
     'begin': '\\s*@\''
@@ -43,7 +43,7 @@
       '1':
         'name': 'punctuation.definition.herestring.powershell'
     'end': '^\'@'
-    'name': 'constant.string.mutliline.singlequoted'
+    'name': 'constant.string.multiline.singlequoted'
   }
   {
     'match': '\\b(?i:(0x\\h*)L)'
