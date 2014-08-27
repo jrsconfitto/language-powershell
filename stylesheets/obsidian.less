@@ -1,0 +1,64 @@
+@obsidian-green: rgb(131,190,81);
+@obsidian-blue: rgb(85,121,162);
+@obsidian-orange: rgb(229,96,6);
+@obsidian-dark: rgb(26,30,22);
+@obsidian-purple: rgb(121,120,165);
+@obsidian-light: rgb(226,221,169);
+@obsidian-yellow: rgb(254,196,28);
+@obsidian-white: rgb(237,239,240);
+@obsidian-comment-dark: rgb(109,109,109);
+@obsidian-comment-light: rgb(135,147,119);
+
+.editor {
+  .keyword {
+    color: @obsidian-green;
+  }
+
+  .string {
+    color: @obsidian-orange;
+  }
+
+  .cmdlet {
+    color: @obsidian-blue;
+  }
+
+  .variable {
+    color: @obsidian-white;
+  }
+
+  .operator {
+    color: @obsidian-light;
+  }
+
+  .keyword.operator.comparison.powershell {
+    color: @obsidian-blue;
+  }
+
+  .constant.numeric.powershell {
+    color: @obsidian-yellow;
+  }
+
+  .comment.line.number-sign.powershell {
+    color: @obsidian-comment-light;
+  }
+
+  .type {
+    color: @obsidian-green;
+  }
+
+  .meta.function-call.powershell {
+    color: @obsidian-green;
+  }
+
+  .punctuation.definition.arguments.begin.powershell {
+      color: @obsidian-white;
+  }
+
+  .punctuation.definition.arguments.end.powershell {
+      color: @obsidian-white;
+  }
+
+  .punctuation.definition.comment {
+    color: @obsidian-comment-dark;
+  }
+}
