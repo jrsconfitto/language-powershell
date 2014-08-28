@@ -11,6 +11,10 @@
 'foldingStopMarker': '^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*"""\\s*$'
 'patterns': [
   {
+
+    'captures':
+      '1':
+        'name': 'punctuation.variable.begin.powershell'
     'match': '(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
     'name': 'variable.other.powershell'
   }
