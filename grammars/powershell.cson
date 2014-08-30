@@ -11,7 +11,6 @@
 'foldingStopMarker': '^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*"""\\s*$'
 'patterns': [
   {
-
     'captures':
       '1':
         'name': 'punctuation.variable.begin.powershell'
@@ -654,6 +653,16 @@
         'include': 'source.regexp.powershell'
       }
     ]
+  'embedded-variable' :
+    'patterns': [
+      {
+        'captures':
+          '1':
+            'name': 'embedded.punctuation.variable.begin.powershell'
+        'match': '(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
+        'name': 'embedded.variable.other.powershell'
+      }
+    ]
   'string_quoted_double':
     'patterns': [
       {
@@ -751,6 +760,9 @@
           }
           {
             'include': '#escaped_char'
+          }
+          {
+            'include': '#embedded-variable'
           }
         ]
       }
