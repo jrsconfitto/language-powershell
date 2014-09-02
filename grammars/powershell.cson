@@ -11,6 +11,9 @@
 'foldingStopMarker': '^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*"""\\s*$'
 'patterns': [
   {
+    'captures':
+      '1':
+        'name': 'punctuation.variable.begin.powershell'
     'match': '(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
     'name': 'variable.other.powershell'
   }
@@ -18,7 +21,7 @@
     'captures':
       '1':
         'name': 'punctuation.definition.comment.powershell'
-    'match': '\\s*#.*$'
+    'match': '\\s*(#).*$'
     'name': 'comment.line.number-sign.powershell'
   }
   {
@@ -128,7 +131,7 @@
     'match': '\\b(?i:(as|assert|del|exec|print|param))\\b'
   }
   {
-    'match': '-le|-ge|-ne|-notlike|-not'
+    'match': '-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-not'
     'name': 'keyword.operator.comparison.powershell'
   }
   {
@@ -650,6 +653,16 @@
         'include': 'source.regexp.powershell'
       }
     ]
+  'embedded-variable' :
+    'patterns': [
+      {
+        'captures':
+          '1':
+            'name': 'embedded.punctuation.variable.begin.powershell'
+        'match': '(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
+        'name': 'embedded.variable.other.powershell'
+      }
+    ]
   'string_quoted_double':
     'patterns': [
       {
@@ -747,6 +760,9 @@
           }
           {
             'include': '#escaped_char'
+          }
+          {
+            'include': '#embedded-variable'
           }
         ]
       }
