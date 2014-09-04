@@ -93,7 +93,7 @@
   }
   {
     'comment': 'keywords that alter flow from within a block'
-    'match': '\\b(?i:(break|continue|pass|throw|return|exit|yield))\\b'
+    'match': '\\b(?i:(break|continue|throw|return|exit|yield))\\b'
     'name': 'keyword.control.flow.powershell'
   }
   {
