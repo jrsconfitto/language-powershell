@@ -80,3 +80,19 @@ describe "PowerShell grammar", ->
 
       it "should tag variable names", ->
         expect(tokens[3]).toEqual value: "name", scopes: ["source.powershell", "string.quoted.double.single-line.powershell", "embedded.variable.other.powershell"]
+
+  describe "Highlighting keywords", ->
+    describe "If-else statements", ->
+      tokens = null
+
+      beforeEach ->
+        {tokens} = grammar.tokenizeLine("if($answer.length -lt 10) { echo $answer } elseif($answer.length -lt 100) { echo \"You talk a lot\" } else { echo \"?\"}")
+
+      it "should highlight 'if'", ->
+        expect(tokens[0]).toEqual value: "if", scopes: ["source.powershell","keyword.control.flow.powershell"]
+
+      it "should highlight 'elseif'", ->
+        expect(tokens[18]).toEqual value: "elseif", scopes: ["source.powershell","keyword.control.flow.powershell"]
+
+      it "should highlight 'else'", ->
+        expect(tokens[37]).toEqual value: "else", scopes: ["source.powershell","keyword.control.flow.powershell"]
