@@ -87,12 +87,6 @@
     'match': '\\b(global)\\b'
   }
   {
-    'captures':
-      '1':
-        'name': 'keyword.control.import.powershell'
-    'match': '\\b(?:(import))\\b'
-  }
-  {
     'comment': 'keywords that delimit flow blocks'
     'match': '\\b(?i:(begin|catch|default|else|elseif|end|except|finally|for|foreach|if|process|switch|trap|try|while|with))\\b'
     'name': 'keyword.control.flow.powershell'
