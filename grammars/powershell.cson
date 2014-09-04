@@ -81,12 +81,6 @@
     'name': 'constant.numeric.integer.decimal.powershell'
   }
   {
-    'captures':
-      '1':
-        'name': 'storage.modifier.global.powershell'
-    'match': '\\b(global)\\b'
-  }
-  {
     'comment': 'keywords that delimit flow blocks'
     'match': '\\b(?i:(do|until|begin|catch|else|elseif|end|finally|for|foreach|if|process|switch|trap|try|while))\\b'
     'name': 'keyword.control.flow.powershell'
