@@ -81,30 +81,18 @@
     'name': 'constant.numeric.integer.decimal.powershell'
   }
   {
-    'captures':
-      '1':
-        'name': 'storage.modifier.global.powershell'
-    'match': '\\b(global)\\b'
-  }
-  {
-    'captures':
-      '1':
-        'name': 'keyword.control.import.powershell'
-    'match': '\\b(?:(import))\\b'
-  }
-  {
     'comment': 'keywords that delimit flow blocks'
-    'match': '\\b(?i:(begin|catch|default|else|elseif|end|except|finally|for|foreach|if|process|switch|trap|try|while|with))\\b'
+    'match': '\\b(?i:(do|until|begin|catch|else|elseif|end|finally|for|foreach|if|process|switch|trap|try|while))\\b'
     'name': 'keyword.control.flow.powershell'
   }
   {
     'comment': 'keywords that alter flow from within a block'
-    'match': '\\b(?i:(break|continue|pass|raise|return|exit|yield))\\b'
+    'match': '\\b(?i:(break|continue|throw|return|exit))\\b'
     'name': 'keyword.control.flow.powershell'
   }
   {
     'comment': 'keyword operators that evaluate to True or False'
-    'match': '\\b(?i:(!|and|in|is|not|or))\\b'
+    'match': '\\b(?i:(!|-and|-not|-or|-xor))\\b'
     'name': 'keyword.operator.logical.powershell'
   }
   {
