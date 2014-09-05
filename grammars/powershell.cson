@@ -123,6 +123,10 @@
     'name': 'keyword.operator.comparison.powershell'
   }
   {
+    'match': '\\b(?i:(-bAnd|-bOr|-bXor|-bNot|-shl|-shr)\\b'
+    'name': 'keyword.operator.bitwise.powershell'
+  }
+  {
     'match': '\\+\\=|-\\=|\\*\\=|/\\=|//\\=|%\\=|&\\=|\\|\\=|\\^\\=|>>\\=|<<\\=|\\*\\*\\='
     'name': 'keyword.operator.assignment.augmented.powershell'
   }
