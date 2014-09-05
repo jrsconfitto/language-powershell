@@ -117,24 +117,33 @@ describe "PowerShell grammar", ->
       it "should highlight 'for'", ->
         expect(tokens[0]).toEqual value: "for", scopes: ["source.powershell","keyword.control.flow.powershell"]
 
-  describe "Highlighting constants", ->
-    describe "Highlight NULL and booleans (true/false) as constants", ->
+  describe "Highlighting automatic variables", ->
+    describe "Highlight 'null' and boolean values as automatic language variables", ->
       tokens = null
 
       beforeEach ->
         {tokens} = grammar.tokenizeLine("$null $Null $NULL $true $True $TRUE $false $False $FALSE")
 
-      it "should highlight 'null'", ->
-        expect(tokens[0]).toEqual value: "$null", scopes: ["source.powershell","constant.language.powershell"]
-        expect(tokens[2]).toEqual value: "$Null", scopes: ["source.powershell","constant.language.powershell"]
-        expect(tokens[4]).toEqual value: "$NULL", scopes: ["source.powershell","constant.language.powershell"]
+      it "should highlight 'null' without regard to case", ->
+        expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
+        expect(tokens[1]).toEqual value: "null", scopes: ["source.powershell","variable.language.powershell"]
+        expect(tokens[3]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
+        expect(tokens[4]).toEqual value: "Null", scopes: ["source.powershell","variable.language.powershell"]
+        expect(tokens[6]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
+        expect(tokens[7]).toEqual value: "NULL", scopes: ["source.powershell","variable.language.powershell"]
 
-      it "should highlight 'true'", ->
-        expect(tokens[6]).toEqual value: "$true", scopes: ["source.powershell","constant.language.powershell"]
-        expect(tokens[8]).toEqual value: "$True", scopes: ["source.powershell","constant.language.powershell"]
-        expect(tokens[10]).toEqual value: "$TRUE", scopes: ["source.powershell","constant.language.powershell"]
+      it "should highlight 'true' without regard to case", ->
+        expect(tokens[9]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
+        expect(tokens[10]).toEqual value: "true", scopes: ["source.powershell","variable.language.powershell"]
+        expect(tokens[12]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
+        expect(tokens[13]).toEqual value: "True", scopes: ["source.powershell","variable.language.powershell"]
+        expect(tokens[15]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
+        expect(tokens[16]).toEqual value: "TRUE", scopes: ["source.powershell","variable.language.powershell"]
 
-      it "should highlight 'false'", ->
-        expect(tokens[12]).toEqual value: "$false", scopes: ["source.powershell","constant.language.powershell"]
-        expect(tokens[14]).toEqual value: "$False", scopes: ["source.powershell","constant.language.powershell"]
-        expect(tokens[16]).toEqual value: "$FALSE", scopes: ["source.powershell","constant.language.powershell"]
+      it "should highlight 'false' without regard to case", ->
+        expect(tokens[18]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
+        expect(tokens[19]).toEqual value: "false", scopes: ["source.powershell","variable.language.powershell"]
+        expect(tokens[21]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
+        expect(tokens[22]).toEqual value: "False", scopes: ["source.powershell","variable.language.powershell"]
+        expect(tokens[24]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
+        expect(tokens[25]).toEqual value: "FALSE", scopes: ["source.powershell","variable.language.powershell"]
