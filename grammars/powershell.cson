@@ -92,7 +92,7 @@
   }
   {
     'comment': 'keyword operators that evaluate to True or False'
-    'match': '\\b(?i:(!|-and|in|is|-not|-or))\\b'
+    'match': '\\b(?i:(!|-and|-not|-or))\\b'
     'name': 'keyword.operator.logical.powershell'
   }
   {
