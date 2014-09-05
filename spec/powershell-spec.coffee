@@ -96,3 +96,14 @@ describe "PowerShell grammar", ->
 
       it "should highlight 'else'", ->
         expect(tokens[37]).toEqual value: "else", scopes: ["source.powershell","keyword.control.flow.powershell"]
+
+    describe "Do-until statements", ->
+      tokens = null
+
+      beforeEach ->
+        {tokens} = grammar.tokenizeLine("do { echo $i; $i += 1 } until($i -gt 100)")
+
+      it "should highlight 'do'", ->
+        expect(tokens[0]).toEqual value: "do", scopes: ["source.powershell","keyword.control.flow.powershell"]
+      it "should highlight 'until'", ->
+        expect(tokens[14]).toEqual value: "until", scopes: ["source.powershell","keyword.control.flow.powershell"]
