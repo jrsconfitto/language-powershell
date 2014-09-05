@@ -119,7 +119,7 @@
     'match': '\\b(?i:(as|assert|del|exec|print|param))\\b'
   }
   {
-    'match': '-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-not'
+    'match': '-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-not|-like|-match|-notmatch|-contains|-notcontains|-in|-notin|-replace'
     'name': 'keyword.operator.comparison.powershell'
   }
   {
