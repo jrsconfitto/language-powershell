@@ -385,9 +385,6 @@
     'include': '#line_continuation'
   }
   {
-    'include': '#language_variables'
-  }
-  {
     'match': '\\b($null|$Null|$NULL|$true|$True|$TRUE|$false|$False|$FALSE)\\b'
     'name': 'constant.language.powershell'
   }
@@ -529,9 +526,6 @@
             'include': '#magic_variable_names'
           }
           {
-            'include': '#language_variables'
-          }
-          {
             'include': '#generic_names'
           }
         ]
@@ -619,9 +613,6 @@
         'include': '$self'
       }
     ]
-  'language_variables':
-    'match': '\\b(self|cls)\\b'
-    'name': 'variable.language.powershell'
   'line_continuation':
     'captures':
       '1':
