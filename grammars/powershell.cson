@@ -11,6 +11,10 @@
 'foldingStopMarker': '^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*"""\\s*$'
 'patterns': [
   {
+    'match': '(\\$)(?i:(null|true|false))'
+    'name': 'constant.language.powershell'
+  }
+  {
     'captures':
       '1':
         'name': 'punctuation.variable.begin.powershell'
@@ -383,10 +387,6 @@
   }
   {
     'include': '#line_continuation'
-  }
-  {
-    'match': '\\b($null|$Null|$NULL|$true|$True|$TRUE|$false|$False|$FALSE)\\b'
-    'name': 'constant.language.powershell'
   }
   {
     'include': '#string_quoted_single'

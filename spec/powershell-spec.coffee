@@ -116,3 +116,25 @@ describe "PowerShell grammar", ->
 
       it "should highlight 'for'", ->
         expect(tokens[0]).toEqual value: "for", scopes: ["source.powershell","keyword.control.flow.powershell"]
+
+  describe "Highlighting constants", ->
+    describe "Highlight NULL and booleans (true/false) as constants", ->
+      tokens = null
+
+      beforeEach ->
+        {tokens} = grammar.tokenizeLine("$null $Null $NULL $true $True $TRUE $false $False $FALSE")
+
+      it "should highlight 'null'", ->
+        expect(tokens[0]).toEqual value: "$null", scopes: ["source.powershell","constant.language.powershell"]
+        expect(tokens[2]).toEqual value: "$Null", scopes: ["source.powershell","constant.language.powershell"]
+        expect(tokens[4]).toEqual value: "$NULL", scopes: ["source.powershell","constant.language.powershell"]
+
+      it "should highlight 'true'", ->
+        expect(tokens[6]).toEqual value: "$true", scopes: ["source.powershell","constant.language.powershell"]
+        expect(tokens[8]).toEqual value: "$True", scopes: ["source.powershell","constant.language.powershell"]
+        expect(tokens[10]).toEqual value: "$TRUE", scopes: ["source.powershell","constant.language.powershell"]
+
+      it "should highlight 'false'", ->
+        expect(tokens[12]).toEqual value: "$false", scopes: ["source.powershell","constant.language.powershell"]
+        expect(tokens[14]).toEqual value: "$False", scopes: ["source.powershell","constant.language.powershell"]
+        expect(tokens[16]).toEqual value: "$FALSE", scopes: ["source.powershell","constant.language.powershell"]
