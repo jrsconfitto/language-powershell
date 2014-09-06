@@ -84,40 +84,64 @@ describe "PowerShell grammar", ->
         expect(tokens[3]).toEqual value: "name", scopes: ["source.powershell", "string.quoted.double.single-line.powershell", "embedded.variable.other.powershell"]
 
   describe "Highlighting keywords", ->
-    describe "If-else statements", ->
+    describe "Flow keywords", ->
+
+      describe "If-else statements", ->
+        tokens = null
+
+        beforeEach ->
+          {tokens} = grammar.tokenizeLine("if($answer.length -lt 10) { echo $answer } elseif($answer.length -lt 100) { echo \"You talk a lot\" } else { echo \"?\"}")
+
+        it "should highlight 'if'", ->
+          expect(tokens[0]).toEqual value: "if", scopes: ["source.powershell","keyword.control.flow.powershell"]
+
+        it "should highlight 'elseif'", ->
+          expect(tokens[18]).toEqual value: "elseif", scopes: ["source.powershell","keyword.control.flow.powershell"]
+
+        it "should highlight 'else'", ->
+          expect(tokens[37]).toEqual value: "else", scopes: ["source.powershell","keyword.control.flow.powershell"]
+
+      describe "Do-until statements", ->
+        tokens = null
+
+        beforeEach ->
+          {tokens} = grammar.tokenizeLine("do { echo $i; $i += 1 } until($i -gt 100)")
+
+        it "should highlight 'do'", ->
+          expect(tokens[0]).toEqual value: "do", scopes: ["source.powershell","keyword.control.flow.powershell"]
+        it "should highlight 'until'", ->
+          expect(tokens[14]).toEqual value: "until", scopes: ["source.powershell","keyword.control.flow.powershell"]
+
+      describe "'For' statements", ->
+        tokens = null
+
+        beforeEach ->
+          {tokens} = grammar.tokenizeLine("for($i=0;i<10;$i++) { echo $i }")
+
+        it "should highlight 'for'", ->
+          expect(tokens[0]).toEqual value: "for", scopes: ["source.powershell","keyword.control.flow.powershell"]
+
+    describe "Logical operators", ->
       tokens = null
 
       beforeEach ->
-        {tokens} = grammar.tokenizeLine("if($answer.length -lt 10) { echo $answer } elseif($answer.length -lt 100) { echo \"You talk a lot\" } else { echo \"?\"}")
+        {tokens} = grammar.tokenizeLine("-and -andor -or -xor -not !$true")
 
-      it "should highlight 'if'", ->
-        expect(tokens[0]).toEqual value: "if", scopes: ["source.powershell","keyword.control.flow.powershell"]
+      it "should highlight '-and'", ->
+        expect(tokens[0]).toEqual value: "-and", scopes: ["source.powershell","keyword.operator.logical.powershell"]
+        expect(tokens[2]).toEqual value: "-", scopes: ["source.powershell","keyword.operator.arithmetic.powershell"]
 
-      it "should highlight 'elseif'", ->
-        expect(tokens[18]).toEqual value: "elseif", scopes: ["source.powershell","keyword.control.flow.powershell"]
+      it "should highlight '-or'", ->
+        expect(tokens[5]).toEqual value: "-or", scopes: ["source.powershell","keyword.operator.logical.powershell"]
 
-      it "should highlight 'else'", ->
-        expect(tokens[37]).toEqual value: "else", scopes: ["source.powershell","keyword.control.flow.powershell"]
+      it "should highlight '-xor'", ->
+        expect(tokens[7]).toEqual value: "-xor", scopes: ["source.powershell","keyword.operator.logical.powershell"]
 
-    describe "Do-until statements", ->
-      tokens = null
+      it "should highlight '-not'", ->
+        expect(tokens[9]).toEqual value: "-not", scopes: ["source.powershell","keyword.operator.logical.powershell"]
 
-      beforeEach ->
-        {tokens} = grammar.tokenizeLine("do { echo $i; $i += 1 } until($i -gt 100)")
-
-      it "should highlight 'do'", ->
-        expect(tokens[0]).toEqual value: "do", scopes: ["source.powershell","keyword.control.flow.powershell"]
-      it "should highlight 'until'", ->
-        expect(tokens[14]).toEqual value: "until", scopes: ["source.powershell","keyword.control.flow.powershell"]
-
-    describe "'For' statements", ->
-      tokens = null
-
-      beforeEach ->
-        {tokens} = grammar.tokenizeLine("for($i=0;i<10;$i++) { echo $i }")
-
-      it "should highlight 'for'", ->
-        expect(tokens[0]).toEqual value: "for", scopes: ["source.powershell","keyword.control.flow.powershell"]
+      it "should highlight '!'", ->
+        expect(tokens[11]).toEqual value: "!", scopes: ["source.powershell","keyword.operator.logical.powershell"]
 
   describe "Highlighting automatic variables", ->
     describe "Highlight 'null' and boolean values as automatic language variables", ->

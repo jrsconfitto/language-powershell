@@ -26,6 +26,16 @@
     'name': 'variable.other.powershell'
   }
   {
+    'comment': 'keyword operators that evaluate to True or False'
+    'match': '\\B(?i:-(and|not|or|xor))\\b'
+    'name': 'keyword.operator.logical.powershell'
+  }
+  {
+    'comment': 'logical negation operator'
+    'match': '!'
+    'name': 'keyword.operator.logical.powershell'
+  }
+  {
     'captures':
       '1':
         'name': 'punctuation.definition.comment.powershell'
@@ -97,11 +107,6 @@
     'comment': 'keywords that alter flow from within a block'
     'match': '\\b(?i:(break|continue|throw|return|exit))\\b'
     'name': 'keyword.control.flow.powershell'
-  }
-  {
-    'comment': 'keyword operators that evaluate to True or False'
-    'match': '\\b(?i:(!|-and|-not|-or|-xor))\\b'
-    'name': 'keyword.operator.logical.powershell'
   }
   {
     'captures':
