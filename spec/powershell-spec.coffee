@@ -1,3 +1,5 @@
+{AutomaticVariable}= require './helpers/testhelpers'
+
 describe "PowerShell grammar", ->
   grammar = null
 
@@ -119,31 +121,93 @@ describe "PowerShell grammar", ->
 
   describe "Highlighting automatic variables", ->
     describe "Highlight 'null' and boolean values as automatic language variables", ->
-      tokens = null
-
-      beforeEach ->
-        {tokens} = grammar.tokenizeLine("$null $Null $NULL $true $True $TRUE $false $False $FALSE")
 
       it "should highlight 'null' without regard to case", ->
-        expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-        expect(tokens[1]).toEqual value: "null", scopes: ["source.powershell","variable.language.powershell"]
-        expect(tokens[3]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-        expect(tokens[4]).toEqual value: "Null", scopes: ["source.powershell","variable.language.powershell"]
-        expect(tokens[6]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-        expect(tokens[7]).toEqual value: "NULL", scopes: ["source.powershell","variable.language.powershell"]
+        new AutomaticVariable(grammar)
+          .expectVariable("Null")
 
       it "should highlight 'true' without regard to case", ->
-        expect(tokens[9]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-        expect(tokens[10]).toEqual value: "true", scopes: ["source.powershell","variable.language.powershell"]
-        expect(tokens[12]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-        expect(tokens[13]).toEqual value: "True", scopes: ["source.powershell","variable.language.powershell"]
-        expect(tokens[15]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-        expect(tokens[16]).toEqual value: "TRUE", scopes: ["source.powershell","variable.language.powershell"]
+        new AutomaticVariable(grammar)
+          .expectVariable("True")
 
       it "should highlight 'false' without regard to case", ->
-        expect(tokens[18]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-        expect(tokens[19]).toEqual value: "false", scopes: ["source.powershell","variable.language.powershell"]
-        expect(tokens[21]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-        expect(tokens[22]).toEqual value: "False", scopes: ["source.powershell","variable.language.powershell"]
-        expect(tokens[24]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-        expect(tokens[25]).toEqual value: "FALSE", scopes: ["source.powershell","variable.language.powershell"]
+        new AutomaticVariable(grammar)
+          .expectVariable("False")
+
+    describe "Highlight standard automatic variables as language variables", ->
+
+        it "should highlight last token variable '$$'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("$")
+
+        it "should highlight last execution status variable '$?'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("?")
+
+        it "should highlight first token variable '$^'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("^")
+
+        it "should highlight undeclared parameters list variable '$Args'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Args")
+
+        it "should highlight console file name variable '$ConsoleFileName'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("ConsoleFilename")
+
+        it "should highlight error variable '$Error'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Error")
+
+        it "should highlight event variable '$Event'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Event")
+
+        it "should highlight event variable '$EventArgs'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("EventArgs")
+
+        it "should highlight event variable '$EventSubscriber'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("EventSubscriber")
+
+        it "should highlight event variable '$ExecutionContext'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("ExecutionContext")
+
+        it "should highlight enumerator variable '$ForEach'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("ForEach")
+
+        it "should highlight host variable '$Host'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Host")
+
+        it "should highlight home variable '$Home'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Home")
+
+        it "should highlight input variable '$Input'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Input")
+
+        it "should highlight last exit code variable '$LastExitCode'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("LastExitCode")
+
+        it "should highlight matches variable '$Matches'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Matches")
+
+        it "should highlight current command variable '$MyInvocation'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("MyInvocation")
+
+        it "should highlight nested prompt level variable '$NestedPromptLevel'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("NestedPromptLevel")
+
+        it "should highlight output field separator variable '$OFS'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("OFS")

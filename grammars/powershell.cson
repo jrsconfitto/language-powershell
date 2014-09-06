@@ -14,7 +14,7 @@
     'captures':
       '1':
         'name': 'punctuation.variable.begin.powershell'
-    'match': '(\\$)(?i:(null|true|false))'
+    'match': '(\\$)(?i:(null|true|false|\\$|\\?|\\^|args|consolefilename|error|eventsubscriber|eventargs|event|executioncontext|foreach|host|home|input|lastexitcode|matches|myinvocation|nestedpromptlevel|ofs))'
     'comment': 'Powershell automatic variables.'
     'name': 'variable.language.powershell'
   }
