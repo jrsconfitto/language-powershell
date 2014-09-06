@@ -172,6 +172,10 @@ describe "PowerShell grammar", ->
           new AutomaticVariable(grammar)
             .expectVariable("^")
 
+        it "should highlight pipeline item variable '$_'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("_")
+
         it "should highlight undeclared parameters list variable '$Args'", ->
           new AutomaticVariable(grammar)
             .expectVariable("Args")
