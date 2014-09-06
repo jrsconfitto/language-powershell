@@ -211,3 +211,75 @@ describe "PowerShell grammar", ->
         it "should highlight output field separator variable '$OFS'", ->
           new AutomaticVariable(grammar)
             .expectVariable("OFS")
+
+        it "should highlight process ID variable '$PID'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PID")
+
+        it "should highlight profile variable '$Profile'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Profile")
+
+        it "should highlight PS bound parameters variable '$PSBoundParameters'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSBoundParameters")
+
+        it "should highlight current PS cmdlet variable '$PSCmdlet'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSCmdlet")
+
+        it "should highlight script path and file name variable '$PSCommandPath'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSCommandPath")
+
+        it "should highlight current PS culture variable '$PSCulture'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSCulture")
+
+        it "should highlight PS debugging context variable '$PSDebuggingContext'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSDebuggingContext")
+
+        it "should highlight PS home path variable '$PSHome'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSHome")
+
+        it "should highlight current PS pipeline item variable '$PSItem'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSItem")
+
+        it "should highlight PS script root variable '$PSScriptRoot'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSScriptRoot")
+
+        it "should highlight PS sender info variable '$PSSenderInfo'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSSenderInfo")
+
+        it "should highlight PS UI culture variable '$PSUICulture'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSUICulture")
+
+        it "should highlight PS version table variable '$PSVersionTable'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("PSVersionTable")
+
+        it "should highlight present working directory variable '$Pwd'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Pwd")
+
+        it "should highlight sender variable '$Sender'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("Sender")
+
+        it "should highlight shell ID variable '$ShellID'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("ShellID")
+
+        it "should highlight the stack trace variable '$StackTrace'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("StackTrace")
+
+        it "should highlight 'this' variable '$This'", ->
+          new AutomaticVariable(grammar)
+            .expectVariable("This")

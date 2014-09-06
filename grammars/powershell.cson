@@ -14,7 +14,7 @@
     'captures':
       '1':
         'name': 'punctuation.variable.begin.powershell'
-    'match': '(\\$)(?i:(null|true|false|\\$|\\?|\\^|args|consolefilename|error|eventsubscriber|eventargs|event|executioncontext|foreach|host|home|input|lastexitcode|matches|myinvocation|nestedpromptlevel|ofs))'
+    'match': '(\\$)(?i:(null|true|false|\\$|\\?|\\^|args|consolefilename|error|eventsubscriber|eventargs|event|executioncontext|foreach|host|home|input|lastexitcode|matches|myinvocation|nestedpromptlevel|ofs|pid|profile|psboundparameters|pscmdlet|pscommandpath|psculture|psdebuggingcontext|pshome|psitem|psscriptroot|psuiculture|pssenderinfo|psversiontable|pwd|sender|shellid|stacktrace|this))'
     'comment': 'Powershell automatic variables.'
     'name': 'variable.language.powershell'
   }
