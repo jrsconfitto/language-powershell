@@ -119,27 +119,13 @@ describe "PowerShell grammar", ->
         it "should highlight 'for'", ->
           expect(tokens[0]).toEqual value: "for", scopes: ["source.powershell","keyword.control.flow.powershell"]
 
-    describe "Logical operators", ->
-      tokens = null
+    describe "Highlighting logical operators", ->
+      logicalOperators = [ "-and", "-or", "-xor", "-not", "!"]
 
-      beforeEach ->
-        {tokens} = grammar.tokenizeLine("-and -andor -or -xor -not !$true")
-
-      it "should highlight '-and'", ->
-        expect(tokens[0]).toEqual value: "-and", scopes: ["source.powershell","keyword.operator.logical.powershell"]
-        expect(tokens[2]).toEqual value: "-", scopes: ["source.powershell","keyword.operator.arithmetic.powershell"]
-
-      it "should highlight '-or'", ->
-        expect(tokens[5]).toEqual value: "-or", scopes: ["source.powershell","keyword.operator.logical.powershell"]
-
-      it "should highlight '-xor'", ->
-        expect(tokens[7]).toEqual value: "-xor", scopes: ["source.powershell","keyword.operator.logical.powershell"]
-
-      it "should highlight '-not'", ->
-        expect(tokens[9]).toEqual value: "-not", scopes: ["source.powershell","keyword.operator.logical.powershell"]
-
-      it "should highlight '!'", ->
-        expect(tokens[11]).toEqual value: "!", scopes: ["source.powershell","keyword.operator.logical.powershell"]
+      it "tokenizes logical operators", ->
+        for operator in logicalOperators
+          {tokens} = grammar.tokenizeLine operator
+          expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.logical.powershell"]
 
   describe "Highlighting automatic variables", ->
     automaticVariables = [
