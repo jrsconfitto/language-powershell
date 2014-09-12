@@ -127,6 +127,18 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine operator
           expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.logical.powershell"]
 
+    describe "Highlighting comparison operators", ->
+      comparisonOperators = [
+        "-eq", "-ceq", "-ieq", "-lt", "-gt", "-le", "-ge", "-ne", "-notlike",
+        "-like", "-match", "-notmatch", "-contains", "-notcontains", "-in",
+        "-notin", "-replace"
+      ]
+
+      it "tokenizes comparison operators", ->
+        for operator in comparisonOperators
+          {tokens} = grammar.tokenizeLine operator
+          expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.comparison.powershell"]
+
   describe "Highlighting automatic variables", ->
     automaticVariables = [
       "$null", "$true", "$false", "$$", "$?", "$^", "$_",

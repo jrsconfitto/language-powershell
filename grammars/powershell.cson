@@ -26,6 +26,10 @@
     'name': 'variable.other.powershell'
   }
   {
+    'match': '-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-like|-match|-notmatch|-contains|-notcontains|-in|-notin|-replace'
+    'name': 'keyword.operator.comparison.powershell'
+  }
+  {
     'comment': 'keyword operators that evaluate to True or False'
     'match': '\\B(?i:-(and|not|or|xor))\\b'
     'name': 'keyword.operator.logical.powershell'
@@ -130,10 +134,6 @@
         'name': 'keyword.other.powershell'
     'comment': 'keywords that haven\'t fit into other groups (yet).'
     'match': '\\b(?i:(as|assert|del|exec|print|param))\\b'
-  }
-  {
-    'match': '-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-not|-like|-match|-notmatch|-contains|-notcontains|-in|-notin|-replace'
-    'name': 'keyword.operator.comparison.powershell'
   }
   {
     'match': '\\b(?i:(-bAnd|-bOr|-bXor|-bNot|-shl|-sh))\\b'
