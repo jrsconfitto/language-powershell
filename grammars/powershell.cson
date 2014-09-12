@@ -26,6 +26,10 @@
     'name': 'variable.other.powershell'
   }
   {
+    'match': '\\B(?i:(-bAnd|-bOr|-bXor|-bNot|-shl|-sh))\\b'
+    'name': 'keyword.operator.bitwise.powershell'
+  }
+  {
     'match': '-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-like|-match|-notmatch|-contains|-notcontains|-in|-notin|-replace'
     'name': 'keyword.operator.comparison.powershell'
   }
@@ -134,10 +138,6 @@
         'name': 'keyword.other.powershell'
     'comment': 'keywords that haven\'t fit into other groups (yet).'
     'match': '\\b(?i:(as|assert|del|exec|print|param))\\b'
-  }
-  {
-    'match': '\\b(?i:(-bAnd|-bOr|-bXor|-bNot|-shl|-sh))\\b'
-    'name': 'keyword.operator.bitwise.powershell'
   }
   {
     'match': '\\+\\=|-\\=|\\*\\=|/\\=|//\\=|%\\=|&\\=|\\|\\=|\\^\\=|>>\\=|<<\\=|\\*\\*\\='

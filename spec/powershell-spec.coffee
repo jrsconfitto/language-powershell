@@ -127,6 +127,14 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine operator
           expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.logical.powershell"]
 
+    describe "Highlighting bitwise operators", ->
+      bitwiseOperators = [ "-bAnd", "-bOr", "-bXor", "-bNot", "-shl", "-sh" ]
+
+      it "tokenizes bitwise operators", ->
+        for operator in bitwiseOperators
+          {tokens} = grammar.tokenizeLine operator
+          expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.bitwise.powershell"]
+
     describe "Highlighting comparison operators", ->
       comparisonOperators = [
         "-eq", "-ceq", "-ieq", "-lt", "-gt", "-le", "-ge", "-ne", "-notlike",
