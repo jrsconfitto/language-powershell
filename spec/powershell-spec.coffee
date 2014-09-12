@@ -1,5 +1,3 @@
-{using}= require './helpers/testhelpers'
-
 describe "PowerShell grammar", ->
   grammar = null
 
@@ -144,8 +142,21 @@ describe "PowerShell grammar", ->
         expect(tokens[11]).toEqual value: "!", scopes: ["source.powershell","keyword.operator.logical.powershell"]
 
   describe "Highlighting automatic variables", ->
-    using '../fixtures/automatic-variables.cson', (item) ->
-        it "should highlight #{item.description} as a language variable", ->
-          {tokens} = grammar.tokenizeLine("#{item.input}")
-          expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell","variable.language.powershell","punctuation.variable.begin.powershell"]
-          expect(tokens[1]).toEqual value: "#{item.expected}", scopes: ["source.powershell","variable.language.powershell"]
+    automaticVariables = [
+      "$null", "$true", "$false", "$$", "$?", "$^", "$_",
+      "$Args", "$ConsoleFileName", "$Error", "$Event", "$EventArgs",
+      "$EventSubscriber", "$ExecutionContext", "$ForEach", "$Host", "$Home", "$Input",
+      "$LastExitCode", "$Matches", "$MyInvocation", "$NestedPromptLevel", "$OFS",
+      "$PID", "$Profile", "$PSBoundParameters", "$PSCmdlet", "$PSCommandPath",
+      "$PSCulture", "$PSDebuggingContext", "$PSHome", "$PSItem", "$PSScriptRoot",
+      "$PSSenderInfo", "$PSUICulture", "$PSVersionTable", "$Pwd", "$Sender",
+      "$ShellID", "$StackTrace", "$This"
+    ]
+
+    it "tokenizes automatic language variables", ->
+      for variable in automaticVariables
+        {tokens} = grammar.tokenizeLine variable
+        expect(tokens[0].value).toEqual "$"
+        expect(tokens[0].scopes).toEqual ["source.powershell", "variable.language.powershell", "punctuation.variable.begin.powershell"]
+        expect(tokens[1].value).toEqual variable.substr(1)
+        expect(tokens[1].scopes).toEqual ["source.powershell", "variable.language.powershell"]
