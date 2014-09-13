@@ -72,20 +72,26 @@ describe "PowerShell grammar", ->
       it "should tag the closing double-quote as empty string", ->
         expect(tokens[1]).toEqual value: "\"", scopes: ["source.powershell", "string.quoted.double.single-line.powershell", "punctuation.definition.string.end.powershell", "meta.empty-string.double.powershell"]
 
-    describe "Highlight Powershell variables within the string", ->
+    describe "Highlight Powershell variables within a string", ->
       tokens = null
 
       beforeEach ->
         {tokens} = grammar.tokenizeLine("\"Hi there $name\"")
 
       it "should tag content", ->
-        expect(tokens[1]).toEqual value: "Hi there ", scopes: ["source.powershell", "string.quoted.double.single-line.powershell"]
+        expect(tokens[1].value).toEqual "Hi there "
+        expect(tokens[1]).toHaveScope "string.quoted.double.single-line.powershell"
 
       it "should tag the beginning of variable names", ->
-        expect(tokens[2]).toEqual value: "$", scopes: ["source.powershell", "string.quoted.double.single-line.powershell", "embedded.variable.other.powershell", "embedded.punctuation.variable.begin.powershell"]
+        expect(tokens[2].value).toEqual "$"
+        expect(tokens[2]).toHaveScope "string.quoted.double.single-line.powershell"
+        expect(tokens[2]).toHaveScope "embedded.variable.other.powershell"
+        expect(tokens[2]).toHaveScope "embedded.punctuation.variable.begin.powershell"
 
       it "should tag variable names", ->
-        expect(tokens[3]).toEqual value: "name", scopes: ["source.powershell", "string.quoted.double.single-line.powershell", "embedded.variable.other.powershell"]
+        expect(tokens[3].value).toEqual "name"
+        expect(tokens[3]).toHaveScope "string.quoted.double.single-line.powershell"
+        expect(tokens[3]).toHaveScope "embedded.variable.other.powershell"
 
   describe "Highlighting keywords", ->
     describe "Flow keywords", ->
