@@ -175,3 +175,14 @@ describe "PowerShell grammar", ->
         {tokens} = grammar.tokenizeLine cmdlet
         expect(tokens[0].value).toEqual cmdlet
         expect(tokens[0].scopes).toEqual ["source.powershell", "keyword.cmdlet.powershell"]
+
+  describe "Highlighting escaped characters", ->
+    escapedCharacters = [
+      "`n", "`\"", "`\'", "`a", "`b", "`r", "`t", "`f", "`0", "`v", "--%", "``"
+    ]
+
+    it "tokenizes escaped characters", ->
+      for character in escapedCharacters
+        {tokens} = grammar.tokenizeLine character
+        expect(tokens[0].value).toEqual character
+        expect(tokens[0].scopes).toEqual ["source.powershell", "constant.character.escape.powershell"]
