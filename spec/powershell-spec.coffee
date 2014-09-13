@@ -207,7 +207,7 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine operator
           expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.comparison.powershell"]
 
-  describe "Highlighting automatic variables", ->
+  describe "Automatic variables", ->
     automaticVariables = [
       "$null", "$true", "$false", "$$", "$?", "$^", "$_",
       "$Args", "$ConsoleFileName", "$Error", "$Event", "$EventArgs",
@@ -229,7 +229,7 @@ describe "PowerShell grammar", ->
         expect(tokens[1]).toHaveScope "variable.language.powershell"
         expect(tokens[1]).not.toHaveScope "punctuation.variable.begin.powershell"
 
-  describe "Highlight cmdlets", ->
+  describe "Cmdlets", ->
     cmdlets = ["Get-ChildItem","_-_","underscores_are-not_a_problem"]
 
     it "tokenizes cmdlets", ->
@@ -238,7 +238,7 @@ describe "PowerShell grammar", ->
         expect(tokens[0].value).toEqual cmdlet
         expect(tokens[0]).toHaveScope "keyword.cmdlet.powershell"
 
-  describe "Highlighting escaped characters", ->
+  describe "Escaped characters", ->
     escapedCharacters = [
       "`n", "`\"", "`\'", "`a", "`b", "`r", "`t", "`f", "`0", "`v", "--%", "``"
     ]
@@ -249,7 +249,7 @@ describe "PowerShell grammar", ->
         expect(tokens[0].value).toEqual character
         expect(tokens[0]).toHaveScope "constant.character.escape.powershell"
 
-  describe "Highlighting constants", ->
+  describe "Constants", ->
     describe "Constant values in kilobytes, megabytes, and gigabytes", ->
       constants = [ "10GB", "53gb", "12MB", "128mb", "1000KB", "1200kb" ]
 
@@ -280,7 +280,7 @@ describe "PowerShell grammar", ->
           expect(tokens[0].value).toEqual constant
           expect(tokens[0]).toHaveScope "constant.numeric.integer.hexadecimal.powershell"
 
-  describe "Highlighting types", ->
+  describe "Types", ->
     types = [ "[string]", "[Int32]", "[System.Diagnostics.Process]"]
 
     it "tokenizes type annotations", ->
