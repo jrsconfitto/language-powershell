@@ -76,7 +76,7 @@ describe "PowerShell grammar", ->
       tokens = null
 
       beforeEach ->
-        {tokens} = grammar.tokenizeLine("\"Hi there $name\"")
+        {tokens} = grammar.tokenizeLine("\"Hi there $name `$bob\"")
 
       it "should tag content", ->
         expect(tokens[1].value).toEqual "Hi there "
@@ -92,6 +92,11 @@ describe "PowerShell grammar", ->
         expect(tokens[3].value).toEqual "name"
         expect(tokens[3]).toHaveScope "string.quoted.double.single-line.powershell"
         expect(tokens[3]).toHaveScope "embedded.variable.other.powershell"
+
+      it "should not tokenize as a variable when leading $ has been escaped", ->
+        expect(tokens[4].value).toEqual " `$bob"
+        expect(tokens[4]).not.toHaveScope "embedded.punctuation.variable.begin.powershell"
+        expect(tokens[4]).not.toHaveScope "embedded.variable.other.powershell"
 
   describe "Highlighting keywords", ->
     describe "Flow keywords", ->
