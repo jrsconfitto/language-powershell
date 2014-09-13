@@ -151,7 +151,7 @@
       '1':
         'name': 'keyword.other.powershell'
     'comment': 'keywords that haven\'t fit into other groups (yet).'
-    'match': '\\b(?i:(as|assert|del|exec|print|param))\\b'
+    'match': '\\b(?i:(param))\\b'
   }
   {
     'match': '\\+\\=|-\\=|\\*\\=|/\\=|//\\=|%\\=|&\\=|\\|\\=|\\^\\=|>>\\=|<<\\=|\\*\\*\\='
