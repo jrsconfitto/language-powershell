@@ -124,8 +124,13 @@
     'name': 'constant.numeric.integer.decimal.powershell'
   }
   {
+    'comment': 'keywords that delimit special blocks'
+    'match': '\\b(?i:(begin|data|dynamicparam|end|filter|inlinescript|parallel|process|sequence|workflow))\\b'
+    'name': 'keyword.control.flow.powershell'
+  }
+  {
     'comment': 'keywords that delimit flow blocks'
-    'match': '\\b(?i:(begin|catch|data|do|dynamicparam|else|elseif|end|filter|finally|for|foreach|from|if|in|inlinescript|parallel|param|process|sequence|switch|trap|try|until|while|workflow))\\b'
+    'match': '\\b(?i:(catch|do|else|elseif|finally|for|foreach|if|in|switch|trap|try|until|while))\\b'
     'name': 'keyword.control.flow.powershell'
   }
   {
@@ -151,7 +156,7 @@
       '1':
         'name': 'keyword.other.powershell'
     'comment': 'keywords that haven\'t fit into other groups (yet).'
-    'match': '\\b(?i:(param))\\b'
+    'match': '\\b(?i:(from|param))\\b'
   }
   {
     'match': '\\+\\=|-\\=|\\*\\=|/\\=|//\\=|%\\=|&\\=|\\|\\=|\\^\\=|>>\\=|<<\\=|\\*\\*\\='
