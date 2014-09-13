@@ -1,9 +1,21 @@
 describe "PowerShell grammar", ->
+
   grammar = null
 
   beforeEach ->
     waitsForPromise ->
       atom.packages.activatePackage("language-powershell")
+    this.addMatchers
+      toHaveScope: (scope) ->
+        if scope not in @actual
+          this.message = =>"Expected scope #{scope} to be in #{@actual}"
+          false
+        true
+      toNotHaveScope: (scope) ->
+        if scope in @actual
+          this.message = =>"Expected scope #{scope} to not be in #{@actual}"
+          false
+        true
 
     runs ->
       grammar = atom.syntax.grammarForScopeName('source.powershell')
@@ -163,9 +175,11 @@ describe "PowerShell grammar", ->
       for variable in automaticVariables
         {tokens} = grammar.tokenizeLine variable
         expect(tokens[0].value).toEqual "$"
-        expect(tokens[0].scopes).toEqual ["source.powershell", "variable.language.powershell", "punctuation.variable.begin.powershell"]
+        expect(tokens[0]).toHaveScope "variable.language.powershell"
+        expect(tokens[0]).toHaveScope "punctuation.variable.begin.powershell"
         expect(tokens[1].value).toEqual variable.substr(1)
-        expect(tokens[1].scopes).toEqual ["source.powershell", "variable.language.powershell"]
+        expect(tokens[1]).toHaveScope "variable.language.powershell"
+        expect(tokens[0]).toNotHaveScope "punctuation.variable.begin.powershell"
 
   describe "Highlight cmdlets", ->
     cmdlets = ["Get-ChildItem","_-_","underscores_are-not_a_problem"]
@@ -174,7 +188,7 @@ describe "PowerShell grammar", ->
       for cmdlet in cmdlets
         {tokens} = grammar.tokenizeLine cmdlet
         expect(tokens[0].value).toEqual cmdlet
-        expect(tokens[0].scopes).toEqual ["source.powershell", "keyword.cmdlet.powershell"]
+        expect(tokens[0]).toHaveScope "keyword.cmdlet.powershell"
 
   describe "Highlighting escaped characters", ->
     escapedCharacters = [
@@ -185,7 +199,7 @@ describe "PowerShell grammar", ->
       for character in escapedCharacters
         {tokens} = grammar.tokenizeLine character
         expect(tokens[0].value).toEqual character
-        expect(tokens[0].scopes).toEqual ["source.powershell", "constant.character.escape.powershell"]
+        expect(tokens[0]).toHaveScope "constant.character.escape.powershell"
 
   describe "Highlighting constants", ->
     describe "Constant values in kilobytes, megabytes, and gigabytes", ->
@@ -195,4 +209,4 @@ describe "PowerShell grammar", ->
         for constant in constants
           {tokens} = grammar.tokenizeLine constant
           expect(tokens[0].value).toEqual constant
-          expect(tokens[0].scopes).toEqual ["source.powershell", "constant.numeric.integer.bytes.powershell"]
+          expect(tokens[0]).toHaveScope "constant.numeric.integer.bytes.powershell"
