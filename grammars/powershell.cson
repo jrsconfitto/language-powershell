@@ -107,6 +107,10 @@
     'name': 'constant.numeric.integer.long.decimal.powershell'
   }
   {
+    'match': '\\b([1-9]+[0-9]*|0)(?i:kb|mb|gb)'
+    'name': 'constant.numeric.integer.bytes.powershell'
+  }
+  {
     'match': '\\b([1-9]+[0-9]*|0)'
     'name': 'constant.numeric.integer.decimal.powershell'
   }

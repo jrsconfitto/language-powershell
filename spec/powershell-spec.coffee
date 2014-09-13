@@ -186,3 +186,13 @@ describe "PowerShell grammar", ->
         {tokens} = grammar.tokenizeLine character
         expect(tokens[0].value).toEqual character
         expect(tokens[0].scopes).toEqual ["source.powershell", "constant.character.escape.powershell"]
+
+  describe "Highlighting constants", ->
+    describe "Constant values in kilobytes, megabytes, and gigabytes", ->
+      constants = [ "10GB", "53gb", "12MB", "128mb", "1000KB", "1200kb" ]
+
+      it "tokenizes constant value in bytes", ->
+        for constant in constants
+          {tokens} = grammar.tokenizeLine constant
+          expect(tokens[0].value).toEqual constant
+          expect(tokens[0].scopes).toEqual ["source.powershell", "constant.numeric.integer.bytes.powershell"]
