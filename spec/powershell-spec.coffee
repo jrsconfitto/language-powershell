@@ -7,15 +7,9 @@ describe "PowerShell grammar", ->
       atom.packages.activatePackage("language-powershell")
     this.addMatchers
       toHaveScope: (scope) ->
-        if scope not in @actual
-          this.message = =>"Expected scope #{scope} to be in #{@actual}"
-          false
-        true
-      toNotHaveScope: (scope) ->
-        if scope in @actual
-          this.message = =>"Expected scope #{scope} to not be in #{@actual}"
-          false
-        true
+        notText = if @isNot then "not " else ""
+        this.message = =>"Expected scope #{scope} to #{notText} be in [#{@actual.scopes.toString()}]"
+        return scope in @actual.scopes
 
     runs ->
       grammar = atom.syntax.grammarForScopeName('source.powershell')
@@ -179,7 +173,7 @@ describe "PowerShell grammar", ->
         expect(tokens[0]).toHaveScope "punctuation.variable.begin.powershell"
         expect(tokens[1].value).toEqual variable.substr(1)
         expect(tokens[1]).toHaveScope "variable.language.powershell"
-        expect(tokens[0]).toNotHaveScope "punctuation.variable.begin.powershell"
+        expect(tokens[1]).not.toHaveScope "punctuation.variable.begin.powershell"
 
   describe "Highlight cmdlets", ->
     cmdlets = ["Get-ChildItem","_-_","underscores_are-not_a_problem"]
