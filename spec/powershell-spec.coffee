@@ -150,6 +150,24 @@ describe "PowerShell grammar", ->
           expect(tokens[5].value).toEqual "in"
           expect(tokens[5]).toHaveScope "keyword.control.flow.powershell"
 
+      describe "Try-Catch-Finally statements", ->
+        tokens = null
+
+        beforeEach ->
+          {tokens} = grammar.tokenizeLine("try { throw \"FAIL\" } catch [System.IO.IOException] { Get-OutOfTrouble } finally { Get-OutOfTown }")
+
+        it "should tokenize 'Try'", ->
+          expect(tokens[0].value).toEqual "try"
+          expect(tokens[0]).toHaveScope "keyword.control.flow.powershell"
+
+        it "should tokenize 'Catch'", ->
+          expect(tokens[8].value).toEqual "catch"
+          expect(tokens[8]).toHaveScope "keyword.control.flow.powershell"
+
+        it "should tokenize 'Finally'", ->
+          expect(tokens[16].value).toEqual "finally"
+          expect(tokens[16]).toHaveScope "keyword.control.flow.powershell"
+
     describe "Highlighting logical operators", ->
       logicalOperators = [ "-and", "-or", "-xor", "-not", "!"]
 
