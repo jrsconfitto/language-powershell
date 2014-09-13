@@ -99,8 +99,19 @@ describe "PowerShell grammar", ->
         expect(tokens[4]).not.toHaveScope "embedded.variable.other.powershell"
 
   describe "Highlighting keywords", ->
-    describe "Flow keywords", ->
+    describe "Block keywords", ->
+      keywords = [
+        "begin", "data", "dynamicparam", "end", "filter", "inlinescript",
+        "parallel", "process", "sequence", "workflow"
+      ]
 
+      it "tokenizes keywords", ->
+        for keyword in keywords
+          {tokens} = grammar.tokenizeLine keyword
+          expect(tokens[0].value).toEqual keyword
+          expect(tokens[0]).toHaveScope "keyword.control.flow.powershell"
+
+    describe "Flow keywords", ->
       describe "If-else statements", ->
         tokens = null
 
