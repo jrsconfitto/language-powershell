@@ -136,6 +136,20 @@ describe "PowerShell grammar", ->
         it "should highlight 'for'", ->
           expect(tokens[0]).toEqual value: "for", scopes: ["source.powershell","keyword.control.flow.powershell"]
 
+      describe "'ForEach' statements", ->
+        tokens = null
+
+        beforeEach ->
+          {tokens} = grammar.tokenizeLine("foreach($i in $array) { echo $i }")
+
+        it "should tokenize 'ForEach'", ->
+          expect(tokens[0].value).toEqual "foreach"
+          expect(tokens[0]).toHaveScope "keyword.control.flow.powershell"
+
+        it "should tokenize 'in'", ->
+          expect(tokens[5].value).toEqual "in"
+          expect(tokens[5]).toHaveScope "keyword.control.flow.powershell"
+
     describe "Highlighting logical operators", ->
       logicalOperators = [ "-and", "-or", "-xor", "-not", "!"]
 
