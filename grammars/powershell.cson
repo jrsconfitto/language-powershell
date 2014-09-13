@@ -117,9 +117,6 @@
     'name': 'keyword.control.flow.powershell'
   }
   {
-    'captures':
-      '1':
-        'name': 'keyword.cmdlet.powershell'
     'comment': 'cmdlets'
     'match': '\\b([a-zA-Z_]*-[a-zA-Z_]*)\\b'
     'name': 'keyword.cmdlet.powershell'

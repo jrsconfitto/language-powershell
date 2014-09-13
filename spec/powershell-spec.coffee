@@ -166,3 +166,12 @@ describe "PowerShell grammar", ->
         expect(tokens[0].scopes).toEqual ["source.powershell", "variable.language.powershell", "punctuation.variable.begin.powershell"]
         expect(tokens[1].value).toEqual variable.substr(1)
         expect(tokens[1].scopes).toEqual ["source.powershell", "variable.language.powershell"]
+
+  describe "Highlight cmdlets", ->
+    cmdlets = ["Get-ChildItem","_-_","underscores_are-not_a_problem"]
+
+    it "tokenizes cmdlets", ->
+      for cmdlet in cmdlets
+        {tokens} = grammar.tokenizeLine cmdlet
+        expect(tokens[0].value).toEqual cmdlet
+        expect(tokens[0].scopes).toEqual ["source.powershell", "keyword.cmdlet.powershell"]
