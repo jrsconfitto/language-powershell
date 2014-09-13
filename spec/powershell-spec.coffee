@@ -204,3 +204,15 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine constant
           expect(tokens[0].value).toEqual constant
           expect(tokens[0]).toHaveScope "constant.numeric.integer.bytes.powershell"
+
+    describe "Constant float values", ->
+      constants = [
+        "1.0", "0.89324", "123124235.2385923234", "3.23e24", "2.33e-12",
+        "9.11e+21", "21e6", "7e-12", "12e+24"
+      ]
+
+      it "tokenizes constant float values", ->
+        for constant in constants
+          {tokens} = grammar.tokenizeLine constant
+          expect(tokens[0].value).toEqual constant
+          expect(tokens[0]).toHaveScope "constant.numeric.float.powershell"
