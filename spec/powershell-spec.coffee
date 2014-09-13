@@ -228,6 +228,15 @@ describe "PowerShell grammar", ->
           expect(tokens[0].value).toEqual constant
           expect(tokens[0]).toHaveScope "constant.numeric.float.powershell"
 
+    describe "Constant hexadecimal values", ->
+      constants = [ "0x1234", "0x1FF2", "0xff2e" ]
+
+      it "tokenizes constant hexadecimal integer values", ->
+        for constant in constants
+          {tokens} = grammar.tokenizeLine constant
+          expect(tokens[0].value).toEqual constant
+          expect(tokens[0]).toHaveScope "constant.numeric.integer.hexadecimal.powershell"
+
   describe "Highlighting types", ->
     types = [ "[string]", "[Int32]", "[System.Diagnostics.Process]"]
 
