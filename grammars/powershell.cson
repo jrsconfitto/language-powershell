@@ -125,7 +125,7 @@
   }
   {
     'comment': 'keywords that delimit flow blocks'
-    'match': '\\b(?i:(do|until|begin|catch|else|elseif|end|finally|for|foreach|if|process|switch|trap|try|while))\\b'
+    'match': '\\b(?i:(begin|catch|data|do|dynamicparam|else|elseif|end|filter|finally|for|foreach|from|if|in|inlinescript|parallel|param|process|sequence|switch|trap|try|until|while|workflow))\\b'
     'name': 'keyword.control.flow.powershell'
   }
   {
