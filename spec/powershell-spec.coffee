@@ -98,7 +98,7 @@ describe "PowerShell grammar", ->
         expect(tokens[4]).not.toHaveScope "embedded.punctuation.variable.begin.powershell"
         expect(tokens[4]).not.toHaveScope "embedded.variable.other.powershell"
 
-  describe "Highlighting keywords", ->
+  describe "Keywords", ->
     describe "Block keywords", ->
       keywords = [
         "begin", "data", "dynamicparam", "end", "filter", "inlinescript",
@@ -179,7 +179,7 @@ describe "PowerShell grammar", ->
           expect(tokens[16].value).toEqual "finally"
           expect(tokens[16]).toHaveScope "keyword.control.flow.powershell"
 
-    describe "Highlighting logical operators", ->
+    describe "Logical operator keywords", ->
       logicalOperators = [ "-and", "-or", "-xor", "-not", "!"]
 
       it "tokenizes logical operators", ->
@@ -187,7 +187,7 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine operator
           expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.logical.powershell"]
 
-    describe "Highlighting bitwise operators", ->
+    describe "Bitwise operator keywords", ->
       bitwiseOperators = [ "-bAnd", "-bOr", "-bXor", "-bNot", "-shl", "-sh" ]
 
       it "tokenizes bitwise operators", ->
@@ -195,7 +195,7 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine operator
           expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.bitwise.powershell"]
 
-    describe "Highlighting comparison operators", ->
+    describe "Comparison operator keywords", ->
       comparisonOperators = [
         "-eq", "-ceq", "-ieq", "-lt", "-gt", "-le", "-ge", "-ne", "-notlike",
         "-like", "-match", "-notmatch", "-contains", "-notcontains", "-in",
