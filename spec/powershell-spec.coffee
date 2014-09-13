@@ -7,8 +7,8 @@ describe "PowerShell grammar", ->
       atom.packages.activatePackage("language-powershell")
     this.addMatchers
       toHaveScope: (scope) ->
-        notText = if @isNot then "not " else ""
-        this.message = =>"Expected scope #{scope} to #{notText} be in [#{@actual.scopes.toString()}]"
+        notText = if @isNot then "not" else ""
+        this.message = =>"Expected token \"#{@actual.value}\" to #{notText} have scope \"#{scope}\". Instead found: [#{@actual.scopes.toString()}]"
         return scope in @actual.scopes
 
     runs ->
@@ -216,3 +216,18 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine constant
           expect(tokens[0].value).toEqual constant
           expect(tokens[0]).toHaveScope "constant.numeric.float.powershell"
+
+  describe "Highlighting types", ->
+    types = [ "[string]", "[Int32]", "[System.Diagnostics.Process]"]
+
+    it "tokenizes type annotations", ->
+      for type in types
+        {tokens} = grammar.tokenizeLine type
+        expectedType = type.substr(1, type.length - 2)
+        expect(tokens[0].value).toEqual "["
+        expect(tokens[0]).toHaveScope "storage.type.powershell"
+        expect(tokens[0]).toHaveScope "punctuation.storage.type.begin.powershell"
+        expect(tokens[1].value).toEqual expectedType
+        expect(tokens[1]).toHaveScope "storage.type.powershell"
+        expect(tokens[2].value).toEqual "]"
+        expect(tokens[2]).toHaveScope "punctuation.storage.type.end.powershell"
