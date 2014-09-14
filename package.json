@@ -8,7 +8,4 @@
     "atom": ">0.50.0"
   },
   "dependencies": {},
-  "devDependencies": {
-    "season": "^1.0.2"
-  }
 }
