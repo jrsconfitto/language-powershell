@@ -13,9 +13,48 @@
   {
     'captures':
       '1':
+        'name': 'punctuation.storage.type.begin.powershell'
+      '3':
+        'name': 'punctuation.storage.type.end.powershell'
+    'match':'(\\[)([A-Za-z0-9_\\.]+)(\\])'
+    'name':'storage.type.powershell'
+  }
+  {
+    'match': '(`n)|(`")|(`\')|(`a)|(`b)|(`r)|(`t)|(`f)|(`0)|(`v)|(--%)|(``)'
+    'name': 'constant.character.escape.powershell'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'punctuation.variable.begin.powershell'
+    'match': '(\\$)(?i:(null|true|false|\\$|\\?|\\^|_|args|consolefilename|error|eventsubscriber|eventargs|event|executioncontext|foreach|host|home|input|lastexitcode|matches|myinvocation|nestedpromptlevel|ofs|pid|profile|psboundparameters|pscmdlet|pscommandpath|psculture|psdebuggingcontext|pshome|psitem|psscriptroot|psuiculture|pssenderinfo|psversiontable|pwd|sender|shellid|stacktrace|this))'
+    'comment': 'Powershell automatic variables.'
+    'name': 'variable.language.powershell'
+  }
+  {
+    'captures':
+      '1':
         'name': 'punctuation.variable.begin.powershell'
     'match': '(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
     'name': 'variable.other.powershell'
+  }
+  {
+    'match': '\\B(?i:(-bAnd|-bOr|-bXor|-bNot|-shl|-sh))\\b'
+    'name': 'keyword.operator.bitwise.powershell'
+  }
+  {
+    'match': '-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-like|-match|-notmatch|-contains|-notcontains|-in|-notin|-replace'
+    'name': 'keyword.operator.comparison.powershell'
+  }
+  {
+    'comment': 'keyword operators that evaluate to True or False'
+    'match': '\\B(?i:-(and|not|or|xor))\\b'
+    'name': 'keyword.operator.logical.powershell'
+  }
+  {
+    'comment': 'logical negation operator'
+    'match': '!'
+    'name': 'keyword.operator.logical.powershell'
   }
   {
     'captures':
@@ -77,12 +116,21 @@
     'name': 'constant.numeric.integer.long.decimal.powershell'
   }
   {
+    'match': '\\b([1-9]+[0-9]*|0)(?i:kb|mb|gb)'
+    'name': 'constant.numeric.integer.bytes.powershell'
+  }
+  {
     'match': '\\b([1-9]+[0-9]*|0)'
     'name': 'constant.numeric.integer.decimal.powershell'
   }
   {
+    'comment': 'keywords that delimit special blocks'
+    'match': '\\b(?i:(begin|data|dynamicparam|end|filter|inlinescript|parallel|process|sequence|workflow))\\b'
+    'name': 'keyword.control.flow.powershell'
+  }
+  {
     'comment': 'keywords that delimit flow blocks'
-    'match': '\\b(?i:(do|until|begin|catch|else|elseif|end|finally|for|foreach|if|process|switch|trap|try|while))\\b'
+    'match': '\\b(?i:(catch|do|else|elseif|finally|for|foreach|if|in|switch|trap|try|until|while))\\b'
     'name': 'keyword.control.flow.powershell'
   }
   {
@@ -91,14 +139,6 @@
     'name': 'keyword.control.flow.powershell'
   }
   {
-    'comment': 'keyword operators that evaluate to True or False'
-    'match': '\\b(?i:(!|-and|-not|-or|-xor))\\b'
-    'name': 'keyword.operator.logical.powershell'
-  }
-  {
-    'captures':
-      '1':
-        'name': 'keyword.cmdlet.powershell'
     'comment': 'cmdlets'
     'match': '\\b([a-zA-Z_]*-[a-zA-Z_]*)\\b'
     'name': 'keyword.cmdlet.powershell'
@@ -116,11 +156,7 @@
       '1':
         'name': 'keyword.other.powershell'
     'comment': 'keywords that haven\'t fit into other groups (yet).'
-    'match': '\\b(?i:(as|assert|del|exec|print|param))\\b'
-  }
-  {
-    'match': '-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-not'
-    'name': 'keyword.operator.comparison.powershell'
+    'match': '\\b(?i:(from|param))\\b'
   }
   {
     'match': '\\+\\=|-\\=|\\*\\=|/\\=|//\\=|%\\=|&\\=|\\|\\=|\\^\\=|>>\\=|<<\\=|\\*\\*\\='
@@ -381,13 +417,6 @@
     'include': '#line_continuation'
   }
   {
-    'include': '#language_variables'
-  }
-  {
-    'match': '\\b($null|$Null|$NULL|$true|$True|$TRUE|$false|$False|$FALSE)\\b'
-    'name': 'constant.language.powershell'
-  }
-  {
     'include': '#string_quoted_single'
   }
   {
@@ -525,9 +554,6 @@
             'include': '#magic_variable_names'
           }
           {
-            'include': '#language_variables'
-          }
-          {
             'include': '#generic_names'
           }
         ]
@@ -554,25 +580,6 @@
         'include': '#generic_names'
       }
     ]
-  'escaped_char':
-    'captures':
-      '1':
-        'name': 'constant.character.escape.hex.powershell'
-      '2':
-        'name': 'constant.character.escape.newline.powershell'
-      '3':
-        'name': 'constant.character.escape.double-quote.powershell'
-      '4':
-        'name': 'constant.character.escape.single-quote.powershell'
-      '5':
-        'name': 'constant.character.escape.bell.powershell'
-      '6':
-        'name': 'constant.character.escape.backspace.powershell'
-      '7':
-        'name': 'constant.character.escape.return.powershell'
-      '8':
-        'name': 'constant.character.escape.tab.powershell'
-    'match': '(`x[0-9A-F]{2})|(`n)|(`")|(`\')|(`a)|(`b)|(`r)|(`t)'
   'function_name':
     'patterns': [
       {
@@ -615,9 +622,6 @@
         'include': '$self'
       }
     ]
-  'language_variables':
-    'match': '\\b(self|cls)\\b'
-    'name': 'variable.language.powershell'
   'line_continuation':
     'captures':
       '1':
@@ -647,7 +651,7 @@
         'captures':
           '1':
             'name': 'embedded.punctuation.variable.begin.powershell'
-        'match': '(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
+        'match': '(?<!`)(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
         'name': 'embedded.variable.other.powershell'
       }
     ]
