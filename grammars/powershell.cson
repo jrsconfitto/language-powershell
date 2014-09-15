@@ -518,9 +518,6 @@
         'end': '(?![A-Za-z0-9_])'
         'patterns': [
           {
-            'include': '#magic_variable_names'
-          }
-          {
             'include': '#illegal_names'
           }
           {
@@ -543,9 +540,6 @@
           }
           {
             'include': '#illegal_names'
-          }
-          {
-            'include': '#magic_variable_names'
           }
           {
             'include': '#generic_names'
@@ -573,9 +567,6 @@
     ]
   'function_name':
     'patterns': [
-      {
-        'include': '#magic_variable_names'
-      }
       {
         'include': '#builtin_exceptions'
       }
@@ -617,10 +608,6 @@
       '2':
         'name': 'invalid.illegal.unexpected-text.powershell'
     'match': '(`)(.*)$\\n?'
-  'magic_variable_names':
-    'comment': 'magic variables which a class/module may have.'
-    'match': '\\b__(all|bases|class|debug|dict|doc|file|members|metaclass|methods|name|slots|weakref)__\\b'
-    'name': 'support.variable.magic.powershell'
   'regular_expressions':
     'comment': 'Changed disabled to 1 to turn off syntax highlighting in “r” strings.'
     'disabled': 0
