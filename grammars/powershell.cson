@@ -507,15 +507,6 @@
         'end': '(?![A-Za-z0-9_])'
         'patterns': [
           {
-            'include': '#builtin_functions'
-          }
-          {
-            'include': '#builtin_types'
-          }
-          {
-            'include': '#builtin_exceptions'
-          }
-          {
             'include': '#illegal_names'
           }
           {
@@ -544,15 +535,6 @@
     ]
   'function_name':
     'patterns': [
-      {
-        'include': '#builtin_exceptions'
-      }
-      {
-        'include': '#builtin_functions'
-      }
-      {
-        'include': '#builtin_types'
-      }
       {
         'include': '#generic_names'
       }
