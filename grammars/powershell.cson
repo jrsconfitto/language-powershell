@@ -518,9 +518,6 @@
         'end': '(?![A-Za-z0-9_])'
         'patterns': [
           {
-            'include': '#magic_function_names'
-          }
-          {
             'include': '#magic_variable_names'
           }
           {
@@ -548,9 +545,6 @@
             'include': '#illegal_names'
           }
           {
-            'include': '#magic_function_names'
-          }
-          {
             'include': '#magic_variable_names'
           }
           {
@@ -571,9 +565,6 @@
   'entity_name_function':
     'patterns': [
       {
-        'include': '#magic_function_names'
-      }
-      {
         'include': '#illegal_names'
       }
       {
@@ -582,9 +573,6 @@
     ]
   'function_name':
     'patterns': [
-      {
-        'include': '#magic_function_names'
-      }
       {
         'include': '#magic_variable_names'
       }
@@ -629,10 +617,6 @@
       '2':
         'name': 'invalid.illegal.unexpected-text.powershell'
     'match': '(`)(.*)$\\n?'
-  'magic_function_names':
-    'comment': 'these methods have magic interpretation by python and are generally called indirectly through syntactic constructs'
-    'match': '(?x)\\b(__(?:\n\t\t\t\t\t\tabs|add|and|call|cmp|coerce|complex|contains|del|delattr|\n\t\t\t\t\t\tdelete|delitem|delslice|div|divmod|enter|eq|exit|float|\n\t\t\t\t\t\tfloordiv|ge|get|getattr|getattribute|getitem|getslice|gt|\n\t\t\t\t\t\thash|hex|iadd|iand|idiv|ifloordiv|ilshift|imod|imul|init|\n\t\t\t\t\t\tint|invert|ior|ipow|irshift|isub|iter|itruediv|ixor|le|len|\n\t\t\t\t\t\tlong|lshift|lt|mod|mul|ne|neg|new|nonzero|oct|or|pos|pow|\n\t\t\t\t\t\tradd|rand|rdiv|rdivmod|repr|rfloordiv|rlshift|rmod|rmul|ror|\n\t\t\t\t\t\trpow|rrshift|rshift|rsub|rtruediv|rxor|set|setattr|setitem|\n\t\t\t\t\t\tsetslice|str|sub|truediv|unicode|xor\n\t\t\t\t\t)__)\\b'
-    'name': 'support.function.magic.powershell'
   'magic_variable_names':
     'comment': 'magic variables which a class/module may have.'
     'match': '\\b__(all|bases|class|debug|dict|doc|file|members|metaclass|methods|name|slots|weakref)__\\b'
