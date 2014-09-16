@@ -88,7 +88,7 @@ describe "PowerShell grammar", ->
 
       it "should tokenize the closing double-quote as empty string", ->
         expect(tokens[1].value).toEqual "\""
-        expect(tokens[1]).toHaveScope ["punctuation.definition.string.end.powershell", "meta.empty-string.double.powershell"]
+        expect(tokens[1]).toHaveScopes ["punctuation.definition.string.end.powershell", "meta.empty-string.double.powershell"]
 
     describe "Variables within a string", ->
       tokens = null
