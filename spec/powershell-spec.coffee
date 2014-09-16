@@ -11,6 +11,12 @@ describe "PowerShell grammar", ->
         this.message = =>"Expected token \"#{@actual.value}\" to #{notText} have scope \"#{scope}\". Instead found: [#{@actual.scopes.toString()}]"
         return scope in @actual.scopes
 
+      toHaveScopes: (scopes) ->
+        notText = if @isNot then "not" else ""
+        this.message = =>"Expected token \"#{@actual.value}\" to #{notText} have scope \"#{scope}\". Instead found: [#{@actual.scopes.toString()}]"
+        allScopesPresent = scopes.every (scope) =>
+          return scope in @actual.scopes
+
     runs ->
       grammar = atom.syntax.grammarForScopeName('source.powershell')
 
@@ -82,11 +88,11 @@ describe "PowerShell grammar", ->
 
       it "should tokenize the closing double-quote as empty string", ->
         expect(tokens[1].value).toEqual "\""
-        expect(tokens[1]).toHaveScope "punctuation.definition.string.end.powershell"
-        expect(tokens[1]).toHaveScope "meta.empty-string.double.powershell"
+        expect(tokens[1]).toHaveScope ["punctuation.definition.string.end.powershell", "meta.empty-string.double.powershell"]
 
     describe "Variables within a string", ->
       tokens = null
+      expectedDollarSignScopes = ["embedded.punctuation.variable.begin.powershell", "embedded.variable.other.powershell"]
 
       beforeEach ->
         {tokens} = grammar.tokenizeLine("\"Hi there $name `$bob\"")
@@ -97,12 +103,10 @@ describe "PowerShell grammar", ->
 
       it "should tokenize content", ->
         expect(tokens[1].value).toEqual "Hi there "
-        expect(tokens[1]).toHaveScope "string.quoted.double.single-line.powershell"
 
       it "should tokenize the beginning of variable names as embedded punctuation", ->
         expect(tokens[2].value).toEqual "$"
-        expect(tokens[2]).toHaveScope "embedded.variable.other.powershell"
-        expect(tokens[2]).toHaveScope "embedded.punctuation.variable.begin.powershell"
+        expect(tokens[2]).toHaveScopes expectedDollarSignScopes
 
       it "should tokenize variable names", ->
         expect(tokens[3].value).toEqual "name"
@@ -110,8 +114,7 @@ describe "PowerShell grammar", ->
 
       it "should not tokenize as a variable when leading $ has been escaped", ->
         expect(tokens[4].value).toEqual " `$bob"
-        expect(tokens[4]).not.toHaveScope "embedded.punctuation.variable.begin.powershell"
-        expect(tokens[4]).not.toHaveScope "embedded.variable.other.powershell"
+        expect(tokens[4]).not.toHaveScopes expectedDollarSignScopes
 
   describe "Keywords", ->
     describe "Block keywords", ->
@@ -238,8 +241,7 @@ describe "PowerShell grammar", ->
       for variable in automaticVariables
         {tokens} = grammar.tokenizeLine variable
         expect(tokens[0].value).toEqual "$"
-        expect(tokens[0]).toHaveScope "variable.language.powershell"
-        expect(tokens[0]).toHaveScope "punctuation.variable.begin.powershell"
+        expect(tokens[0]).toHaveScopes ["variable.language.powershell", "punctuation.variable.begin.powershell"]
         expect(tokens[1].value).toEqual variable.substr(1)
         expect(tokens[1]).toHaveScope "variable.language.powershell"
         expect(tokens[1]).not.toHaveScope "punctuation.variable.begin.powershell"
@@ -303,8 +305,7 @@ describe "PowerShell grammar", ->
         {tokens} = grammar.tokenizeLine type
         expectedType = type.substr(1, type.length - 2)
         expect(tokens[0].value).toEqual "["
-        expect(tokens[0]).toHaveScope "storage.type.powershell"
-        expect(tokens[0]).toHaveScope "punctuation.storage.type.begin.powershell"
+        expect(tokens[0]).toHaveScopes ["storage.type.powershell", "punctuation.storage.type.begin.powershell"]
         expect(tokens[1].value).toEqual expectedType
         expect(tokens[1]).toHaveScope "storage.type.powershell"
         expect(tokens[2].value).toEqual "]"
