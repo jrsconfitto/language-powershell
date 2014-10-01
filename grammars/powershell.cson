@@ -20,7 +20,7 @@
     'name':'storage.type.powershell'
   }
   {
-    'match': '(`n)|(`")|(`\')|(`a)|(`b)|(`r)|(`t)|(`f)|(`0)|(`v)|(--%)|(``)'
+    'match': '(`n)|(`")|(`\\$)|(`\')|(`a)|(`b)|(`r)|(`t)|(`f)|(`0)|(`v)|(--%)|(``)'
     'name': 'constant.character.escape.powershell'
   }
   {
