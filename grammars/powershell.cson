@@ -564,9 +564,7 @@
     'captures':
       '1':
         'name': 'punctuation.separator.continuation.line.powershell'
-      '2':
-        'name': 'invalid.illegal.unexpected-text.powershell'
-    'match': '(`)(.*)$\\n?'
+    'match': '(`)(\\s*)$\\n?'
   'regular_expressions':
     'comment': 'Changed disabled to 1 to turn off syntax highlighting in “r” strings.'
     'disabled': 0

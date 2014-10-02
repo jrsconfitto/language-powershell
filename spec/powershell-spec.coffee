@@ -310,3 +310,15 @@ describe "PowerShell grammar", ->
     it "escapes variables", ->
       {tokens} = grammar.tokenizeLine("`$a")
       expect(tokens[0]).toHaveScopes["constant.character.escape.powershell"]
+
+  describe "Line continuations", ->
+
+    it "considers a backtick followed by a newline as a line continuation", ->
+      {tokens} = grammar.tokenizeLine("`\n")
+      expect(tokens[0].value).toEqual("`")
+      expect(tokens[0]).toHaveScopes ["punctuation.separator.continuation.line.powershell"]
+
+    it "considers a backtick followed by whitespace and a newline as a line continuation", ->
+      {tokens} = grammar.tokenizeLine("`  \n")
+      expect(tokens[0].value).toEqual("`")
+      expect(tokens[0]).toHaveScopes ["punctuation.separator.continuation.line.powershell"]
