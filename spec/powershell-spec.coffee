@@ -306,10 +306,15 @@ describe "PowerShell grammar", ->
         expect(tokens[2].value).toEqual "]"
         expect(tokens[2]).toHaveScopes ["punctuation.storage.type.end.powershell"]
 
-  describe "Escaped variables", ->
+  describe "Escape characters", ->
+
     it "escapes variables", ->
       {tokens} = grammar.tokenizeLine("`$a")
-      expect(tokens[0]).toHaveScopes["constant.character.escape.powershell"]
+      expect(tokens[0]).toHaveScopes ["constant.character.escape.powershell"]
+
+    it "escapes any character", ->
+      {tokens} = grammar.tokenizeLine("`_")
+      expect(tokens[0]).toHaveScopes ["source.powershell", "constant.character.escape.powershell"]
 
   describe "Line continuations", ->
 
