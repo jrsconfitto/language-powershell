@@ -318,6 +318,11 @@ describe "PowerShell grammar", ->
       {tokens} = grammar.tokenizeLine("`_")
       expect(tokens[0]).toHaveScopes ["source.powershell", "constant.character.escape.powershell"]
 
+    it "escapes quotes within a string", ->
+      {tokens} = grammar.tokenizeLine("$command = \".\\myfile.ps1 -param1 `\"$myvar`\" -param2 whatever\"")
+      expect(tokens[10]).toHaveScopes ["source.powershell", "constant.character.escape.powershell", "string.quoted.double.single-line.powershell"]
+      expect(tokens[11]).toHaveScopes ["source.powershell", "string.quoted.double.single-line.powershell"]
+
   describe "Line continuations", ->
 
     it "considers a backtick followed by a newline as a line continuation", ->
