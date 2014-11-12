@@ -8,7 +8,9 @@ describe "PowerShell grammar", ->
     this.addMatchers
       toHaveScopes: (scopes) ->
         notText = if @isNot then "not" else ""
-        this.message = =>"Expected token \"#{@actual.value}\" to #{notText} have scope \"#{scope.toString}\". Instead found: [#{@actual.scopes.toString()}]"
+        this.message = (expected) =>
+          "Expected token \"#{@actual.value}\" to #{notText} have scopes \"#{expected}\". Instead found: [#{@actual.scopes.toString()}]"
+
         allScopesPresent = scopes.every (scope) =>
           return scope in @actual.scopes
 
