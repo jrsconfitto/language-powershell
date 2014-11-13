@@ -713,6 +713,9 @@
           {
             'include': '#constant_placeholder'
           }
+          {
+            'include': '#escaped_char'
+          }
         ]
       }
       {
@@ -731,6 +734,9 @@
         'patterns': [
           {
             'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
           }
         ]
       }
@@ -751,6 +757,9 @@
           {
             'include': '#constant_placeholder'
           }
+          {
+            'include': '#escaped_char'
+          }
         ]
       }
       {
@@ -769,6 +778,9 @@
         'patterns': [
           {
             'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
           }
         ]
       }
