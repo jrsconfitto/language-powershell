@@ -110,8 +110,12 @@ describe "PowerShell grammar", ->
         expect(tokens[3]).toHaveScopes ["embedded.variable.other.powershell"]
 
       it "should not tokenize as a variable when leading $ has been escaped", ->
-        expect(tokens[4].value).toEqual " `$bob"
-        expect(tokens[4]).not.toHaveScopes expectedDollarSignScopes
+        expect(tokens[5].value).toEqual "`$"
+        expect(tokens[5]).toHaveScopes ["source.powershell", "string.quoted.double.single-line.powershell", "constant.character.escape.powershell"]
+        expect(tokens[5]).not.toHaveScopes ["embedded.variable.other.powershell"]
+
+        expect(tokens[6].value).toEqual "bob"
+        expect(tokens[6]).not.toHaveScopes ["embedded.variable.other.powershell"]
 
   describe "Keywords", ->
     describe "Block keywords", ->
@@ -317,6 +321,11 @@ describe "PowerShell grammar", ->
     it "escapes any character", ->
       {tokens} = grammar.tokenizeLine("`_")
       expect(tokens[0]).toHaveScopes ["source.powershell", "constant.character.escape.powershell"]
+
+    it "escapes quotes within a string", ->
+      {tokens} = grammar.tokenizeLine("$command = \".\\myfile.ps1 -param1 `\"$myvar`\" -param2 whatever\"")
+      expect(tokens[10]).toHaveScopes ["source.powershell", "constant.character.escape.powershell", "string.quoted.double.single-line.powershell"]
+      expect(tokens[11]).toHaveScopes ["source.powershell", "string.quoted.double.single-line.powershell"]
 
   describe "Line continuations", ->
 
