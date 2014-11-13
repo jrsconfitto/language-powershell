@@ -322,7 +322,15 @@ describe "PowerShell grammar", ->
       {tokens} = grammar.tokenizeLine("`_")
       expect(tokens[0]).toHaveScopes ["source.powershell", "constant.character.escape.powershell"]
 
-    it "escapes quotes within a string", ->
+    it "escapes single quotes within a string", ->
+      {tokens} = grammar.tokenizeLine("$command = \'.\\myfile.ps1 -param1 `\'$myvar`\' -param2 whatever\'")
+      console.log tokens
+      console.log tokens[7]
+      console.log tokens[8]
+      expect(tokens[7]).toHaveScopes ["source.powershell", "constant.character.escape.powershell", "string.quoted.single.single-line.powershell"]
+      expect(tokens[8]).toHaveScopes ["source.powershell", "string.quoted.single.single-line.powershell"]
+
+    it "escapes double quotes within a string", ->
       {tokens} = grammar.tokenizeLine("$command = \".\\myfile.ps1 -param1 `\"$myvar`\" -param2 whatever\"")
       expect(tokens[10]).toHaveScopes ["source.powershell", "constant.character.escape.powershell", "string.quoted.double.single-line.powershell"]
       expect(tokens[11]).toHaveScopes ["source.powershell", "string.quoted.double.single-line.powershell"]
