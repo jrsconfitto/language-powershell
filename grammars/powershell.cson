@@ -607,9 +607,6 @@
           {
             'include': '#escaped_char'
           }
-          {
-            'include': 'source.sql'
-          }
         ]
       }
       {
@@ -633,9 +630,6 @@
           }
           {
             'include': '#escaped_char'
-          }
-          {
-            'include': 'source.sql'
           }
         ]
       }
@@ -719,9 +713,6 @@
           {
             'include': '#constant_placeholder'
           }
-          {
-            'include': 'source.sql'
-          }
         ]
       }
       {
@@ -740,9 +731,6 @@
         'patterns': [
           {
             'include': '#constant_placeholder'
-          }
-          {
-            'include': 'source.sql'
           }
         ]
       }
