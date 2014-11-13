@@ -11,6 +11,9 @@
 'foldingStopMarker': '^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*"""\\s*$'
 'patterns': [
   {
+    'include': '#escaped_char'
+  }
+  {
     'captures':
       '1':
         'name': 'punctuation.storage.type.begin.powershell'
@@ -18,10 +21,6 @@
         'name': 'punctuation.storage.type.end.powershell'
     'match':'(\\[)([A-Za-z0-9_\\.]+)(\\])'
     'name':'storage.type.powershell'
-  }
-  {
-    'match': '(`n)|(`")|(`\\$)|(`\')|(`a)|(`b)|(`r)|(`t)|(`f)|(`0)|(`v)|(--%)|(``)|(`\\S)'
-    'name': 'constant.character.escape.powershell'
   }
   {
     'captures':
@@ -483,6 +482,9 @@
   }
 ]
 'repository':
+  'escaped_char':
+    'match': '(`n)|(`")|(`\\$)|(`\')|(`a)|(`b)|(`r)|(`t)|(`f)|(`0)|(`v)|(--%)|(``)|(`\\S)'
+    'name': 'constant.character.escape.powershell'
   'constant_placeholder':
     'match': '(?i:%(\\([a-z_]+\\))?#?0?\\-?[ ]?\\+?([0-9]*|\\*)(\\.([0-9]*|\\*))?[hL]?[a-z%])'
     'name': 'constant.other.placeholder.powershell'
@@ -790,5 +792,8 @@
       }
       {
         'include': '#string_quoted_single'
+      }
+      {
+        'include': '#escaped_char'
       }
     ]
