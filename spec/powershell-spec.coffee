@@ -226,6 +226,14 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine operator
           expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.comparison.powershell"]
 
+      it "will not tokenize the operators if there's more characters", ->
+        for operator in comparisonOperators
+          operatorPlus = operator + "ual"
+          {tokens} = grammar.tokenizeLine operatorPlus
+          expect(tokens.length).toBe(2)
+          expect(tokens[0]).not.toHaveScopes ["keyword.operator.comparison.powershell"]
+          expect(tokens[1]).not.toHaveScopes ["keyword.operator.comparison.powershell"]
+
   describe "Automatic variables", ->
     automaticVariables = [
       "$null", "$true", "$false", "$$", "$?", "$^", "$_",
