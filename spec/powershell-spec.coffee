@@ -324,9 +324,6 @@ describe "PowerShell grammar", ->
 
     it "escapes single quotes within a string", ->
       {tokens} = grammar.tokenizeLine("$command = \'.\\myfile.ps1 -param1 `\'$myvar`\' -param2 whatever\'")
-      console.log tokens
-      console.log tokens[7]
-      console.log tokens[8]
       expect(tokens[7]).toHaveScopes ["source.powershell", "constant.character.escape.powershell", "string.quoted.single.single-line.powershell"]
       expect(tokens[8]).toHaveScopes ["source.powershell", "string.quoted.single.single-line.powershell"]
 
