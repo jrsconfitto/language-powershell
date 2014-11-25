@@ -42,7 +42,7 @@
     'name': 'keyword.operator.bitwise.powershell'
   }
   {
-    'match': '-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-like|-match|-notmatch|-contains|-notcontains|-in|-notin|-replace'
+    'match': '\\B(?i:(-eq|-ceq|-ieq|-lt|-gt|-le|-ge|-ne|-notlike|-like|-match|-notmatch|-contains|-notcontains|-in|-notin|-replace))\\b'
     'name': 'keyword.operator.comparison.powershell'
   }
   {
