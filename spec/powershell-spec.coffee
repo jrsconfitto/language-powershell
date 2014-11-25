@@ -216,7 +216,7 @@ describe "PowerShell grammar", ->
 
     describe "Comparison operator keywords", ->
       comparisonOperators = [
-        "-eq", "-ceq", "-ieq", "-lt", "-gt", "-le", "-ge", "-ne", "-notlike",
+        "-eq", "-lt", "-gt", "-le", "-ge", "-ne", "-notlike",
         "-like", "-match", "-notmatch", "-contains", "-notcontains", "-in",
         "-notin", "-replace"
       ]
@@ -230,6 +230,14 @@ describe "PowerShell grammar", ->
         for operator in comparisonOperators
           {tokens} = grammar.tokenizeLine operator.toUpperCase()
           expect(tokens[0]).toEqual value: operator.toUpperCase(), scopes: ["source.powershell","keyword.operator.comparison.powershell"]
+
+      it "tokenizes comparison operators when prepended with a case sensitivity marker", ->
+        for operator in comparisonOperators
+          {tokens} = grammar.tokenizeLine operator.replace('-', '-i')
+          expect(tokens[0]).toHaveScopes ["source.powershell","keyword.operator.comparison.powershell"]
+
+          {tokens} = grammar.tokenizeLine operator.replace('-', '-c')
+          expect(tokens[0]).toHaveScopes ["source.powershell","keyword.operator.comparison.powershell"]
 
       it "will not tokenize the operators if there's more characters", ->
         for operator in comparisonOperators
