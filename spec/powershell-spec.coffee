@@ -226,6 +226,11 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine operator
           expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.comparison.powershell"]
 
+      it "tokenizes comparison operators regardless of case", ->
+        for operator in comparisonOperators
+          {tokens} = grammar.tokenizeLine operator.toUpperCase()
+          expect(tokens[0]).toEqual value: operator.toUpperCase(), scopes: ["source.powershell","keyword.operator.comparison.powershell"]
+
       it "will not tokenize the operators if there's more characters", ->
         for operator in comparisonOperators
           operatorPlus = operator + "ual"
