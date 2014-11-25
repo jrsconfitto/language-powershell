@@ -1,6 +1,6 @@
 {
   "name": "language-powershell",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "PowerShell language support for Atom",
   "repository": "https://github.com/jugglingnutcase/language-powershell",
   "license": "MIT",
