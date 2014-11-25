@@ -233,11 +233,13 @@ describe "PowerShell grammar", ->
 
       it "tokenizes comparison operators when prepended with a case sensitivity marker", ->
         for operator in comparisonOperators
-          {tokens} = grammar.tokenizeLine operator.replace('-', '-i')
-          expect(tokens[0]).toHaveScopes ["source.powershell","keyword.operator.comparison.powershell"]
+          insensitiveOperator = operator.replace('-', '-i')
+          {tokens} = grammar.tokenizeLine insensitiveOperator
+          expect(tokens[0]).toEqual value: insensitiveOperator, scopes: ["source.powershell","keyword.operator.comparison.powershell"]
 
-          {tokens} = grammar.tokenizeLine operator.replace('-', '-c')
-          expect(tokens[0]).toHaveScopes ["source.powershell","keyword.operator.comparison.powershell"]
+          sensitiveOperator = operator.replace('-', '-c')
+          {tokens} = grammar.tokenizeLine sensitiveOperator
+          expect(tokens[0]).toEqual value: sensitiveOperator, scopes: ["source.powershell","keyword.operator.comparison.powershell"]
 
       it "will not tokenize the operators if there's more characters", ->
         for operator in comparisonOperators
