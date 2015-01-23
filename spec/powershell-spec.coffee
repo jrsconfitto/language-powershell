@@ -15,7 +15,7 @@ describe "PowerShell grammar", ->
           return scope in @actual.scopes
 
     runs ->
-      grammar = atom.syntax.grammarForScopeName('source.powershell')
+      grammar = atom.grammars.grammarForScopeName('source.powershell')
 
   it "parses the grammar", ->
     expect(grammar).toBeTruthy()
