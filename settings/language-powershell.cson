@@ -3,5 +3,10 @@
   'editor':
     'commentStart': '# '
     'foldEndPattern': '^\\s*\\}|^\\s*\\]|^\\s*\\)'
-    'increaseIndentPattern': '(?x)\n\t\t^ .* \\{ [^}"\']* $\n\t|   ^ \\s* \\{ \\} $\n\t'
-    'decreaseIndentPattern': '(?x)\n\t\t^ (.*\\*/)? \\s* \\} ( [^}{"\']* \\{ | \\s* while \\s* \\( .* )? [;\\s]* (//.*|/\\*.*\\*/\\s*)? $\n\t'
+    'increaseIndentPattern': '(?x)
+      ^ .* \\{ [^}"\']* $
+      | ^ \\s* \\{ \\} $
+      '
+    'decreaseIndentPattern': '(?x)
+      ^ (.*\\*/)? \\s* \\} ( [^}{"\']* \\{ | \\s* while \\s* \\( .* )? [;\\s]* (//.*|/\\*.*\\*/\\s*)? $
+      '
