@@ -1,3 +1,5 @@
+{TextEditor} = require 'atom'
+
 describe "PowerShell grammar", ->
 
   grammar = null
@@ -366,3 +368,23 @@ describe "PowerShell grammar", ->
       {tokens} = grammar.tokenizeLine("`  \n")
       expect(tokens[0].value).toEqual("`")
       expect(tokens[0]).toHaveScopes ["punctuation.separator.continuation.line.powershell"]
+
+  describe "indentation", ->
+    editor = null
+
+    beforeEach ->
+      editor = new TextEditor({})
+      editor.setGrammar(grammar)
+
+    expectPreservedIndentation = (text) ->
+      editor.setText(text)
+      editor.autoIndentBufferRows(0, text.split("\n").length - 1)
+      expect(editor.getText()).toBe text
+
+    it "indents foreach loops with braces", ->
+      expectPreservedIndentation """
+        foreach($foo in $myArray)
+        {
+          Write-Host "Value $foo"
+        }
+      """
