@@ -1,3 +1,5 @@
+path = require 'path'
+fs = require 'fs'
 {TextEditor} = require 'atom'
 
 describe "PowerShell grammar", ->
@@ -381,10 +383,14 @@ describe "PowerShell grammar", ->
       editor.autoIndentBufferRows(0, text.split("\n").length - 1)
       expect(editor.getText()).toBe text
 
-    it "indents foreach loops with braces", ->
-      expectPreservedIndentation """
-        foreach($foo in $myArray)
-        {
-          Write-Host "Value $foo"
-        }
-      """
+    it "preserves indentation", ->
+      indentFixturesFolder = path.join(__dirname, "fixtures", "indents")
+      console.log(indentFixturesFolder)
+
+      fixtures = for fixture in fs.readdirSync(indentFixturesFolder)
+        fs.readFileSync(path.join(indentFixturesFolder, fixture), 'utf8')
+
+      console.log(fixtures)
+
+      for fixture in fixtures
+        expectPreservedIndentation fixture
