@@ -385,12 +385,9 @@ describe "PowerShell grammar", ->
 
     it "preserves indentation", ->
       indentFixturesFolder = path.join(__dirname, "fixtures", "indents")
-      console.log(indentFixturesFolder)
 
       fixtures = for fixture in fs.readdirSync(indentFixturesFolder)
         fs.readFileSync(path.join(indentFixturesFolder, fixture), 'utf8')
-
-      console.log(fixtures)
 
       for fixture in fixtures
         expectPreservedIndentation fixture
