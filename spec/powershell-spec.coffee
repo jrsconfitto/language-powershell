@@ -1,3 +1,7 @@
+path = require 'path'
+fs = require 'fs'
+{TextEditor} = require 'atom'
+
 describe "PowerShell grammar", ->
 
   grammar = null
@@ -366,3 +370,24 @@ describe "PowerShell grammar", ->
       {tokens} = grammar.tokenizeLine("`  \n")
       expect(tokens[0].value).toEqual("`")
       expect(tokens[0]).toHaveScopes ["punctuation.separator.continuation.line.powershell"]
+
+  describe "indentation", ->
+    editor = null
+
+    beforeEach ->
+      editor = new TextEditor({})
+      editor.setGrammar(grammar)
+
+    expectPreservedIndentation = (text) ->
+      editor.setText(text)
+      editor.autoIndentBufferRows(0, text.split("\n").length - 1)
+      expect(editor.getText()).toBe text
+
+    it "preserves indentation", ->
+      indentFixturesFolder = path.join(__dirname, "fixtures", "indents")
+
+      fixtures = for fixture in fs.readdirSync(indentFixturesFolder)
+        fs.readFileSync(path.join(indentFixturesFolder, fixture), 'utf8')
+
+      for fixture in fixtures
+        expectPreservedIndentation fixture
