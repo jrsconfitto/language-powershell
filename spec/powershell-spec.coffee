@@ -28,7 +28,6 @@ describe "PowerShell grammar", ->
   describe "comments", ->
     it "parses comments at the end of lines", ->
       {tokens} = grammar.tokenizeLine("$foo = 'bar' # a trailing comment")
-      console.log(tokens)
       expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell", "keyword.other.powershell"]
       expect(tokens[1]).toEqual value: "foo", scopes: ["source.powershell", "variable.other.readwrite.powershell"]
       expect(tokens[2]).toEqual value: " ", scopes: ["source.powershell"]
