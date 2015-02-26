@@ -343,21 +343,23 @@ describe "PowerShell grammar", ->
 
     it "escapes variables", ->
       {tokens} = grammar.tokenizeLine("`$a")
-      expect(tokens[0]).toHaveScopes ["constant.character.escape.powershell"]
+      expect(tokens[0].value).toBe "`$"
+      expect(tokens[0]).toHaveScopes ["source.powershell", "constant.character.escape.powershell"]
 
     it "escapes any character", ->
       {tokens} = grammar.tokenizeLine("`_")
-      expect(tokens[0]).toHaveScopes ["source.powershell", "constant.character.escape.powershell"]
+      expect(tokens[0].value).toBe '`'
+      expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.operator.other.powershell"]
 
     it "escapes single quotes within a string", ->
       {tokens} = grammar.tokenizeLine("$command = \'.\\myfile.ps1 -param1 `\'$myvar`\' -param2 whatever\'")
-      expect(tokens[7]).toHaveScopes ["source.powershell", "constant.character.escape.powershell", "string.quoted.single.single-line.powershell"]
-      expect(tokens[8]).toHaveScopes ["source.powershell", "string.quoted.single.single-line.powershell"]
+      expect(tokens[7].value).toBe '\''
+      expect(tokens[7]).toHaveScopes ["source.powershell", "string.quoted.single.powershell"]
 
     it "escapes double quotes within a string", ->
       {tokens} = grammar.tokenizeLine("$command = \".\\myfile.ps1 -param1 `\"$myvar`\" -param2 whatever\"")
-      expect(tokens[10]).toHaveScopes ["source.powershell", "constant.character.escape.powershell", "string.quoted.double.single-line.powershell"]
-      expect(tokens[11]).toHaveScopes ["source.powershell", "string.quoted.double.single-line.powershell"]
+      expect(tokens[7].value).toBe '`"'
+      expect(tokens[7]).toHaveScopes ["source.powershell", "constant.character.escape.powershell", "string.quoted.double.powershell"]
 
   describe "Line continuations", ->
 
