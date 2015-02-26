@@ -13,7 +13,7 @@ describe "PowerShell grammar", ->
       toHaveScopes: (scopes) ->
         notText = if @isNot then "not" else ""
         this.message = (expected) =>
-          "Expected token \"#{@actual.value}\" to #{notText} have scopes [\"#{expected}\"]. Instead found: [#{@actual.scopes.toString()}]"
+          "Expected token \"#{@actual.value}\" to #{notText} have scopes [#{expected}]. Instead found: [#{@actual.scopes.toString()}]"
 
         allScopesPresent = scopes.every (scope) =>
           return scope in @actual.scopes
