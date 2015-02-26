@@ -48,8 +48,8 @@ describe "PowerShell grammar", ->
   describe "start of variable", ->
     it "parses the dollar sign at the beginning of a variable separately", ->
       {tokens} = grammar.tokenizeLine("$var")
-      expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell", "variable.other.powershell", "punctuation.variable.begin.powershell"]
-      expect(tokens[1]).toEqual value: "var", scopes: ["source.powershell", "variable.other.powershell"]
+      expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell", "keyword.other.powershell"]
+      expect(tokens[1]).toEqual value: "var", scopes: ["source.powershell", "variable.other.readwrite.powershell"]
 
   describe "Double-quoted strings", ->
     describe "String with content", ->
