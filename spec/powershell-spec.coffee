@@ -249,8 +249,8 @@ describe "PowerShell grammar", ->
           operatorPlus = operator + "ual"
           {tokens} = grammar.tokenizeLine operatorPlus
           expect(tokens.length).toBe(2)
-          expect(tokens[0]).not.toHaveScopes ["keyword.operator.comparison.powershell"]
-          expect(tokens[1]).not.toHaveScopes ["keyword.operator.comparison.powershell"]
+          expect(tokens[0]).not.toHaveScopes ["source.powershell", "keyword.operator.comparison.powershell"]
+          expect(tokens[1]).not.toHaveScopes ["source.powershell", "keyword.operator.comparison.powershell"]
 
   describe "Automatic variables", ->
     automaticVariables = [
