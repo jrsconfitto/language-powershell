@@ -336,8 +336,10 @@ describe "PowerShell grammar", ->
       it "tokenizes constant hexadecimal integer values", ->
         for constant in constants
           {tokens} = grammar.tokenizeLine constant
-          expect(tokens[0].value).toEqual constant
-          expect(tokens[0]).toHaveScopes ["constant.numeric.integer.hexadecimal.powershell"]
+          expect(tokens[0].value).toEqual "0x"
+          expect(tokens[0]).toHaveScopes ["source.powershell", "constant.numeric.hexadecimal.powershell", "keyword.operator.math.powershell"]
+          expect(tokens[1].value).toEqual constant.substr(2)
+          expect(tokens[1]).toHaveScopes ["source.powershell", "constant.numeric.hexadecimal.powershell", "support.constant.powershell"]
 
   describe "Types", ->
     types = [ "[string]", "[Int32]", "[System.Diagnostics.Process]"]
