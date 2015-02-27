@@ -309,15 +309,26 @@ describe "PowerShell grammar", ->
 
     describe "Constant float values", ->
       constants = [
-        "1.0", "0.89324", "123124235.2385923234", "3.23e24", "2.33e-12",
-        "9.11e+21", "21e6", "7e-12", "12e+24"
+        "1.0", "0.89324", "123124235.2385923234"
+      ]
+
+      scientificConstants = [
+        "3.23e24", "2.33e-12", "9.11e+21", "21e6", "7e-12", "12e+24"
       ]
 
       it "tokenizes constant float values", ->
         for constant in constants
           {tokens} = grammar.tokenizeLine constant
           expect(tokens[0].value).toEqual constant
-          expect(tokens[0]).toHaveScopes ["constant.numeric.float.powershell"]
+          expect(tokens[0]).toHaveScopes ["source.powershell", "support.constant.powershell", "constant.numeric.scientific.powershell"]
+
+      it "tokenizes scientific numbers", ->
+        for scientificConstant in scientificConstants
+          {tokens} = grammar.tokenizeLine scientificConstant
+          expect(tokens[0]).toHaveScopes ["source.powershell", "support.constant.powershell", "constant.numeric.scientific.powershell"]
+          expect(tokens[1].value.substr(0, 1)).toBe "e"
+          expect(tokens[1]).toHaveScopes ["source.powershell", "constant.numeric.scientific.powershell", "keyword.operator.math.powershell"]
+          expect(tokens[2]).toHaveScopes ["source.powershell", "support.constant.powershell", "constant.numeric.scientific.powershell"]
 
     describe "Constant hexadecimal values", ->
       constants = [ "0x1234", "0x1FF2", "0xff2e" ]
