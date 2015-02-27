@@ -286,15 +286,6 @@ describe "PowerShell grammar", ->
         expect(tokens[1]).toHaveScopes ["source.powershell", "variable.language.powershell"]
         expect(tokens[1]).not.toHaveScopes ["source.powershell", "punctuation.variable.begin.powershell"]
 
-  describe "Cmdlets", ->
-    cmdlets = ["Get-ChildItem","_-_","underscores_are-not_a_problem"]
-
-    it "tokenizes cmdlets", ->
-      for cmdlet in cmdlets
-        {tokens} = grammar.tokenizeLine cmdlet
-        expect(tokens[0].value).toEqual cmdlet
-        expect(tokens[0]).toHaveScopes ["keyword.cmdlet.powershell"]
-
   describe "Escaped characters", ->
     escapedCharacters = [
       "`n", "`\"", "`\'", "`a", "`b", "`r", "`t", "`f", "`0", "`v", "--%", "``"
