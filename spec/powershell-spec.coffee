@@ -184,15 +184,15 @@ describe "PowerShell grammar", ->
 
         it "should tokenize 'Try'", ->
           expect(tokens[0].value).toEqual "try"
-          expect(tokens[0]).toHaveScopes ["keyword.control.flow.powershell"]
+          expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
         it "should tokenize 'Catch'", ->
           expect(tokens[8].value).toEqual "catch"
-          expect(tokens[8]).toHaveScopes ["keyword.control.flow.powershell"]
+          expect(tokens[8]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
         it "should tokenize 'Finally'", ->
-          expect(tokens[16].value).toEqual "finally"
-          expect(tokens[16]).toHaveScopes ["keyword.control.flow.powershell"]
+          expect(tokens[36].value).toEqual "finally"
+          expect(tokens[36]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
     describe "Logical operator keywords", ->
       logicalOperators = [ "-and", "-or", "-xor", "-not", "!"]
