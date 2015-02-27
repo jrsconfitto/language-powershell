@@ -150,9 +150,9 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine("do { echo $i; $i += 1 } until($i -gt 100)")
 
         it "should highlight 'do'", ->
-          expect(tokens[0]).toEqual value: "do", scopes: ["source.powershell","keyword.control.flow.powershell"]
+          expect(tokens[0]).toEqual value: "do", scopes: ["source.powershell","keyword.control.powershell"]
         it "should highlight 'until'", ->
-          expect(tokens[14]).toEqual value: "until", scopes: ["source.powershell","keyword.control.flow.powershell"]
+          expect(tokens[13]).toEqual value: "until", scopes: ["source.powershell","keyword.control.powershell"]
 
       describe "'For' statements", ->
         tokens = null
