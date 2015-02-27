@@ -304,8 +304,8 @@ describe "PowerShell grammar", ->
       it "tokenizes constant value in bytes", ->
         for constant in constants
           {tokens} = grammar.tokenizeLine constant
-          expect(tokens[0].value).toEqual constant
-          expect(tokens[0]).toHaveScopes ["constant.numeric.integer.bytes.powershell"]
+          for token in tokens
+            expect(token).toHaveScopes ["source.powershell", "constant.numeric.scientific.powershell"]
 
     describe "Constant float values", ->
       constants = [
