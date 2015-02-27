@@ -295,7 +295,7 @@ describe "PowerShell grammar", ->
       for character in escapedCharacters
         {tokens} = grammar.tokenizeLine character
         expect(tokens[0].value).toEqual character
-        expect(tokens[0]).toHaveScopes ["constant.character.escape.powershell"]
+        expect(tokens[0]).toHaveScopes ["source.powershell", "constant.character.escape.powershell"]
 
   describe "Constants", ->
     describe "Constant values in kilobytes, megabytes, and gigabytes", ->
