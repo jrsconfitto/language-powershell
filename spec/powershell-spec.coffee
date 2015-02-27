@@ -124,7 +124,7 @@ describe "PowerShell grammar", ->
         for keyword in keywords
           {tokens} = grammar.tokenizeLine keyword
           expect(tokens[0].value).toEqual keyword
-          expect(tokens[0]).toHaveScopes ["keyword.control.flow.powershell"]
+          expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
     describe "Flow keywords", ->
       describe "If-else statements", ->
