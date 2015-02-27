@@ -194,7 +194,7 @@ describe "PowerShell grammar", ->
           expect(tokens[36].value).toEqual "finally"
           expect(tokens[36]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
-    fdescribe "Logical operator keywords", ->
+    describe "Logical operator keywords", ->
       logicalOperators = [ "-and", "-or", "-xor", "-not", "-eq", "-lt", "-gt", "-le", "-ge", "-ne" ]
 
       it "tokenizes logical operators", ->
