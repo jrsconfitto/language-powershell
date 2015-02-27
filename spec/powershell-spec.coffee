@@ -349,11 +349,11 @@ describe "PowerShell grammar", ->
         {tokens} = grammar.tokenizeLine type
         expectedType = type.substr(1, type.length - 2)
         expect(tokens[0].value).toEqual "["
-        expect(tokens[0]).toHaveScopes ["storage.type.powershell", "punctuation.storage.type.begin.powershell"]
+        expect(tokens[0]).toHaveScopes ["source.powershell", "storage.type.powershell", "punctuation.storage.type.begin.powershell"]
         expect(tokens[1].value).toEqual expectedType
-        expect(tokens[1]).toHaveScopes ["storage.type.powershell"]
+        expect(tokens[1]).toHaveScopes ["source.powershell", "storage.type.powershell"]
         expect(tokens[2].value).toEqual "]"
-        expect(tokens[2]).toHaveScopes ["punctuation.storage.type.end.powershell"]
+        expect(tokens[2]).toHaveScopes ["source.powershell", "punctuation.storage.type.end.powershell"]
 
   describe "Escape characters", ->
 
