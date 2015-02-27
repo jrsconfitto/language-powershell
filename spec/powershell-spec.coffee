@@ -252,9 +252,14 @@ describe "PowerShell grammar", ->
           expect(tokens[0]).not.toHaveScopes ["source.powershell", "keyword.operator.comparison.powershell"]
           expect(tokens[1]).not.toHaveScopes ["source.powershell", "keyword.operator.comparison.powershell"]
 
+  # Automatic variables. Ref: https://technet.microsoft.com/en-us/library/hh847768.aspx
   describe "Automatic variables", ->
+    automaticConstants = [
+      "$null", "$true", "$false"
+    ]
+
     automaticVariables = [
-      "$null", "$true", "$false", "$$", "$?", "$^", "$_",
+      "$$", "$?", "$^", "$_",
       "$Args", "$ConsoleFileName", "$Error", "$Event", "$EventArgs",
       "$EventSubscriber", "$ExecutionContext", "$ForEach", "$Host", "$Home", "$Input",
       "$LastExitCode", "$Matches", "$MyInvocation", "$NestedPromptLevel", "$OFS",
@@ -264,14 +269,22 @@ describe "PowerShell grammar", ->
       "$ShellID", "$StackTrace", "$This"
     ]
 
-    it "tokenizes automatic language variables", ->
-      for variable in automaticVariables
-        {tokens} = grammar.tokenizeLine variable
+    it "tokenizes automatic language constants", ->
+      for automaticConstant in automaticConstants
+        {tokens} = grammar.tokenizeLine automaticConstant
         expect(tokens[0].value).toEqual "$"
-        expect(tokens[0]).toHaveScopes ["variable.language.powershell", "punctuation.variable.begin.powershell"]
-        expect(tokens[1].value).toEqual variable.substr(1)
-        expect(tokens[1]).toHaveScopes ["variable.language.powershell"]
-        expect(tokens[1]).not.toHaveScopes ["punctuation.variable.begin.powershell"]
+        expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.other.powershell"]
+        expect(tokens[1].value).toEqual automaticConstant.substr(1)
+        expect(tokens[1]).toHaveScopes ["source.powershell", "constant.language.powershell"]
+
+    it "tokenizes automatic variables", ->
+      for automaticVariable in automaticVariables
+        {tokens} = grammar.tokenizeLine automaticVariable
+        expect(tokens[0].value).toEqual "$"
+        expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.other.powershell"]
+        expect(tokens[1].value).toEqual automaticVariable.substr(1)
+        expect(tokens[1]).toHaveScopes ["source.powershell", "variable.language.powershell"]
+        expect(tokens[1]).not.toHaveScopes ["source.powershell", "punctuation.variable.begin.powershell"]
 
   describe "Cmdlets", ->
     cmdlets = ["Get-ChildItem","_-_","underscores_are-not_a_problem"]
