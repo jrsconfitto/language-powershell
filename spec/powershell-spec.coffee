@@ -134,13 +134,14 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine("if($answer.length -lt 10) { echo $answer } elseif($answer.length -lt 100) { echo \"You talk a lot\" } else { echo \"?\"}")
 
         it "should highlight 'if'", ->
-          expect(tokens[0]).toEqual value: "if", scopes: ["source.powershell","keyword.control.flow.powershell"]
+          expect(tokens[0]).toEqual value: "if", scopes: ["source.powershell","keyword.control.powershell"]
 
         it "should highlight 'elseif'", ->
-          expect(tokens[18]).toEqual value: "elseif", scopes: ["source.powershell","keyword.control.flow.powershell"]
+          expect(tokens[14]).toEqual value: "elseif", scopes: ["source.powershell","keyword.control.powershell"]
 
         it "should highlight 'else'", ->
-          expect(tokens[37]).toEqual value: "else", scopes: ["source.powershell","keyword.control.flow.powershell"]
+          console.log(tokens)
+          expect(tokens[29]).toEqual value: "else", scopes: ["source.powershell","keyword.control.powershell"]
 
       describe "Do-until statements", ->
         tokens = null
