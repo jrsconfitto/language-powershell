@@ -140,7 +140,6 @@ describe "PowerShell grammar", ->
           expect(tokens[14]).toEqual value: "elseif", scopes: ["source.powershell","keyword.control.powershell"]
 
         it "should highlight 'else'", ->
-          console.log(tokens)
           expect(tokens[29]).toEqual value: "else", scopes: ["source.powershell","keyword.control.powershell"]
 
       describe "Do-until statements", ->
