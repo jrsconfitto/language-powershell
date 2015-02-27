@@ -382,12 +382,7 @@ describe "PowerShell grammar", ->
     it "considers a backtick followed by a newline as a line continuation", ->
       {tokens} = grammar.tokenizeLine("`\n")
       expect(tokens[0].value).toEqual("`")
-      expect(tokens[0]).toHaveScopes ["punctuation.separator.continuation.line.powershell"]
-
-    it "considers a backtick followed by whitespace and a newline as a line continuation", ->
-      {tokens} = grammar.tokenizeLine("`  \n")
-      expect(tokens[0].value).toEqual("`")
-      expect(tokens[0]).toHaveScopes ["punctuation.separator.continuation.line.powershell"]
+      expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.operator.other.powershell"]
 
   describe "indentation", ->
     editor = null
