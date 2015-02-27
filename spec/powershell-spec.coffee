@@ -210,6 +210,7 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine operator
           expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.unary.powershell"]
 
+    describe "Bitwise operator keywords", ->
       bitwiseOperators = [ "-bAnd", "-bOr", "-bXor", "-bNot", "-shl", "-sh" ]
 
       it "tokenizes bitwise operators", ->
