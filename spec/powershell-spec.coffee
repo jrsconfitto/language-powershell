@@ -160,7 +160,7 @@ describe "PowerShell grammar", ->
           {tokens} = grammar.tokenizeLine("for($i=0;i<10;$i++) { echo $i }")
 
         it "should highlight 'for'", ->
-          expect(tokens[0]).toEqual value: "for", scopes: ["source.powershell","keyword.control.flow.powershell"]
+          expect(tokens[0]).toEqual value: "for", scopes: ["source.powershell","keyword.control.powershell"]
 
       describe "'ForEach' statements", ->
         tokens = null
@@ -170,11 +170,11 @@ describe "PowerShell grammar", ->
 
         it "should tokenize 'ForEach'", ->
           expect(tokens[0].value).toEqual "foreach"
-          expect(tokens[0]).toHaveScopes ["keyword.control.flow.powershell"]
+          expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
         it "should tokenize 'in'", ->
           expect(tokens[5].value).toEqual "in"
-          expect(tokens[5]).toHaveScopes ["keyword.control.flow.powershell"]
+          expect(tokens[5]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
       describe "Try-Catch-Finally statements", ->
         tokens = null
