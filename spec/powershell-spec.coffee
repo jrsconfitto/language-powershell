@@ -260,13 +260,21 @@ describe "PowerShell grammar", ->
 
     automaticVariables = [
       "$$", "$?", "$^", "$_",
-      "$Args", "$ConsoleFileName", "$Error", "$Event", "$EventArgs",
-      "$EventSubscriber", "$ExecutionContext", "$ForEach", "$Host", "$Home", "$Input",
-      "$LastExitCode", "$Matches", "$MyInvocation", "$NestedPromptLevel", "$OFS",
+      "$Args",
+      "$ConsoleFileName",
+      "$Event", "$EventArgs", "$EventSubscriber", "$ExecutionContext",
+      "$false", "$ForEach",
+      "$Host", "$Home",
+      "$Input",
+      "$LastExitCode",
+      "$Matches", "$MyInvocation",
+      "$NestedPromptLevel", "$null",
+      "$OFS",
       "$PID", "$Profile", "$PSBoundParameters", "$PSCmdlet", "$PSCommandPath",
       "$PSCulture", "$PSDebuggingContext", "$PSHome", "$PSItem", "$PSScriptRoot",
-      "$PSSenderInfo", "$PSUICulture", "$PSVersionTable", "$Pwd", "$Sender",
-      "$ShellID", "$StackTrace", "$This"
+      "$PSSenderInfo", "$PSUICulture", "$PSVersionTable", "$Pwd",
+      "$Sender", "$ShellID", "$StackTrace",
+      "$This", "$true"
     ]
 
     it "tokenizes automatic language constants", ->
