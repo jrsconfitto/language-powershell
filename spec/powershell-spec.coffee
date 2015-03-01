@@ -211,6 +211,7 @@ describe "PowerShell grammar", ->
           expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.unary.powershell"]
 
     describe "Bitwise operator keywords", ->
+      # TODO: add `-shl` and `-sh` upon resolution of SublimeText/PowerShell#101
       bitwiseOperators = [ "-bAnd", "-bOr", "-bXor", "-bNot", "-shl", "-sh" ]
 
       it "tokenizes bitwise operators", ->
