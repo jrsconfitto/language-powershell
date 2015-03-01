@@ -253,7 +253,7 @@ describe "PowerShell grammar", ->
           expect(tokens[1]).not.toHaveScopes ["source.powershell", "keyword.operator.comparison.powershell"]
 
   # Automatic variables. Ref: https://technet.microsoft.com/en-us/library/hh847768.aspx
-  # Skip while things settle out on the parent grammar
+  # Skip while things settle out on the parent grammar: SublimeText/PowerShell#103
   xdescribe "Automatic variables", ->
     automaticVariables = [
       "$$", "$?", "$^", "$_",
