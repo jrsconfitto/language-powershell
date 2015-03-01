@@ -212,7 +212,7 @@ describe "PowerShell grammar", ->
 
     describe "Bitwise operator keywords", ->
       # TODO: add `-shl` and `-sh` upon resolution of SublimeText/PowerShell#101
-      bitwiseOperators = [ "-bAnd", "-bOr", "-bXor", "-bNot", "-shl", "-sh" ]
+      bitwiseOperators = [ "-bAnd", "-bOr", "-bXor", "-bNot" ]
 
       it "tokenizes bitwise operators", ->
         for operator in bitwiseOperators
