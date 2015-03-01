@@ -1,784 +1,691 @@
-'scopeName': 'source.powershell'
-'name': 'PowerShell'
-'comment': 'Windows PowerShell language'
-'fileTypes': [
-  'ps1'
-  'psm1'
-  'psd1'
-]
-'firstLineMatch': '^#!/.*\\bpowershell\\b'
-'foldingStartMarker': '^\\s*(function)\\s+([.a-zA-Z0-9_ <]+)\\s*(\\((.*)\\))?\\s*:|\\{\\s*$|\\(\\s*$|\\[\\s*$|^\\s*"""(?=.)(?!.*""")'
-'foldingStopMarker': '^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*"""\\s*$'
-'patterns': [
-  {
-    'include': '#escaped_char'
-  }
-  {
-    'captures':
-      '1':
-        'name': 'punctuation.storage.type.begin.powershell'
-      '3':
-        'name': 'punctuation.storage.type.end.powershell'
-    'match':'(\\[)([A-Za-z0-9_\\.]+)(\\])'
-    'name':'storage.type.powershell'
-  }
-  {
-    'captures':
-      '1':
-        'name': 'punctuation.variable.begin.powershell'
-    'match': '(\\$)(?i:(null|true|false|\\$|\\?|\\^|_|args|consolefilename|error|eventsubscriber|eventargs|event|executioncontext|foreach|host|home|input|lastexitcode|matches|myinvocation|nestedpromptlevel|ofs|pid|profile|psboundparameters|pscmdlet|pscommandpath|psculture|psdebuggingcontext|pshome|psitem|psscriptroot|psuiculture|pssenderinfo|psversiontable|pwd|sender|shellid|stacktrace|this))'
-    'comment': 'Powershell automatic variables.'
-    'name': 'variable.language.powershell'
-  }
-  {
-    'captures':
-      '1':
-        'name': 'punctuation.variable.begin.powershell'
-    'match': '(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
-    'name': 'variable.other.powershell'
-  }
-  {
-    'match': '\\B(?i:(-bAnd|-bOr|-bXor|-bNot|-shl|-sh))\\b'
-    'name': 'keyword.operator.bitwise.powershell'
-  }
-  {
-    'match': '\\B(?i:-([i|c]?(eq|lt|gt|le|ge|ne|notlike|like|match|notmatch|contains|notcontains|in|notin|replace)))\\b'
-    'name': 'keyword.operator.comparison.powershell'
-  }
-  {
-    'comment': 'keyword operators that evaluate to True or False'
-    'match': '\\B(?i:-(and|not|or|xor))\\b'
-    'name': 'keyword.operator.logical.powershell'
-  }
-  {
-    'comment': 'logical negation operator'
-    'match': '!'
-    'name': 'keyword.operator.logical.powershell'
-  }
-  {
-    'captures':
-      '1':
-        'name': 'punctuation.definition.comment.powershell'
-    'match': '\\s*(#).*$'
-    'name': 'comment.line.number-sign.powershell'
-  }
-  {
-    'begin': '^\\s*<#'
-    'captures':
-      '1':
-        'name': 'punctuation.definition.comment.powershell'
-    'end': '.*#>'
-    'name': 'comment.block.powershell'
-  }
-  {
-    'begin': '\\s*@"'
-    'captures':
-      '1':
-        'name': 'punctuation.definition.herestring.powershell'
-    'end': '^"@'
-    'name': 'constant.string.multiline.doublequoted'
-  }
-  {
-    'begin': '\\s*@\''
-    'captures':
-      '1':
-        'name': 'punctuation.definition.herestring.powershell'
-    'end': '^\'@'
-    'name': 'constant.string.multiline.singlequoted'
-  }
-  {
-    'match': '\\b(?i:(0x\\h*)L)'
-    'name': 'constant.numeric.integer.long.hexadecimal.powershell'
-  }
-  {
-    'match': '\\b(?i:(0x\\h*))'
-    'name': 'constant.numeric.integer.hexadecimal.powershell'
-  }
-  {
-    'match': '\\b(?i:(((\\d+(\\.(?=[^a-zA-Z_])\\d*)?|(?<=[^0-9a-zA-Z_])\\.\\d+)(e[\\-\\+]?\\d+)?))J)'
-    'name': 'constant.numeric.complex.powershell'
-  }
-  {
-    'match': '\\b(?i:(\\d+\\.\\d*(e[\\-\\+]?\\d+)?))(?=[^a-zA-Z_])'
-    'name': 'constant.numeric.float.powershell'
-  }
-  {
-    'match': '(?<=[^0-9a-zA-Z_])(?i:(\\.\\d+(e[\\-\\+]?\\d+)?))'
-    'name': 'constant.numeric.float.powershell'
-  }
-  {
-    'match': '\\b(?i:(\\d+e[\\-\\+]?\\d+))'
-    'name': 'constant.numeric.float.powershell'
-  }
-  {
-    'match': '\\b(?i:([1-9]+[0-9]*|0)L)'
-    'name': 'constant.numeric.integer.long.decimal.powershell'
-  }
-  {
-    'match': '\\b([1-9]+[0-9]*|0)(?i:kb|mb|gb)'
-    'name': 'constant.numeric.integer.bytes.powershell'
-  }
-  {
-    'match': '\\b([1-9]+[0-9]*|0)'
-    'name': 'constant.numeric.integer.decimal.powershell'
-  }
-  {
-    'comment': 'keywords that delimit special blocks'
-    'match': '\\b(?i:(begin|data|dynamicparam|end|filter|inlinescript|parallel|process|sequence|workflow))\\b'
-    'name': 'keyword.control.flow.powershell'
-  }
-  {
-    'comment': 'keywords that delimit flow blocks'
-    'match': '\\b(?i:(catch|do|else|elseif|finally|for|foreach|if|in|switch|trap|try|until|while))\\b'
-    'name': 'keyword.control.flow.powershell'
-  }
-  {
-    'comment': 'keywords that alter flow from within a block'
-    'match': '\\b(?i:(break|continue|throw|return|exit))\\b'
-    'name': 'keyword.control.flow.powershell'
-  }
-  {
-    'comment': 'cmdlets'
-    'match': '\\b([a-zA-Z_]*-[a-zA-Z_]*)\\b'
-    'name': 'keyword.cmdlet.powershell'
-  }
-  {
-    'captures':
-      '1':
-        'name': 'keyword.cmdlet.alias.powershell'
-    'comment': 'cmdlet aliases'
-    'match': '\\b(ac|asnp|cat|cd|chdir|clc|clear|clhy|cli|clp|\n                       cls|clv|compare|copy|cp|cpi|cpp|cvpa|dbp|del|diff|\n                       dir|ebp|echo|epal|epcsv|epsn|erase|etsn|exsn|fc|fl|\n                       foreach|ft|fw|gal|gbp|gc|gci|gcm|gcs|gdr|ghy|gi|gjb|\n                       gl|gm|gmo|gp|gps|group|gsn|gsnp|gsv|gu|gv|gwmi|h|\n                       history|icm|iex|ihy|ii|ipal|ipcsv|ipmo|ipsn|ise|\n                       iwmi|kill|lp|ls|man|md|measure|mi|mount|move|mp|mv|\n                       nal|ndr|ni|nmo|nsn|nv|ogv|oh|popd|ps|pushd|pwd|r|\n                       rbp|rcjb|rd|rdr|ren|ri|rjb|rm|rmdir|rmo|rni|rnp|rp|\n                       rsn|rsnp|rv|rvpa|rwmi|sajb|sal|saps|sasv|sbp|sc|\n                       select|set|si|sl|sleep|sort|sp|spjb|spps|spsv|start|\n                       sv|swmi|tee|type|where|wjb|write)\\b'
-    'name': 'keyword.cmdlet.alias.powershell'
-  }
-  {
-    'captures':
-      '1':
-        'name': 'keyword.other.powershell'
-    'comment': 'keywords that haven\'t fit into other groups (yet).'
-    'match': '\\b(?i:(from|param))\\b'
-  }
-  {
-    'match': '\\+\\=|-\\=|\\*\\=|/\\=|//\\=|%\\=|&\\=|\\|\\=|\\^\\=|>>\\=|<<\\=|\\*\\*\\='
-    'name': 'keyword.operator.assignment.augmented.powershell'
-  }
-  {
-    'match': '\\+|\\-|\\*|\\*\\*|/|//|%|<<|>>|&|\\||\\^|~'
-    'name': 'keyword.operator.arithmetic.powershell'
-  }
-  {
-    'match': '\\='
-    'name': 'keyword.operator.assignment.powershell'
-  }
-  {
-    'begin': '^\\s*([Ff]unction)\\s+(?=[A-Za-z_][A-Za-z0-9_]*\\s*(\\(?))'
-    'beginCaptures':
-      '1':
-        'name': 'storage.type.function.powershell'
-    'end': '(\\)?)\\s*(?:(.*$\\n?))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.parameters.end.powershell'
-      '2':
-        'name': 'punctuation.section.function.begin.powershell'
-      '3':
-        'name': 'invalid.illegal.missing-section-begin.powershell'
-    'name': 'meta.function.powershell'
-    'patterns': [
-      {
-        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
-        'contentName': 'entity.name.function.powershell'
-        'end': '(?![A-Za-z0-9_])'
-        'patterns': [
+{
+  fileTypes: [
+    "ps1"
+    "psm1"
+    "psd1"
+  ]
+  name: "PowerShell"
+  patterns: [
+    {
+      begin: "<#"
+      beginCaptures:
+        0:
+          name: "punctuation.start.definition.comment.block.powershell"
+
+      end: "#>"
+      endCaptures:
+        0:
+          name: "punctuation.end.definition.comment.block.powershell"
+
+      name: "comment.block.powershell"
+      patterns: [include: "#commentEmbeddedDocs"]
+    }
+    {
+      begin: "(?<![\\\\-])#"
+      end: "$"
+      name: "comment.line.number-sign.powershell"
+      patterns: [include: "#commentEmbeddedDocs"]
+    }
+    {
+      match: "[2-6]>&1|>>|>|<<|<|>|>\\||[1-6]>|[1-6]>>"
+      name: "keyword.operator.redirection.powershell"
+    }
+    {
+      include: "#commands"
+    }
+    {
+      include: "#variable"
+    }
+    {
+      include: "#interpolatedStringContent"
+    }
+    {
+      include: "#function"
+    }
+    {
+      include: "#attribute"
+    }
+    {
+      include: "#type"
+    }
+    {
+      begin: "(?<!(?<!`)\")\""
+      end: "\"(?!\")"
+      name: "string.quoted.double.powershell"
+      patterns: [
+        {
+          include: "#variableNoProperty"
+        }
+        {
+          include: "#doubleQuotedStringEscapes"
+        }
+        {
+          include: "#interpolation"
+        }
+        {
+          match: "`\\s*$"
+          name: "keyword.other.powershell"
+        }
+      ]
+    }
+    {
+      comment: "Needed to parse stuff correctly in 'argument mode'. (See about_parsing.)"
+      include: "#doubleQuotedStringEscapes"
+    }
+    {
+      begin: "(?<!')'"
+      end: "'(?!')"
+      name: "string.quoted.single.powershell"
+      patterns: [
+        match: "''"
+        name: "constant.character.escape.powershell"
+      ]
+    }
+    {
+      begin: "\\@\"(?=$)"
+      end: "^\"@"
+      name: "string.quoted.double.heredoc.powershell"
+      patterns: [
+        {
+          include: "#variableNoProperty"
+        }
+        {
+          include: "#doubleQuotedStringEscapes"
+        }
+        {
+          include: "#interpolation"
+        }
+      ]
+    }
+    {
+      begin: "\\@'(?=$)"
+      end: "^'@"
+      name: "string.quoted.single.heredoc.powershell"
+      patterns: [
+        match: "''"
+        name: "constant.character.escape.powershell"
+      ]
+    }
+    {
+      include: "#numericConstant"
+    }
+    {
+      begin: "@\\("
+      captures:
+        0:
+          name: "keyword.other.powershell"
+
+      end: "\\)"
+      name: "meta.group.array-expression.powershell"
+      patterns: [include: "$self"]
+    }
+    {
+      begin: "\\$\\("
+      captures:
+        0:
+          name: "keyword.other.powershell"
+
+      comment: "TODO: move to repo; make recursive."
+      end: "\\)"
+      name: "meta.group.complex.subexpression.powershell"
+      patterns: [include: "$self"]
+    }
+    {
+      match: "(?<!\\w)-([ci]?[lg][te]|eq|ne)"
+      name: "keyword.operator.logical.powershell"
+    }
+    {
+      match: "(?i:([\\S&&[^<>\"/\\|?*]])+)(?i:\\.(?i:exe|cmd|bat|ps1))"
+      name: "support.function.powershell"
+    }
+    {
+      match: "(?<!\\w)((?i:begin|break|catch|continue|data|define|do|dynamicparam|else|elseif|end|exit|filter|finally|for|foreach(?!-object)|from|if|in|inlinescript|parallel|param|process|return|switch|throw|trap|try|until|using|var|where(?!=-object)|while)|%|\\?)(?!\\w)"
+      name: "keyword.control.powershell"
+    }
+    {
+      captures:
+        1:
+          name: "storage.type.powershell"
+
+        2:
+          name: "entity.name.function"
+
+      comment: "capture should be entity.name.type, but it doesn't provide a good color in the default schema."
+      match: "(?<!\\w)((?i:class)|%|\\?)(?:\\s)+((?:\\p{L}|\\d|_|-|)+)\\b"
+    }
+    {
+      match: "(?<!\\w)-(?i:is(?:not)?|as)\\b"
+      name: "keyword.operator.comparison.powershell"
+    }
+    {
+      match: "(?<!\\w)-(?i:[ic]?(?:eq|ne|[gl][te]|(?:not)?(?:like|match|contains|in)|replace))(?!\\p{L})"
+      name: "keyword.operator.comparison.powershell"
+    }
+    {
+      match: "(?<!\\w)-(?i:join|split)(?!\\p{L})|!"
+      name: "keyword.operator.unary.powershell"
+    }
+    {
+      match: "(?<!\\w)-(?i:and|or|not|xor)(?!\\p{L})|!"
+      name: "keyword.operator.logical.powershell"
+    }
+    {
+      match: "(?<!\\w)-(?i:band|bor|bnot|bxor)(?!\\p{L})"
+      name: "keyword.operator.bitwise.powershell"
+    }
+    {
+      match: "(?<!\\w)-(?i:f)(?!\\p{L})"
+      name: "keyword.operator.string-format.powershell"
+    }
+    {
+      match: "[+%*/-]?=|[+/*%-]"
+      name: "keyword.operator.assignment.powershell"
+    }
+    {
+      match: "\\|{2}|&{2}|;"
+      name: "keyword.other.statement-separator.powershell"
+    }
+    {
+      match: "&|(?<!\\w)\\.(?= )|`|,|\\|"
+      name: "keyword.operator.other.powershell"
+    }
+    {
+      comment: "This is very imprecise, is there a syntax for 'must come after...' "
+      match: "(?<!\\s|^)\\.\\.(?=\\d|\\(|\\$)"
+      name: "keyword.operator.range.powershell"
+    }
+  ]
+  repository:
+    attribute:
+      begin: "\\[(\\p{L}|\\.|``\\d+)+(?=\\()"
+      beginCaptures:
+        0:
+          name: "entity.name.tag"
+
+        1:
+          name: "entity.name.tag"
+
+      end: "\\]"
+      endCaptures:
+        0:
+          name: "entity.name.tag"
+
+      patterns: [
+        begin: "\\("
+        end: "\\)"
+        name: "entity.other.attribute-name"
+        patterns: [
           {
-            'include': '#entity_name_function'
+            captures:
+              0:
+                name: "entity.other.attribute.parameter.powershell"
+
+              1:
+                name: "constant.language.powershell"
+
+              2:
+                name: "variable.other.powershell"
+
+            comment: "really we should match the known attributes first"
+            match: "(\\w+)\\s*=?([^\"']*?|'[^']*?'|\"[^\"]*?\")?(?=,|\\))"
+            name: "entity.other.attribute-name.powershell"
+          }
+          {
+            include: "#variable"
           }
         ]
-      }
-      {
-        'begin': '(\\()'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.parameters.begin.powershell'
-        'contentName': 'meta.function.parameters.powershell'
-        'end': '(?=\\))'
-        'patterns': [
-          {
-            'include': '#keyword_arguments'
-          }
-          {
-            'captures':
-              '1':
-                'name': 'variable.parameter.function.powershell'
-              '2':
-                'name': 'punctuation.separator.parameters.powershell'
-            'match': '\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(?:(,)|(?=[\\n\\)]))'
-          }
-        ]
-      }
-    ]
-  }
-  {
-    'begin': '^\\s*(function)\\s+(?=[A-Za-z_][A-Za-z0-9_]*)'
-    'beginCaptures':
-      '1':
-        'name': 'storage.type.function.powershell'
-    'end': '(\\()|\\s*($\\n?|#.*$\\n?)'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.parameters.begin.powershell'
-      '2':
-        'name': 'invalid.illegal.missing-parameters.powershell'
-    'name': 'meta.function.powershell'
-    'patterns': [
-      {
-        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
-        'contentName': 'entity.name.function.powershell'
-        'end': '(?![A-Za-z0-9_])'
-        'patterns': [
-          {
-            'include': '#entity_name_function'
-          }
-        ]
-      }
-    ]
-  }
-  {
-    'begin': '^\\s*(?=@\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\()'
-    'comment': 'a decorator may be a function call which returns a decorator.'
-    'end': '(\\))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.arguments.end.powershell'
-    'name': 'meta.function.decorator.powershell'
-    'patterns': [
-      {
-        'begin': '(?=(@)\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\()'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.decorator.powershell'
-        'contentName': 'entity.name.function.decorator.powershell'
-        'end': '(?=\\s*\\()'
-        'patterns': [
-          {
-            'include': '#dotted_name'
-          }
-        ]
-      }
-      {
-        'begin': '(\\()'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.arguments.begin.powershell'
-        'contentName': 'meta.function.decorator.arguments.powershell'
-        'end': '(?=\\))'
-        'patterns': [
-          {
-            'include': '#keyword_arguments'
-          }
-          {
-            'include': '$self'
-          }
-        ]
-      }
-    ]
-  }
-  {
-    'begin': '^\\s*(?=@\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*)'
-    'contentName': 'entity.name.function.decorator.powershell'
-    'end': '(?=\\s|$\\n?|#)'
-    'name': 'meta.function.decorator.powershell'
-    'patterns': [
-      {
-        'begin': '(?=(@)\\s*[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*)'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.decorator.powershell'
-        'end': '(?=\\s|$\\n?|#)'
-        'patterns': [
-          {
-            'include': '#dotted_name'
-          }
-        ]
-      }
-    ]
-  }
-  {
-    'begin': '(?<=\\)|\\])\\s*(\\()'
-    'beginCaptures':
-      '1':
-        'name': 'punctuation.definition.arguments.begin.powershell'
-    'contentName': 'meta.function-call.arguments.powershell'
-    'end': '(\\))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.arguments.end.powershell'
-    'name': 'meta.function-call.powershell'
-    'patterns': [
-      {
-        'include': '#keyword_arguments'
-      }
-      {
-        'include': '$self'
-      }
-    ]
-  }
-  {
-    'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\()'
-    'end': '(\\))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.arguments.end.powershell'
-    'name': 'meta.function-call.powershell'
-    'patterns': [
-      {
-        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\()'
-        'end': '(?=\\s*\\()'
-        'patterns': [
-          {
-            'include': '#dotted_name'
-          }
-        ]
-      }
-      {
-        'begin': '(\\()'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.arguments.begin.powershell'
-        'contentName': 'meta.function-call.arguments.powershell'
-        'end': '(?=\\))'
-        'patterns': [
-          {
-            'include': '#keyword_arguments'
-          }
-          {
-            'include': '$self'
-          }
-        ]
-      }
-    ]
-  }
-  {
-    'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\[)'
-    'end': '(\\])'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.arguments.end.powershell'
-    'name': 'meta.item-access.powershell'
-    'patterns': [
-      {
-        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\[)'
-        'end': '(?=\\s*\\[)'
-        'patterns': [
-          {
-            'include': '#dotted_name'
-          }
-        ]
-      }
-      {
-        'begin': '(\\[)'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.arguments.begin.powershell'
-        'contentName': 'meta.item-access.arguments.powershell'
-        'end': '(?=\\])'
-        'patterns': [
-          {
-            'include': '$self'
-          }
-        ]
-      }
-    ]
-  }
-  {
-    'begin': '(?<=\\)|\\])\\s*(\\[)'
-    'beginCaptures':
-      '1':
-        'name': 'punctuation.definition.arguments.begin.powershell'
-    'contentName': 'meta.item-access.arguments.powershell'
-    'end': '(\\])'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.arguments.end.powershell'
-    'name': 'meta.item-access.powershell'
-    'patterns': [
-      {
-        'include': '$self'
-      }
-    ]
-  }
-  {
-    'captures':
-      '1':
-        'name': 'storage.type.function.powershell'
-    'match': '\\b(def|lambda)\\b'
-  }
-  {
-    'include': '#line_continuation'
-  }
-  {
-    'include': '#string_quoted_single'
-  }
-  {
-    'include': '#string_quoted_double'
-  }
-  {
-    'include': '#dotted_name'
-  }
-  {
-    'begin': '(\\()'
-    'end': '(\\))'
-    'patterns': [
-      {
-        'include': '$self'
-      }
-    ]
-  }
-  {
-    'captures':
-      '1':
-        'name': 'punctuation.definition.list.begin.powershell'
-      '2':
-        'name': 'meta.empty-list.powershell'
-      '3':
-        'name': 'punctuation.definition.list.end.powershell'
-    'match': '(\\[)(\\s*(\\]))\\b'
-  }
-  {
-    'begin': '(\\[)'
-    'beginCaptures':
-      '1':
-        'name': 'punctuation.definition.list.begin.powershell'
-    'end': '(\\])'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.list.end.powershell'
-    'name': 'meta.structure.list.powershell'
-    'patterns': [
-      {
-        'begin': '(?<=\\[|\\,)\\s*(?![\\],])'
-        'contentName': 'meta.structure.list.item.powershell'
-        'end': '\\s*(?:(,)|(?=\\]))'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.separator.list.powershell'
-        'patterns': [
-          {
-            'include': '$self'
-          }
-        ]
-      }
-    ]
-  }
-  {
-    'captures':
-      '1':
-        'name': 'punctuation.definition.tuple.begin.powershell'
-      '2':
-        'name': 'meta.empty-tuple.powershell'
-      '3':
-        'name': 'punctuation.definition.tuple.end.powershell'
-    'match': '(\\()(\\s*(\\)))'
-    'name': 'meta.structure.tuple.powershell'
-  }
-]
-'repository':
-  'escaped_char':
-    'match': '(`n)|(`")|(`\\$)|(`\')|(`a)|(`b)|(`r)|(`t)|(`f)|(`0)|(`v)|(--%)|(``)|(`\\S)'
-    'name': 'constant.character.escape.powershell'
-  'constant_placeholder':
-    'match': '(?i:%(\\([a-z_]+\\))?#?0?\\-?[ ]?\\+?([0-9]*|\\*)(\\.([0-9]*|\\*))?[hL]?[a-z%])'
-    'name': 'constant.other.placeholder.powershell'
-  'dotted_name':
-    'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*)'
-    'end': '(?![A-Za-z0-9_\\.])'
-    'patterns': [
-      {
-        'begin': '(\\.)(?=[A-Za-z_][A-Za-z0-9_]*)'
-        'end': '(?![A-Za-z0-9_])'
-        'patterns': [
-          {
-            'include': '#generic_names'
-          }
-        ]
-      }
-      {
-        'begin': '(?<!\\.)(?=[A-Za-z_][A-Za-z0-9_]*)'
-        'end': '(?![A-Za-z0-9_])'
-        'patterns': [
-          {
-            'include': '#generic_names'
-          }
-        ]
-      }
-    ]
-  'entity_name_class':
-    'patterns': [
-      {
-        'include': '#generic_names'
-      }
-    ]
-  'entity_name_function':
-    'patterns': [
-      {
-        'include': '#generic_names'
-      }
-    ]
-  'function_name':
-    'patterns': [
-      {
-        'include': '#generic_names'
-      }
-    ]
-  'generic_names':
-    'match': '[A-Za-z_][A-Za-z0-9_]*'
-  'keyword_arguments':
-    'begin': '\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(=)(?!=)'
-    'beginCaptures':
-      '1':
-        'name': 'variable.parameter.function.powershell'
-      '2':
-        'name': 'keyword.operator.assignment.powershell'
-    'end': '\\s*(?:(,)|(?=$\\n?|[\\)]))'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.separator.parameters.powershell'
-    'patterns': [
-      {
-        'include': '$self'
-      }
-    ]
-  'line_continuation':
-    'captures':
-      '1':
-        'name': 'punctuation.separator.continuation.line.powershell'
-    'match': '(`)(\\s*)$\\n?'
-  'regular_expressions':
-    'comment': 'Changed disabled to 1 to turn off syntax highlighting in “r” strings.'
-    'disabled': 0
-    'patterns': [
-      {
-        'include': 'source.regexp.powershell'
-      }
-    ]
-  'embedded-variable' :
-    'patterns': [
-      {
-        'captures':
-          '1':
-            'name': 'embedded.punctuation.variable.begin.powershell'
-        'match': '(?<!`)(\\$)[a-zA-Z_][a-zA-Z0-9_]*?\\b'
-        'name': 'embedded.variable.other.powershell'
-      }
-    ]
-  'string_quoted_double':
-    'patterns': [
-      {
-        'begin': '(")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.string.begin.powershell'
-        'comment': 'double quoted string'
-        'end': '((?<=")(")|")'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.definition.string.end.powershell'
-          '2':
-            'name': 'meta.empty-string.double.powershell'
-        'name': 'string.quoted.double.block.sql.powershell'
-        'patterns': [
-          {
-            'include': '#constant_placeholder'
-          }
-          {
-            'include': '#escaped_char'
-          }
-        ]
-      }
-      {
-        'begin': '(")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.string.begin.powershell'
-        'comment': 'double quoted string'
-        'end': '((?<=")(")|")|(\\n)'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.definition.string.end.powershell'
-          '2':
-            'name': 'meta.empty-string.double.powershell'
-          '3':
-            'name': 'invalid.illegal.unclosed-string.powershell'
-        'name': 'string.quoted.double.single-line.sql.powershell'
-        'patterns': [
-          {
-            'include': '#constant_placeholder'
-          }
-          {
-            'include': '#escaped_char'
-          }
-        ]
-      }
-      {
-        'begin': '(""")'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.string.begin.powershell'
-        'comment': 'double quoted string'
-        'end': '((?<=""")(")""|""")'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.definition.string.end.powershell'
-          '2':
-            'name': 'meta.empty-string.double.powershell'
-        'name': 'string.quoted.double.block.powershell'
-        'patterns': [
-          {
-            'include': '#constant_placeholder'
-          }
-          {
-            'include': '#escaped_char'
-          }
-        ]
-      }
-      {
-        'begin': '(")'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.string.begin.powershell'
-        'comment': 'double quoted string'
-        'end': '((?<=")(")|")|(\\n)'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.definition.string.end.powershell'
-          '2':
-            'name': 'meta.empty-string.double.powershell'
-          '3':
-            'name': 'invalid.illegal.unclosed-string.powershell'
-        'name': 'string.quoted.double.single-line.powershell'
-        'patterns': [
-          {
-            'include': '#constant_placeholder'
-          }
-          {
-            'include': '#escaped_char'
-          }
-          {
-            'include': '#embedded-variable'
-          }
-        ]
-      }
-    ]
-  'string_quoted_single':
-    'patterns': [
-      {
-        'captures':
-          '1':
-            'name': 'punctuation.definition.string.begin.powershell'
-          '2':
-            'name': 'punctuation.definition.string.end.powershell'
-          '3':
-            'name': 'meta.empty-string.single.powershell'
-        'match': '(?<!\')(\')((\'))(?!\')'
-        'name': 'string.quoted.single.single-line.powershell'
-      }
-      {
-        'begin': '(\'\'\')(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.string.begin.powershell'
-        'comment': 'single quoted string'
-        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.definition.string.end.powershell'
-          '2':
-            'name': 'meta.empty-string.single.powershell'
-        'name': 'string.quoted.single.block.powershell'
-        'patterns': [
-          {
-            'include': '#constant_placeholder'
-          }
-          {
-            'include': '#escaped_char'
-          }
-        ]
-      }
-      {
-        'begin': '(\')(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.string.begin.powershell'
-        'comment': 'single quoted string'
-        'end': '(\')|(\\n)'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.definition.string.end.powershell'
-          '2':
-            'name': 'invalid.illegal.unclosed-string.powershell'
-        'name': 'string.quoted.single.single-line.powershell'
-        'patterns': [
-          {
-            'include': '#constant_placeholder'
-          }
-          {
-            'include': '#escaped_char'
-          }
-        ]
-      }
-      {
-        'begin': '(\'\'\')'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.string.begin.powershell'
-        'comment': 'single quoted string'
-        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.definition.string.end.powershell'
-          '2':
-            'name': 'meta.empty-string.single.powershell'
-        'name': 'string.quoted.single.block.powershell'
-        'patterns': [
-          {
-            'include': '#constant_placeholder'
-          }
-          {
-            'include': '#escaped_char'
-          }
-        ]
-      }
-      {
-        'begin': '(\')'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.string.begin.powershell'
-        'comment': 'single quoted string'
-        'end': '(\')|(\\n)'
-        'endCaptures':
-          '1':
-            'name': 'punctuation.definition.string.end.powershell'
-          '2':
-            'name': 'invalid.illegal.unclosed-string.powershell'
-        'name': 'string.quoted.single.single-line.powershell'
-        'patterns': [
-          {
-            'include': '#constant_placeholder'
-          }
-          {
-            'include': '#escaped_char'
-          }
-        ]
-      }
-    ]
-  'strings':
-    'patterns': [
-      {
-        'include': '#string_quoted_double'
-      }
-      {
-        'include': '#string_quoted_single'
-      }
-      {
-        'include': '#escaped_char'
-      }
-    ]
+      ]
+
+    commands:
+      patterns: [
+        {
+          comment: "Verb-Noun pattern:"
+          match: "(?:(\\p{L}|\\d|_|-|\\\\|\\:)*\\\\)?\\b(?i:Add|Approve|Assert|Backup|Block|Checkpoint|Clear|Close|Compare|Complete|Compress|Confirm|Connect|Convert|ConvertFrom|ConvertTo|Copy|Debug|Deny|Disable|Disconnect|Dismount|Edit|Enable|Enter|Exit|Expand|Export|Find|Format|Get|Grant|Group|Hide|Import|Initialize|Install|Invoke|Join|Limit|Lock|Measure|Merge|Mount|Move|New|Open|Optimize|Out|Ping|Pop|Protect|Publish|Push|Read|Receive|Redo|Register|Remove|Rename|Repair|Request|Reset|Resize|Resolve|Restart|Restore|Resume|Revoke|Save|Search|Select|Send|Set|Show|Skip|Split|Start|Step|Stop|Submit|Suspend|Switch|Sync|Test|Trace|Unblock|Undo|Uninstall|Unlock|Unprotect|Unpublish|Unregister|Update|Use|Wait|Watch|Write)\\-.+?(?:\\.(?i:exe|cmd|bat|ps1))?\\b"
+          name: "support.function.powershell"
+        }
+        {
+          comment: "Builtin cmdlets with reserved verbs"
+          match: "(?<!\\w)(?i:foreach-object)(?!\\w)"
+          name: "support.function.powershell"
+        }
+      ]
+
+    commentEmbeddedDocs:
+      patterns: [
+        {
+          captures:
+            1:
+              name: "constant.string.documentation.powershell"
+
+            2:
+              name: "keyword.operator.documentation.powershell"
+
+          match: "(?i:\\s*(\\.)(SYNOPSIS|DESCRIPTION|EXAMPLE|INPUTS|OUTPUTS|NOTES|LINK|COMPONENT|FUNCTIONALITY))"
+          name: "comment.documentation.embedded.powershell"
+        }
+        {
+          captures:
+            1:
+              name: "constant.string.documentation.powershell"
+
+            2:
+              name: "keyword.operator.documentation.powershell"
+
+            3:
+              name: "keyword.operator.documentation.powershell"
+
+          match: "(?i:\\s*(\\.)(PARAMETER|FORWARDHELPTARGETNAME|FORWARDHELPCATEGORY|REMOTEHELPRUNSPACE|EXTERNALHELP)\\s+([a-z0-9-_]+))"
+          name: "comment.documentation.embedded.powershell"
+        }
+        {
+          captures:
+            1:
+              name: "constant.string.documentation.powershell"
+
+            2:
+              name: "keyword.operator.documentation.powershell"
+
+            3:
+              name: "string.quoted.double.heredoc.powershell"
+
+          match: "(?i:requires\\s+-(Version\\s+\\d(.\\d+)?|Assembly\\s+(.*)|Module\\s+(.*)|PsSnapIn\\s+(.*)|ShellId\\s+(.*)))"
+          name: "comment.documentation.embedded.powershell"
+        }
+      ]
+
+    doubleQuotedStringEscapes:
+      patterns: [
+        {
+          match: "`[0abnfrvt\"'$`]"
+          name: "constant.character.escape.powershell"
+        }
+        {
+          match: "\"\""
+          name: "constant.character.escape.powershell"
+        }
+      ]
+
+    function:
+      begin: "((?i:function|configuration|workflow))\\s+((?:\\p{L}|\\d|_|-|\\.)+)"
+      beginCaptures:
+        0:
+          name: "meta.function"
+
+        1:
+          name: "storage.type"
+
+        2:
+          name: "entity.name.function"
+
+      end: "\\{|\\("
+
+    interpolatedStringContent:
+      begin: "\\("
+      beginCaptures:
+        0:
+          name: "keyword.other.powershell"
+
+      contentName: "interpolated.simple.source.powershell"
+      end: "\\)"
+      endCaptures:
+        0:
+          name: "keyword.other.powershell"
+
+      patterns: [
+        {
+          include: "$self"
+        }
+        {
+          include: "#interpolation"
+        }
+        {
+          include: "#interpolatedStringContent"
+        }
+      ]
+
+    interpolation:
+      begin: "(\\$)\\("
+      beginCaptures:
+        0:
+          name: "keyword.other.powershell"
+
+      contentName: "interpolated.complex.source.powershell"
+      end: "\\)"
+      endCaptures:
+        0:
+          name: "keyword.other.powershell"
+
+      patterns: [
+        {
+          include: "$self"
+        }
+        {
+          include: "#interpolation"
+        }
+        {
+          include: "#interpolatedStringContent"
+        }
+      ]
+
+    numericConstant:
+      patterns: [
+        {
+          captures:
+            1:
+              name: "keyword.operator.math.powershell"
+
+            2:
+              name: "support.constant.powershell"
+
+            3:
+              name: "keyword.other.powershell"
+
+          match: "(?<!\\w)(?i:(0x)([a-f0-9]+)((?i:L)?(?i:[kmgtp]b)?))(?!\\w)"
+          name: "constant.numeric.hexadecimal.powershell"
+        }
+        {
+          captures:
+            1:
+              name: "support.constant.powershell"
+
+            2:
+              name: "keyword.operator.math.powershell"
+
+            3:
+              name: "support.constant.powershell"
+
+            4:
+              name: "keyword.other.powershell"
+
+            5:
+              name: "keyword.other.powershell"
+
+          match: "(?<!\\w)(?i:(\\d*\\.?\\d+)(?:((?i:E)[+-]?)(\\d+))?((?i:[DL])?)((?i:[kmgtp]b)?))(?!\\w)"
+          name: "constant.numeric.scientific.powershell"
+        }
+      ]
+
+    scriptblock:
+      begin: "\\{"
+      end: "\\}"
+      name: "meta.scriptblock.powershell"
+      patterns: [include: "$self"]
+
+    type:
+      begin: "\\["
+      beginCaptures:
+        0:
+          name: "entity.other.attribute-name"
+
+      comment: "name should be entity.name.type but default schema doesn't have a good color for it"
+      end: "\\]"
+      endCaptures:
+        0:
+          name: "entity.other.attribute-name"
+
+      patterns: [
+        {
+          match: "(\\p{L}|\\.|``\\d+)+?"
+          name: "entity.other.attribute-name"
+        }
+        {
+          include: "$self"
+        }
+      ]
+
+    variable:
+      patterns: [
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "constant.language.powershell"
+
+          comment: "These are special constants."
+          match: "(\\$)(?i:(False|Null|True))\\b"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "support.constant.variable.powershell"
+
+            3:
+              name: "entity.name.function.invocation.powershell"
+
+          comment: "These are the other built-in constants."
+          match: "(\\$)(?i:(Error|ExecutionContext|Host|Home|PID|PsHome|PsVersionTable|ShellID))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?\\b"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "support.constant.automatic.powershell"
+
+            3:
+              name: "entity.name.function.invocation.powershell"
+
+          comment: "Automatic variables are not constants, but they are read-only. In monokai (default) color schema support.variable doesn't have color, so we use constant."
+          match: "(\\$)(?i:(\\$|\\^|\\?|_|Args|ConsoleFileName|Event|EventArgs|EventSubscriber|ForEach|Input|LastExitCode|Matches|MyInvocation|NestedPromptLevel|Profile|PSBoundParameters|PsCmdlet|PsCulture|PSDebugContext|PSItem|PSCommandPath|PSScriptRoot|PsUICulture|Pwd|Sender|SourceArgs|SourceEventArgs|StackTrace|Switch|This))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?\\b"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "variable.language.powershell"
+
+            3:
+              name: "entity.name.function.invocation.powershell"
+
+          comment: "Style preference variables as language variables so that they stand out."
+          match: "(\\$)(?i:(ConfirmPreference|DebugPreference|ErrorActionPreference|ErrorView|FormatEnumerationLimit|MaximumAliasCount|MaximumDriveCount|MaximumErrorCount|MaximumFunctionCount|MaximumHistoryCount|MaximumVariableCount|OFS|OutputEncoding|ProgressPreference|PsCulture|PSDebugContext|PSDefaultParameterValues|PSEmailServer|PSItem|PSModuleAutoloadingPreference|PSSenderInfo|PSSessionApplicationName|PSSessionConfigurationName|PSSessionOption|VerbosePreference|WarningPreference|WhatIfPreference))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?\\b"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "storage.modifier.scope.powershell"
+
+            3:
+              name: "variable.other.normal.powershell"
+
+            4:
+              name: "entity.name.function.invocation.powershell"
+
+          match: "(?i:(\\$)(global|local|private|script|using|workflow):((?:\\p{L}|\\d|_)+))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "storage.modifier.scope.powershell"
+
+            3:
+              name: "variable.other.readwrite.powershell"
+
+            4:
+              name: "keyword.other.powershell"
+
+            5:
+              name: "entity.name.function.invocation.powershell"
+
+          match: "(?i:(\\$\\{)(global|local|private|script|using|workflow):([^}]*[^}`])(\\}))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "support.variable.drive.powershell"
+
+            3:
+              name: "variable.other.readwrite.powershell"
+
+            4:
+              name: "entity.name.function.invocation.powershell"
+
+          match: "(?i:(\\$)((?:\\p{L}|\\d|_)+:)?((?:\\p{L}|\\d|_)+))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "support.variable.drive.powershell"
+
+            3:
+              name: "variable.other.readwrite.powershell"
+
+            4:
+              name: "keyword.other.powershell"
+
+            5:
+              name: "entity.name.function.invocation.powershell"
+
+          match: "(?i:(\\$\\{)((?:\\p{L}|\\d|_)+:)?([^}]*[^}`])(\\}))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?"
+        }
+      ]
+
+    variableNoProperty:
+      patterns: [
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "constant.language.powershell"
+
+          comment: "These are special constants."
+          match: "(\\$)(?i:(False|Null|True))\\b"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "support.constant.variable.powershell"
+
+            3:
+              name: "entity.name.function.invocation.powershell"
+
+          comment: "These are the other built-in constants."
+          match: "(\\$)(?i:(Error|ExecutionContext|Host|Home|PID|PsHome|PsVersionTable|ShellID))\\b"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "support.variable.automatic.powershell"
+
+            3:
+              name: "entity.name.function.invocation.powershell"
+
+          comment: "Automatic variables are not constants, but they are read-only..."
+          match: "(\\$)(?i:(\\$|\\^|\\?|_|Args|ConsoleFileName|Event|EventArgs|EventSubscriber|ForEach|Input|LastExitCode|Matches|MyInvocation|NestedPromptLevel|Profile|PSBoundParameters|PsCmdlet|PsCulture|PSDebugContext|PSItem|PSCommandPath|PSScriptRoot|PsUICulture|Pwd|Sender|SourceArgs|SourceEventArgs|StackTrace|Switch|This))\\b"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "variable.language.powershell"
+
+            3:
+              name: "entity.name.function.invocation.powershell"
+
+          comment: "Style preference variables as language variables so that they stand out."
+          match: "(\\$)(?i:(ConfirmPreference|DebugPreference|ErrorActionPreference|ErrorView|FormatEnumerationLimit|MaximumAliasCount|MaximumDriveCount|MaximumErrorCount|MaximumFunctionCount|MaximumHistoryCount|MaximumVariableCount|OFS|OutputEncoding|ProgressPreference|PsCulture|PSDebugContext|PSDefaultParameterValues|PSEmailServer|PSItem|PSModuleAutoloadingPreference|PSSenderInfo|PSSessionApplicationName|PSSessionConfigurationName|PSSessionOption|VerbosePreference|WarningPreference|WhatIfPreference))\\b"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "storage.modifier.scope.powershell"
+
+            3:
+              name: "variable.other.normal.powershell"
+
+            4:
+              name: "entity.name.function.invocation.powershell"
+
+          match: "(?i:(\\$)(global|local|private|script|using|workflow):((?:\\p{L}|\\d|_)+))"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "storage.modifier.scope.powershell"
+
+            3:
+              name: "variable.other.readwrite.powershell"
+
+            4:
+              name: "keyword.other.powershell"
+
+            5:
+              name: "entity.name.function.invocation.powershell"
+
+          match: "(?i:(\\$\\{)(global|local|private|script|using|workflow):([^}]*[^}`])(\\}))"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "support.variable.drive.powershell"
+
+            3:
+              name: "variable.other.readwrite.powershell"
+
+            4:
+              name: "entity.name.function.invocation.powershell"
+
+          match: "(?i:(\\$)((?:\\p{L}|\\d|_)+:)?((?:\\p{L}|\\d|_)+))"
+        }
+        {
+          captures:
+            1:
+              name: "keyword.other.powershell"
+
+            2:
+              name: "support.variable.drive.powershell"
+
+            3:
+              name: "variable.other.readwrite.powershell"
+
+            4:
+              name: "keyword.other.powershell"
+
+            5:
+              name: "entity.name.function.invocation.powershell"
+
+          match: "(?i:(\\$\\{)((?:\\p{L}|\\d|_)+:)?([^}]*[^}`])(\\}))"
+        }
+      ]
+
+  scopeName: "source.powershell"
+}
