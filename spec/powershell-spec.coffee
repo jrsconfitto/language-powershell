@@ -284,8 +284,9 @@ describe "PowerShell grammar", ->
           expect(tokens[1]).toHaveScopes ["source.powershell", "support.constant.automatic.powershell"]
 
   describe "Escaped characters", ->
+    #todo: add `--%` upon resolution of SublimeText/PowerShell#104
     escapedCharacters = [
-      "`n", "`\"", "`\'", "`a", "`b", "`r", "`t", "`f", "`0", "`v", "--%", "``"
+      "`n", "`\"", "`\'", "`a", "`b", "`r", "`t", "`f", "`0", "`v", "``"
     ]
 
     it "tokenizes escaped characters", ->
