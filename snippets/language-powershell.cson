@@ -12,7 +12,7 @@
     'prefix': 'new'
     'body': 'New-Object'
   '.DESCRIPTION':
-    'prefix': '.s'
+    'prefix': '.d'
     'body': '.DESCRIPTION\n'
   '.EXAMPLE':
     'prefix': '.e'
