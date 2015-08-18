@@ -2,6 +2,12 @@
   "name": "language-powershell",
   "version": "2.0.1",
   "description": "PowerShell language support for Atom",
+  "keywords": [
+    "powershell",
+    "microsoft",
+    "windows",
+    "grammar"
+  ],
   "repository": "https://github.com/jugglingnutcase/language-powershell",
   "license": "MIT",
   "engines": {
