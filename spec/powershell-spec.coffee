@@ -117,8 +117,7 @@ describe "PowerShell grammar", ->
     describe "Block keywords", ->
       # TODO: Add "sequence", "workflow" to keywords
       keywords = [
-        "begin", "data", "dynamicparam", "end", "filter", "inlinescript",
-        "parallel", "process",
+        "begin", "data", "dynamicparam", "end", "inlinescript", "parallel", "process"
       ]
 
       it "tokenizes keywords", ->
