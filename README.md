@@ -1,4 +1,4 @@
-# PowerShell language support for Atom [![Build Status](https://travis-ci.org/jugglingnutcase/language-powershell.svg?branch=master)](https://travis-ci.org/jugglingnutcase/language-powershell)
+# PowerShell language support in Atom [![Build Status](https://travis-ci.org/jugglingnutcase/language-powershell.svg?branch=master)](https://travis-ci.org/jugglingnutcase/language-powershell)
 
 
 
