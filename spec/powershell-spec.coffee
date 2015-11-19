@@ -1,6 +1,5 @@
 path = require 'path'
 fs = require 'fs'
-{TextEditor} = require 'atom'
 
 describe "PowerShell grammar", ->
 
@@ -388,7 +387,7 @@ describe "PowerShell grammar", ->
     editor = null
 
     beforeEach ->
-      editor = new TextEditor({})
+      editor = atom.workspace.buildTextEditor()
       editor.setGrammar(grammar)
 
     expectPreservedIndentation = (text) ->
