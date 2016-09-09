@@ -3,7 +3,7 @@ var fs    = require('fs'),
     CSON  = require('cson');
 
 // Read grammar from plist
-var psGrammarPlist = fs.readFileSync('vendor/PowerShell/Support/PowershellSyntax.tmLanguage', 'utf8')
+var psGrammarPlist = fs.readFileSync('vendor/EditorSyntax/PowerShellSyntax.tmLanguage', 'utf8')
 var grammar = plist.parse(psGrammarPlist);
 
 // Write out grammar as CSON
