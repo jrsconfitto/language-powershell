@@ -376,6 +376,23 @@ describe "PowerShell grammar", ->
       expect(tokens[7].value).toBe '`"'
       expect(tokens[7]).toHaveScopes ["source.powershell", "constant.character.escape.powershell", "string.quoted.double.powershell"]
 
+  describe "Functions", ->
+    it "does not match 'function' if preceded by a dash", ->
+      functionDashFixture = path.join(__dirname, "fixtures", "functions", "function-dash.ps1")
+      fixture = fs.readFileSync(functionDashFixture, 'utf8')
+
+      {tokens} = grammar.tokenizeLine fixture
+      expect(tokens[9].value).toBe 'Function'
+      expect(tokens[9]).not.toHaveScopes ["meta.function"]
+
+    it "matches a function", ->
+      functionFixture = path.join(__dirname, "fixtures", "functions", "functions.ps1")
+      fixture = fs.readFileSync(functionFixture, 'utf8')
+
+      {tokens} = grammar.tokenizeLine fixture
+      expect(tokens[0].value).toBe 'Function'
+      expect(tokens[0]).toHaveScopes ["source.powershell", "meta.function", "storage.type"]
+
   describe "Line continuations", ->
 
     it "considers a backtick followed by a newline as a line continuation", ->
