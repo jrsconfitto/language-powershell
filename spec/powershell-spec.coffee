@@ -378,12 +378,17 @@ describe "PowerShell grammar", ->
 
   describe "Functions", ->
     it "does not match 'function' if preceded by a dash", ->
-      functionDashFixture = path.join(__dirname, "fixtures", "functions", "function-dash.ps1")
-      fixture = fs.readFileSync(functionDashFixture, 'utf8')
+      fixture1 = fs.readFileSync(path.join(__dirname, "fixtures", "functions", "function-dash.ps1"), 'utf8')
 
-      {tokens} = grammar.tokenizeLine fixture
-      expect(tokens[9].value).toBe 'Function'
+      {tokens} = grammar.tokenizeLine fixture1
+      expect(tokens[9].value).toContain 'Function'
       expect(tokens[9]).not.toHaveScopes ["meta.function"]
+
+      fixture2 = fs.readFileSync(path.join(__dirname, "fixtures", "functions", "function-in-function.ps1"), 'utf8')
+
+      {tokens} = grammar.tokenizeLine fixture2
+      expect(tokens[13].value).toContain 'Function'
+      expect(tokens[13]).not.toHaveScopes ["meta.function"]
 
     it "matches a function", ->
       functionFixture = path.join(__dirname, "fixtures", "functions", "functions.ps1")
