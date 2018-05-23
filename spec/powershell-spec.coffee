@@ -27,7 +27,7 @@ describe "PowerShell grammar", ->
   describe "comments", ->
     it "parses comments at the end of lines", ->
       {tokens} = grammar.tokenizeLine("$foo = 'bar' # a trailing comment")
-      expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell", "keyword.other.powershell"]
+      expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell", "keyword.other.variable.definition.powershell"]
       expect(tokens[1]).toEqual value: "foo", scopes: ["source.powershell", "variable.other.readwrite.powershell"]
       expect(tokens[2]).toEqual value: " ", scopes: ["source.powershell"]
       expect(tokens[3]).toEqual value: "=", scopes: ["source.powershell", "keyword.operator.assignment.powershell"]
@@ -47,7 +47,7 @@ describe "PowerShell grammar", ->
   describe "start of variable", ->
     it "parses the dollar sign at the beginning of a variable separately", ->
       {tokens} = grammar.tokenizeLine("$var")
-      expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell", "keyword.other.powershell"]
+      expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell", "keyword.other.variable.definition.powershell"]
       expect(tokens[1]).toEqual value: "var", scopes: ["source.powershell", "variable.other.readwrite.powershell"]
 
   describe "Double-quoted strings", ->
@@ -84,7 +84,7 @@ describe "PowerShell grammar", ->
 
     describe "Variables within a string", ->
       tokens = null
-      expectedDollarSignScopes = ["keyword.other.powershell"]
+      expectedDollarSignScopes = ["keyword.other.variable.definition.powershell"]
 
       beforeEach ->
         {tokens} = grammar.tokenizeLine("\"Hi there $name `$bob\"")
@@ -278,7 +278,7 @@ describe "PowerShell grammar", ->
       for automaticVariable in automaticVariables
         {tokens} = grammar.tokenizeLine automaticVariable
         expect(tokens[0].value).toEqual "$"
-        expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.other.powershell"]
+        expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.other.variable.definition.powershell"]
         if tokens[1]?
           expect(tokens[1].value).toEqual automaticVariable.substr(1)
           expect(tokens[1]).toHaveScopes ["source.powershell", "support.constant.automatic.powershell"]
