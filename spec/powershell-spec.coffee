@@ -398,7 +398,7 @@ describe "PowerShell grammar", ->
 
       {tokens} = grammar.tokenizeLine fixture
       expect(tokens[0].value).toBe 'Function'
-      expect(tokens[0]).toHaveScopes ["source.powershell", "meta.function", "storage.type"]
+      expect(tokens[0]).toHaveScopes ["source.powershell", "meta.function.powershell", "storage.type.powershell"]
 
   describe "Line continuations", ->
 
