@@ -36,13 +36,13 @@ describe "PowerShell grammar", ->
       expect(tokens[6]).toEqual value: "bar", scopes: ["source.powershell", "string.quoted.single.powershell"]
       expect(tokens[7]).toEqual value: "'", scopes: ["source.powershell", "string.quoted.single.powershell"]
       expect(tokens[8]).toEqual value: " ", scopes: ["source.powershell"]
-      expect(tokens[9]).toEqual value: "#", scopes: ["source.powershell", "comment.line.number-sign.powershell"]
-      expect(tokens[10]).toEqual value: " a trailing comment", scopes: ["source.powershell", "comment.line.number-sign.powershell"]
+      expect(tokens[9]).toEqual value: "#", scopes: ["source.powershell", "comment.line.powershell", "punctuation.definition.comment.powershell"]
+      expect(tokens[10]).toEqual value: " a trailing comment", scopes: ["source.powershell", "comment.line.powershell"]
 
     it "parses comments at the beginning of lines", ->
       {tokens} = grammar.tokenizeLine("# a leading comment")
-      expect(tokens[0]).toEqual value: "#", scopes: ["source.powershell", "comment.line.number-sign.powershell"]
-      expect(tokens[1]).toEqual value: " a leading comment", scopes: ["source.powershell", "comment.line.number-sign.powershell"]
+      expect(tokens[0]).toEqual value: "#", scopes: ["source.powershell", "comment.line.powershell", "punctuation.definition.comment.powershell"]
+      expect(tokens[1]).toEqual value: " a leading comment", scopes: ["source.powershell", "comment.line.powershell"]
 
   describe "start of variable", ->
     it "parses the dollar sign at the beginning of a variable separately", ->
@@ -136,10 +136,11 @@ describe "PowerShell grammar", ->
           expect(tokens[0]).toEqual value: "if", scopes: ["source.powershell","keyword.control.powershell"]
 
         it "should highlight 'elseif'", ->
-          expect(tokens[14]).toEqual value: "elseif", scopes: ["source.powershell","keyword.control.powershell"]
+          expect(tokens[18]).toEqual value: "elseif", scopes: ["source.powershell", "keyword.control.powershell"]
 
         it "should highlight 'else'", ->
-          expect(tokens[29]).toEqual value: "else", scopes: ["source.powershell","keyword.control.powershell"]
+          expect(tokens[37].value).toEqual "else"
+          expect(tokens[37]).toHaveScopes ["source.powershell","keyword.control.powershell"]
 
       describe "Do-until statements", ->
         tokens = null
@@ -150,7 +151,8 @@ describe "PowerShell grammar", ->
         it "should highlight 'do'", ->
           expect(tokens[0]).toEqual value: "do", scopes: ["source.powershell","keyword.control.powershell"]
         it "should highlight 'until'", ->
-          expect(tokens[13]).toEqual value: "until", scopes: ["source.powershell","keyword.control.powershell"]
+          expect(tokens[17].value).toEqual "until"
+          expect(tokens[17]).toHaveScopes ["source.powershell","keyword.control.powershell"]
 
       describe "'For' statements", ->
         tokens = null
@@ -186,12 +188,12 @@ describe "PowerShell grammar", ->
           expect(tokens[0]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
         it "should tokenize 'Catch'", ->
-          expect(tokens[8].value).toEqual "catch"
-          expect(tokens[8]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
+          expect(tokens[12].value).toEqual "catch"
+          expect(tokens[12]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
         it "should tokenize 'Finally'", ->
-          expect(tokens[36].value).toEqual "finally"
-          expect(tokens[36]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
+          expect(tokens[24].value).toEqual "finally"
+          expect(tokens[24]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
     describe "Logical operator keywords", ->
       logicalOperators = [ "-and", "-or", "-xor", "-not", "-eq", "-lt", "-gt", "-le", "-ge", "-ne" ]
