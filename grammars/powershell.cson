@@ -64,7 +64,13 @@ patterns: [
 	}
 	{
 		begin: "(?<!')'"
+		beginCaptures:
+			"0":
+				name: "punctuation.definition.string.begin.powershell"
 		end: "'(?!')"
+		endCaptures:
+			"0":
+				name: "punctuation.definition.string.end.powershell"
 		name: "string.quoted.single.powershell"
 		patterns: [
 			{
@@ -125,7 +131,7 @@ patterns: [
 		begin: "(\\$)(\\()"
 		beginCaptures:
 			"1":
-				name: "keyword.other.variable.definition.powershell"
+				name: "punctuation.definition.variable.powershell"
 			"2":
 				name: "punctuation.section.group.begin.powershell"
 		comment: "TODO: move to repo; make recursive."
@@ -141,20 +147,30 @@ patterns: [
 		]
 	}
 	{
-		match: "(?<!\\w)-([ci]?[lg][te]|eq|ne)"
-		name: "keyword.operator.logical.powershell"
-	}
-	{
 		match: "(\\b(([A-Za-z0-9\\-_\\.]+)\\.(?i:exe|com|cmd|bat))\\b)"
 		name: "support.function.powershell"
 	}
 	{
-		match: "(?<!\\w|-)((?i:begin|break|catch|continue|data|default|define|do|dynamicparam|else|elseif|end|exit|finally|for|foreach(?!-object)|from|if|in|inlinescript|parallel|param|process|return|switch|throw|trap|try|until|var|where(?!-object)|while)|%|\\?)(?!\\w)"
+		match: "(?<!\\w|-|\\.)((?i:begin|break|catch|continue|data|default|define|do|dynamicparam|else|elseif|end|exit|finally|for|from|if|in|inlinescript|parallel|param|process|return|sequence|switch|throw|trap|try|until|var|while)|%|\\?)(?!\\w)"
 		name: "keyword.control.powershell"
 	}
 	{
-		match: "(?<!\\w)(--%)(?!\\w)"
+		match: "(?<!\\w|-|[^\\)]\\.)((?i:(foreach|where)(?!-object))|%|\\?)(?!\\w)"
 		name: "keyword.control.powershell"
+	}
+	{
+		begin: "(?<!\\w)(--%)(?!\\w)"
+		beginCaptures:
+			"1":
+				name: "keyword.control.powershell"
+		end: "$"
+		patterns: [
+			{
+				match: ".+"
+				name: "string.unquoted.powershell"
+			}
+		]
+		comment: "This should be moved to the repository at some point."
 	}
 	{
 		comment: "This should only be relevant inside a class but will require a rework of how classes are matched. This is a temp fix."
@@ -168,7 +184,7 @@ patterns: [
 			"2":
 				name: "entity.name.function"
 		comment: "capture should be entity.name.type, but it doesn't provide a good color in the default schema."
-		match: "(?<!\\w)((?i:class)|%|\\?)(?:\\s)+((?:\\p{L}|\\d|_|-|)+)\\b"
+		match: "(?<!\\w|-)((?i:class)|%|\\?)(?:\\s)+((?:\\p{L}|\\d|_|-|)+)\\b"
 	}
 	{
 		match: "(?<!\\w)-(?i:is(?:not)?|as)\\b"
@@ -187,7 +203,7 @@ patterns: [
 		name: "keyword.operator.logical.powershell"
 	}
 	{
-		match: "(?<!\\w)-(?i:band|bor|bnot|bxor)(?!\\p{L})"
+		match: "(?<!\\w)-(?i:band|bor|bnot|bxor|shl|shr)(?!\\p{L})"
 		name: "keyword.operator.bitwise.powershell"
 	}
 	{
@@ -200,7 +216,7 @@ patterns: [
 	}
 	{
 		match: "\\|{2}|&{2}|;"
-		name: "keyword.other.statement-separator.powershell"
+		name: "punctuation.terminator.statement.powershell"
 	}
 	{
 		match: "&|(?<!\\w)\\.(?= )|`|,|\\|"
@@ -218,7 +234,7 @@ repository:
 		captures:
 			"0":
 				name: "punctuation.definition.comment.powershell"
-		end: "$"
+		end: "$\\n?"
 		name: "comment.line.powershell"
 		patterns: [
 			{
@@ -282,7 +298,7 @@ repository:
 						include: "$self"
 					}
 					{
-						match: "(?i)\\b(mandatory|valuefrompipeline|valuefrompipelinebypropertyname|valuefromremainingarguments|position|parametersetname|defaultparametersetname|supportsshouldprocess|positionalbinding|helpuri|confirmimpact|helpmessage)\\b(?:\\s+)?(=)"
+						match: "(?i)\\b(mandatory|valuefrompipeline|valuefrompipelinebypropertyname|valuefromremainingarguments|position|parametersetname|defaultparametersetname|supportsshouldprocess|supportspaging|positionalbinding|helpuri|confirmimpact|helpmessage)\\b(?:\\s+)?(=)?"
 						captures:
 							"1":
 								name: "variable.parameter.attribute.powershell"
@@ -291,7 +307,13 @@ repository:
 					}
 					{
 						begin: "(?<!')'"
+						beginCaptures:
+							"0":
+								name: "punctuation.definition.string.begin.powershell"
 						end: "'(?!')"
+						endCaptures:
+							"0":
+								name: "punctuation.definition.string.end.powershell"
 						name: "string.quoted.single.powershell"
 						patterns: [
 							{
@@ -339,7 +361,7 @@ repository:
 						name: "constant.string.documentation.powershell"
 					"2":
 						name: "keyword.operator.documentation.powershell"
-				match: "(?i:\\s*(\\.)(COMPONENT|DESCRIPTION|EXAMPLE|EXTERNALHELP|FORWARDHELPCATEGORY|FORWARDHELPTARGETNAME|FUNCTIONALITY|INPUTS|LINK|NOTES|OUTPUTS|REMOTEHELPRUNSPACE|ROLE|SYNOPSIS))"
+				match: "^(?i:(?:\\s?|#)+(\\.)(COMPONENT|DESCRIPTION|EXAMPLE|EXTERNALHELP|FORWARDHELPCATEGORY|FORWARDHELPTARGETNAME|FUNCTIONALITY|INPUTS|LINK|NOTES|OUTPUTS|REMOTEHELPRUNSPACE|ROLE|SYNOPSIS))"
 				name: "comment.documentation.embedded.powershell"
 			}
 			{
@@ -350,7 +372,7 @@ repository:
 						name: "keyword.operator.documentation.powershell"
 					"3":
 						name: "keyword.operator.documentation.powershell"
-				match: "(?i:\\s*(\\.)(PARAMETER|FORWARDHELPTARGETNAME|FORWARDHELPCATEGORY|REMOTEHELPRUNSPACE|EXTERNALHELP)\\s+([a-z0-9-_]+))"
+				match: "(?i:\\s?(\\.)(PARAMETER|FORWARDHELPTARGETNAME|FORWARDHELPCATEGORY|REMOTEHELPRUNSPACE|EXTERNALHELP)\\s+([a-z0-9-_]+))"
 				name: "comment.documentation.embedded.powershell"
 			}
 		]
@@ -407,7 +429,7 @@ repository:
 		begin: "(\\$)(\\()"
 		beginCaptures:
 			"1":
-				name: "keyword.other.variable.definition.powershell"
+				name: "punctuation.definition.variable.powershell"
 			"2":
 				name: "punctuation.section.group.begin.powershell"
 		contentName: "interpolated.complex.source.powershell"
@@ -522,100 +544,100 @@ repository:
 		patterns: [
 			{
 				captures:
-					"1":
-						name: "keyword.other.variable.definition.powershell"
-					"2":
+					"0":
 						name: "constant.language.powershell"
+					"1":
+						name: "punctuation.definition.variable.powershell"
 				comment: "These are special constants."
 				match: "(\\$)(?i:(False|Null|True))\\b"
 			}
 			{
 				captures:
-					"1":
-						name: "keyword.other.variable.definition.powershell"
-					"2":
+					"0":
 						name: "support.constant.variable.powershell"
+					"1":
+						name: "punctuation.definition.variable.powershell"
 					"3":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				comment: "These are the other built-in constants."
 				match: "(\\$)(?i:(Error|ExecutionContext|Host|Home|PID|PsHome|PsVersionTable|ShellID))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?\\b"
 			}
 			{
 				captures:
-					"1":
-						name: "keyword.other.variable.definition.powershell"
-					"2":
+					"0":
 						name: "support.constant.automatic.powershell"
+					"1":
+						name: "punctuation.definition.variable.powershell"
 					"3":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				comment: "Automatic variables are not constants, but they are read-only. In monokai (default) color schema support.variable doesn't have color, so we use constant."
 				match: "(\\$)(?i:(\\$|\\^|\\?|_|Args|ConsoleFileName|Event|EventArgs|EventSubscriber|ForEach|Input|LastExitCode|Matches|MyInvocation|NestedPromptLevel|Profile|PSBoundParameters|PsCmdlet|PsCulture|PSDebugContext|PSItem|PSCommandPath|PSScriptRoot|PsUICulture|Pwd|Sender|SourceArgs|SourceEventArgs|StackTrace|Switch|This))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?\\b"
 			}
 			{
 				captures:
-					"1":
-						name: "keyword.other.variable.definition.powershell"
-					"2":
+					"0":
 						name: "variable.language.powershell"
+					"1":
+						name: "punctuation.definition.variable.powershell"
 					"3":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				comment: "Style preference variables as language variables so that they stand out."
 				match: "(\\$)(?i:(ConfirmPreference|DebugPreference|ErrorActionPreference|ErrorView|FormatEnumerationLimit|MaximumAliasCount|MaximumDriveCount|MaximumErrorCount|MaximumFunctionCount|MaximumHistoryCount|MaximumVariableCount|OFS|OutputEncoding|ProgressPreference|PsCulture|PSDebugContext|PSDefaultParameterValues|PSEmailServer|PSItem|PSModuleAutoloadingPreference|PSSenderInfo|PSSessionApplicationName|PSSessionConfigurationName|PSSessionOption|VerbosePreference|WarningPreference|WhatIfPreference))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?\\b"
 			}
 			{
 				captures:
+					"0":
+						name: "variable.other.readwrite.powershell"
 					"1":
-						name: "keyword.other.variable.definition.powershell"
+						name: "punctuation.definition.variable.powershell"
 					"2":
 						name: "storage.modifier.scope.powershell"
-					"3":
-						name: "variable.other.readwrite.powershell"
 					"4":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				match: "(?i:(\\$|@)(global|local|private|script|using|workflow):((?:\\p{L}|\\d|_)+))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?"
 			}
 			{
 				captures:
+					"0":
+						name: "variable.other.readwrite.powershell"
 					"1":
-						name: "keyword.other.variable.definition.powershell"
+						name: "punctuation.definition.variable.powershell"
 					"2":
 						name: "punctuation.section.braces.begin.powershell"
 					"3":
 						name: "storage.modifier.scope.powershell"
-					"4":
-						name: "variable.other.readwrite.powershell"
 					"5":
 						name: "punctuation.section.braces.end.powershell"
 					"6":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				match: "(?i:(\\$)(\\{)(global|local|private|script|using|workflow):([^}]*[^}`])(\\}))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?"
 			}
 			{
 				captures:
+					"0":
+						name: "variable.other.readwrite.powershell"
 					"1":
-						name: "keyword.other.variable.definition.powershell"
+						name: "punctuation.definition.variable.powershell"
 					"2":
 						name: "support.variable.drive.powershell"
-					"3":
-						name: "variable.other.readwrite.powershell"
 					"4":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				match: "(?i:(\\$|@)((?:\\p{L}|\\d|_)+:)?((?:\\p{L}|\\d|_)+))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?"
 			}
 			{
 				captures:
+					"0":
+						name: "variable.other.readwrite.powershell"
 					"1":
-						name: "keyword.other.variable.definition.powershell"
+						name: "punctuation.definition.variable.powershell"
 					"2":
 						name: "punctuation.section.braces.begin.powershell"
 					"3":
 						name: "support.variable.drive.powershell"
-					"4":
-						name: "variable.other.readwrite.powershell"
 					"5":
 						name: "punctuation.section.braces.end.powershell"
 					"6":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				match: "(?i:(\\$)(\\{)((?:\\p{L}|\\d|_)+:)?([^}]*[^}`])(\\}))((?:\\.(?:\\p{L}|\\d|_)+)*\\b)?"
 			}
 		]
@@ -652,94 +674,94 @@ repository:
 		patterns: [
 			{
 				captures:
-					"1":
-						name: "keyword.other.variable.definition.powershell"
-					"2":
+					"0":
 						name: "constant.language.powershell"
+					"1":
+						name: "punctuation.definition.variable.powershell"
 				comment: "These are special constants."
 				match: "(\\$)(?i:(False|Null|True))\\b"
 			}
 			{
 				captures:
-					"1":
-						name: "keyword.other.variable.definition.powershell"
-					"2":
+					"0":
 						name: "support.constant.variable.powershell"
+					"1":
+						name: "punctuation.definition.variable.powershell"
 					"3":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				comment: "These are the other built-in constants."
 				match: "(\\$)(?i:(Error|ExecutionContext|Host|Home|PID|PsHome|PsVersionTable|ShellID))\\b"
 			}
 			{
 				captures:
-					"1":
-						name: "keyword.other.variable.definition.powershell"
-					"2":
+					"0":
 						name: "support.variable.automatic.powershell"
+					"1":
+						name: "punctuation.definition.variable.powershell"
 					"3":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				comment: "Automatic variables are not constants, but they are read-only..."
 				match: "(\\$)(?i:(\\$|\\^|\\?|_|Args|ConsoleFileName|Event|EventArgs|EventSubscriber|ForEach|Input|LastExitCode|Matches|MyInvocation|NestedPromptLevel|Profile|PSBoundParameters|PsCmdlet|PsCulture|PSDebugContext|PSItem|PSCommandPath|PSScriptRoot|PsUICulture|Pwd|Sender|SourceArgs|SourceEventArgs|StackTrace|Switch|This))\\b"
 			}
 			{
 				captures:
-					"1":
-						name: "keyword.other.variable.definition.powershell"
-					"2":
+					"0":
 						name: "variable.language.powershell"
+					"1":
+						name: "punctuation.definition.variable.powershell"
 					"3":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				comment: "Style preference variables as language variables so that they stand out."
 				match: "(\\$)(?i:(ConfirmPreference|DebugPreference|ErrorActionPreference|ErrorView|FormatEnumerationLimit|MaximumAliasCount|MaximumDriveCount|MaximumErrorCount|MaximumFunctionCount|MaximumHistoryCount|MaximumVariableCount|OFS|OutputEncoding|ProgressPreference|PsCulture|PSDebugContext|PSDefaultParameterValues|PSEmailServer|PSItem|PSModuleAutoloadingPreference|PSSenderInfo|PSSessionApplicationName|PSSessionConfigurationName|PSSessionOption|VerbosePreference|WarningPreference|WhatIfPreference))\\b"
 			}
 			{
 				captures:
+					"0":
+						name: "variable.other.readwrite.powershell"
 					"1":
-						name: "keyword.other.variable.definition.powershell"
+						name: "punctuation.definition.variable.powershell"
 					"2":
 						name: "storage.modifier.scope.powershell"
-					"3":
-						name: "variable.other.readwrite.powershell"
 					"4":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				match: "(?i:(\\$|@)(global|local|private|script|using|workflow):((?:\\p{L}|\\d|_)+))"
 			}
 			{
 				captures:
+					"0":
+						name: "variable.other.readwrite.powershell"
 					"1":
-						name: "keyword.other.variable.definition.powershell"
+						name: "punctuation.definition.variable.powershell"
 					"2":
 						name: "storage.modifier.scope.powershell"
-					"3":
-						name: "variable.other.readwrite.powershell"
 					"4":
 						name: "keyword.other.powershell"
 					"5":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				match: "(?i:(\\$)(\\{)(global|local|private|script|using|workflow):([^}]*[^}`])(\\}))"
 			}
 			{
 				captures:
+					"0":
+						name: "variable.other.readwrite.powershell"
 					"1":
-						name: "keyword.other.variable.definition.powershell"
+						name: "punctuation.definition.variable.powershell"
 					"2":
 						name: "support.variable.drive.powershell"
-					"3":
-						name: "variable.other.readwrite.powershell"
 					"4":
-						name: "entity.name.function.invocation.powershell"
+						name: "variable.other.member.powershell"
 				match: "(?i:(\\$)((?:\\p{L}|\\d|_)+:)?((?:\\p{L}|\\d|_)+))"
 			}
 			{
 				captures:
+					"0":
+						name: "variable.other.readwrite.powershell"
 					"1":
-						name: "keyword.other.variable.definition.powershell"
+						name: "punctuation.definition.variable.powershell"
 					"2":
 						name: "punctuation.section.braces.begin"
 					"3":
 						name: "support.variable.drive.powershell"
-					"4":
-						name: "variable.other.readwrite.powershell"
 					"5":
 						name: "punctuation.section.braces.end"
 				match: "(?i:(\\$)(\\{)((?:\\p{L}|\\d|_)+:)?([^}]*[^}`])(\\}))"
@@ -780,7 +802,13 @@ repository:
 		]
 	doubleQuotedString:
 		begin: "(?<!(?<!`)\")\""
+		beginCaptures:
+			"0":
+				name: "punctuation.definition.string.begin.powershell"
 		end: "\"(?!\")"
+		endCaptures:
+			"0":
+				name: "punctuation.definition.string.end.powershell"
 		name: "string.quoted.double.powershell"
 		patterns: [
 			{
