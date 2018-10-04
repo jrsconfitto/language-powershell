@@ -84,7 +84,6 @@ describe "PowerShell grammar", ->
 
     describe "Variables within a string", ->
       tokens = null
-      expectedDollarSignScopes = ["keyword.other.variable.definition.powershell"]
 
       beforeEach ->
         {tokens} = grammar.tokenizeLine("\"Hi there $name `$bob\"")
@@ -98,7 +97,7 @@ describe "PowerShell grammar", ->
 
       it "should tokenize the beginning of variable names as embedded punctuation", ->
         expect(tokens[2].value).toEqual "$"
-        expect(tokens[2]).toHaveScopes expectedDollarSignScopes
+        expect(tokens[2]).toHaveScopes [ "source.powershell", "string.quoted.double.powershell", "variable.other.readwrite.powershell", "punctuation.definition.variable.powershell" ]
 
       it "should tokenize variable names", ->
         expect(tokens[3].value).toEqual "name"
