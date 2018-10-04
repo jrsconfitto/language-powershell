@@ -1,6 +1,6 @@
 {
   "name": "language-powershell",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "PowerShell language support for Atom",
   "keywords": [
     "powershell",
