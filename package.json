@@ -15,8 +15,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "cson": "^1.6.2",
-    "plist": "^1.1.0"
+    "cson": "3.0.2",
+    "plist": "2.0.1"
   },
   "scripts": {
     "convert": "node scripts/convert-grammar.js"
