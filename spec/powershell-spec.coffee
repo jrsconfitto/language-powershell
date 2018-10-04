@@ -313,31 +313,30 @@ describe "PowerShell grammar", ->
       it "tokenizes constant value in bytes", ->
         for constant in constants
           {tokens} = grammar.tokenizeLine constant
-          for token in tokens
-            expect(token).toHaveScopes ["source.powershell", "constant.numeric.scientific.powershell"]
+          expect(tokens[0]).toHaveScopes ["source.powershell", "constant.numeric.integer.powershell"]
+          expect(tokens[1]).toHaveScopes [ "source.powershell", "keyword.other.powershell" ]
 
     describe "Constant float values", ->
       constants = [
         "1.0", "0.89324", "123124235.2385923234"
       ]
 
-      scientificConstants = [
-        "3.23e24", "2.33e-12", "9.11e+21", "21e6", "7e-12", "12e+24"
-      ]
-
       it "tokenizes constant float values", ->
         for constant in constants
           {tokens} = grammar.tokenizeLine constant
           expect(tokens[0].value).toEqual constant
-          expect(tokens[0]).toHaveScopes ["source.powershell", "support.constant.powershell", "constant.numeric.scientific.powershell"]
+          expect(tokens[0]).toHaveScopes ["source.powershell", "constant.numeric.integer.powershell"]
+
+    describe "Scientific float values", ->
+
+      scientificConstants = [
+        "3.23e24", "2.33e-12", "9.11e+21", "21e6", "7e-12", "12e+24"
+      ]
 
       it "tokenizes scientific numbers", ->
         for scientificConstant in scientificConstants
           {tokens} = grammar.tokenizeLine scientificConstant
-          expect(tokens[0]).toHaveScopes ["source.powershell", "support.constant.powershell", "constant.numeric.scientific.powershell"]
-          expect(tokens[1].value.substr(0, 1)).toBe "e"
-          expect(tokens[1]).toHaveScopes ["source.powershell", "constant.numeric.scientific.powershell", "keyword.operator.math.powershell"]
-          expect(tokens[2]).toHaveScopes ["source.powershell", "support.constant.powershell", "constant.numeric.scientific.powershell"]
+          expect(tokens[0]).toHaveScopes ["source.powershell", "constant.numeric.integer.powershell"]
 
     describe "Constant hexadecimal values", ->
       constants = [ "0x1234", "0x1FF2", "0xff2e" ]
@@ -345,10 +344,8 @@ describe "PowerShell grammar", ->
       it "tokenizes constant hexadecimal integer values", ->
         for constant in constants
           {tokens} = grammar.tokenizeLine constant
-          expect(tokens[0].value).toEqual "0x"
-          expect(tokens[0]).toHaveScopes ["source.powershell", "constant.numeric.hexadecimal.powershell", "keyword.operator.math.powershell"]
-          expect(tokens[1].value).toEqual constant.substr(2)
-          expect(tokens[1]).toHaveScopes ["source.powershell", "constant.numeric.hexadecimal.powershell", "support.constant.powershell"]
+          expect(tokens[0].value).toEqual constant
+          expect(tokens[0]).toHaveScopes ["source.powershell", "constant.numeric.hex.powershell" ]
 
   # TODO: Fix these later. They seem to highlight correctly but the tests are weird
   xdescribe "Types", ->
