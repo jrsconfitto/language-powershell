@@ -27,14 +27,14 @@ describe "PowerShell grammar", ->
   describe "comments", ->
     it "parses comments at the end of lines", ->
       {tokens} = grammar.tokenizeLine("$foo = 'bar' # a trailing comment")
-      expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell", "keyword.other.variable.definition.powershell"]
+      expect(tokens[0]).toEqual value: "$", scopes: ['source.powershell', 'variable.other.readwrite.powershell', 'punctuation.definition.variable.powershell']
       expect(tokens[1]).toEqual value: "foo", scopes: ["source.powershell", "variable.other.readwrite.powershell"]
       expect(tokens[2]).toEqual value: " ", scopes: ["source.powershell"]
       expect(tokens[3]).toEqual value: "=", scopes: ["source.powershell", "keyword.operator.assignment.powershell"]
       expect(tokens[4]).toEqual value: " ", scopes: ["source.powershell"]
-      expect(tokens[5]).toEqual value: "'", scopes: ["source.powershell", "string.quoted.single.powershell"]
+      expect(tokens[5]).toEqual value: "'", scopes: ["source.powershell", "string.quoted.single.powershell", "punctuation.definition.string.begin.powershell"]
       expect(tokens[6]).toEqual value: "bar", scopes: ["source.powershell", "string.quoted.single.powershell"]
-      expect(tokens[7]).toEqual value: "'", scopes: ["source.powershell", "string.quoted.single.powershell"]
+      expect(tokens[7]).toEqual value: "'", scopes: ['source.powershell', 'string.quoted.single.powershell', 'punctuation.definition.string.end.powershell']
       expect(tokens[8]).toEqual value: " ", scopes: ["source.powershell"]
       expect(tokens[9]).toEqual value: "#", scopes: ["source.powershell", "comment.line.powershell", "punctuation.definition.comment.powershell"]
       expect(tokens[10]).toEqual value: " a trailing comment", scopes: ["source.powershell", "comment.line.powershell"]
@@ -47,7 +47,7 @@ describe "PowerShell grammar", ->
   describe "start of variable", ->
     it "parses the dollar sign at the beginning of a variable separately", ->
       {tokens} = grammar.tokenizeLine("$var")
-      expect(tokens[0]).toEqual value: "$", scopes: ["source.powershell", "keyword.other.variable.definition.powershell"]
+      expect(tokens[0]).toEqual value: "$", scopes: ['source.powershell', 'variable.other.readwrite.powershell', 'punctuation.definition.variable.powershell']
       expect(tokens[1]).toEqual value: "var", scopes: ["source.powershell", "variable.other.readwrite.powershell"]
 
   describe "Double-quoted strings", ->
@@ -196,12 +196,22 @@ describe "PowerShell grammar", ->
           expect(tokens[24]).toHaveScopes ["source.powershell", "keyword.control.powershell"]
 
     describe "Logical operator keywords", ->
-      logicalOperators = [ "-and", "-or", "-xor", "-not", "-eq", "-lt", "-gt", "-le", "-ge", "-ne" ]
+      logicalOperators = [ "-and", "-or", "-xor", "-not" ]
 
       it "tokenizes logical operators", ->
         for operator in logicalOperators
           {tokens} = grammar.tokenizeLine operator
-          expect(tokens[0]).toEqual value: operator, scopes: ["source.powershell","keyword.operator.logical.powershell"]
+          expect(tokens[0].value).toEqual operator
+          expect(tokens[0].scopes).toEqual ["source.powershell", "keyword.operator.logical.powershell"]
+
+    describe "Comparison operator keywords", ->
+      comparisonOperators = [ "-eq", "-lt", "-gt", "-le", "-ge", "-ne" ]
+
+      it "tokenizes comparison operators", ->
+        for operator in comparisonOperators
+          {tokens} = grammar.tokenizeLine operator
+          expect(tokens[0].value).toEqual operator
+          expect(tokens[0].scopes).toEqual ["source.powershell", "keyword.operator.comparison.powershell"]
 
     describe "Unary operators", ->
       unaryOperators = ["!"]
